@@ -54,6 +54,8 @@ public class PlayerControllerRPC : NetworkBehaviour
     [Networked] public float NetworkedSpeed { get; set; }
     [Networked] public bool NetworkedIsDashing { get; set; }
 
+    private LocalAmmoUI localAmmoUI;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -67,6 +69,13 @@ public class PlayerControllerRPC : NetworkBehaviour
             playerCamera.gameObject.SetActive(true);
             string playerName = PlayerPrefs.GetString("playerName", "Người chơi");
             RPC_SetName(playerName);
+            // Tìm LocalAmmoUI trên scene, chỉ local player mới làm
+            localAmmoUI = LocalAmmoUI.Instance;
+            if (localAmmoUI != null)
+            {
+                localAmmoUI.Show(true);
+                localAmmoUI.SetAmmo(currentAmmo, weapons[currentWeaponIndex].maxAmmo);
+            }
         }
         else
         {
@@ -122,6 +131,11 @@ public class PlayerControllerRPC : NetworkBehaviour
 
         // Gửi vị trí lên network
         RPC_UpdateTransform(transform.position, transform.rotation);
+
+        if (localAmmoUI != null)
+        {
+            localAmmoUI.SetAmmo(currentAmmo, weapons[currentWeaponIndex].maxAmmo);
+        }
     }
 
     void LateUpdate()
@@ -200,6 +214,10 @@ public class PlayerControllerRPC : NetworkBehaviour
         moveSpeed = 5f; // Khôi phục tốc độ di chuyển
         currentAmmo = weapon.maxAmmo;
         isReloading = false;
+        if (localAmmoUI != null)
+        {
+            localAmmoUI.SetAmmo(currentAmmo, weapon.maxAmmo);
+        }
     }
     //
 
@@ -227,6 +245,10 @@ public class PlayerControllerRPC : NetworkBehaviour
         for (int i = 0; i < weaponObjects.Length; i++)
         {
             weaponObjects[i].SetActive(i == index);
+        }
+        if (Object.HasInputAuthority && localAmmoUI != null)
+        {
+            localAmmoUI.SetAmmo(currentAmmo, weapons[currentWeaponIndex].maxAmmo);
         }
     }
     //
