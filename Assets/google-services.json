@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "889862097337",
+    "firebase_url": "https://gunslide3d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "gunslide3d",
+    "storage_bucket": "gunslide3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889862097337:android:df60e55f175f35c5a60e68",
+        "android_client_info": {
+          "package_name": "com.afo.gunsight3d"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkPyp4pZgM0D7DcLCi2ieDIriaJx5WyNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

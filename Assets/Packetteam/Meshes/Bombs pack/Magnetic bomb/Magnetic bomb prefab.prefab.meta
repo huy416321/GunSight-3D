@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7665215c8eddc0a44a216110cdeced13
+labels:
+- Bomb
+- Explosive
+- Magnetic
+- Prop
+- Weapon
+- Metal
+- C4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 13147
+  packageName: Bombs pack
+  packageVersion: 1.0
+  assetPath: Assets/Meshes/Bombs pack/Magnetic bomb/Magnetic bomb prefab.prefab
+  uploadId: 29479

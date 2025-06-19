@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 8f3bca1ae40d27e4a8a895f632c41e99
+labels:
+- Bomb
+- C4
+- Explosive
+- FusionPrefab
+- Plastic
+- Prop
+- Weapon
+AssetOrigin:
+  serializedVersion: 1
+  productId: 13147
+  packageName: Bombs pack
+  packageVersion: 1.0
+  assetPath: Assets/Meshes/Bombs pack/Plastic bomb/Plastic bomb prefab.prefab
+  uploadId: 29479
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
