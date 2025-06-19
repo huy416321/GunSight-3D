@@ -97,7 +97,7 @@ public class PlayerControllerRPC : NetworkBehaviour
             transform.position = NetworkedPosition;
             transform.rotation = NetworkedRotation;
             animator.SetFloat("Speed", NetworkedSpeed);
-            animator.SetBool("Dash", NetworkedIsDashing);
+            // KHÔNG set lại animator.SetBool("Dash", ...) ở đây
             return;
         }
         // Di chuyển
@@ -106,7 +106,7 @@ public class PlayerControllerRPC : NetworkBehaviour
         float speed = moveInput.sqrMagnitude;
         animator.SetFloat("Speed", speed);
         NetworkedSpeed = speed;
-        animator.SetBool("Dash", isDashing);
+        // KHÔNG set lại animator.SetBool("Dash", ...) ở đây
         NetworkedIsDashing = isDashing;
 
         // Bắn liên thanh
@@ -269,9 +269,9 @@ public class PlayerControllerRPC : NetworkBehaviour
         NetworkedIsDashing = true;
         lastDashTime = Time.time;
         animator.SetTrigger("Dash");
+        // Không set lại animator.SetBool("Dash", ...) trong lúc dash
 
         Vector3 dashDir = transform.forward;
-
         float dashSpeed = dashDistance / dashDuration;
         float elapsed = 0f;
 
@@ -284,6 +284,7 @@ public class PlayerControllerRPC : NetworkBehaviour
 
         isDashing = false;
         NetworkedIsDashing = false;
+        // Không set lại animator.SetBool("Dash", ...) ở đây, chỉ để animator tự chuyển state theo exit time
     }
     //
 
