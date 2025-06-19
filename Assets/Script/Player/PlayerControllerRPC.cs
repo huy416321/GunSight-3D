@@ -117,7 +117,6 @@ public class PlayerControllerRPC : NetworkBehaviour
 
             RPC_Fire(firePoint.position, forward, currentWeaponIndex);
             RPC_PlayAnim("Shoot");
-            UIManager.Instance.UpdateAmmo(currentAmmo, weapon.maxAmmo);
             ApplyRecoil(weapon.recoilAmount);
         }    
 
@@ -200,7 +199,6 @@ public class PlayerControllerRPC : NetworkBehaviour
         yield return new WaitForSeconds(1.5f); // thời gian nạp
         moveSpeed = 5f; // Khôi phục tốc độ di chuyển
         currentAmmo = weapon.maxAmmo;
-        UIManager.Instance.UpdateAmmo(currentAmmo, weapon.maxAmmo);
         isReloading = false;
     }
     //
@@ -230,7 +228,6 @@ public class PlayerControllerRPC : NetworkBehaviour
         {
             weaponObjects[i].SetActive(i == index);
         }
-        UIManager.Instance.UpdateAmmo(currentAmmo, weapons[index].maxAmmo);
     }
     //
 
