@@ -26,8 +26,15 @@ public class Bullet : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Optional: damage logic here
-
+        // Gây sát thương nếu trúng player
+        var player = other.GetComponent<PlayerControllerRPC>();
+        if (player != null && player != this)
+        {
+            if (Object.HasStateAuthority)
+            {
+                player.TakeDamage(20f); // Sát thương mỗi viên đạn, có thể chỉnh theo weapon
+            }
+        }
         if (Object.HasStateAuthority)
         {
             Runner.Despawn(Object);

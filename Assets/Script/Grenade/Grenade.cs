@@ -41,9 +41,15 @@ public class Grenade : NetworkBehaviour
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
 
-            // Gây sát thương nếu là player khác (tùy ý)
-            // var player = hit.GetComponent<PlayerControllerRPC>();
-            // if (player != null) { player.RPC_Die(); }
+            // Gây sát thương nếu là player khác
+            var player = hit.GetComponent<PlayerControllerRPC>();
+            if (player != null)
+            {
+                if (Object.HasStateAuthority)
+                {
+                    player.TakeDamage(40f); // Sát thương bom, có thể chỉnh tuỳ ý
+                }
+            }
         }
 
         Runner.Despawn(Object);

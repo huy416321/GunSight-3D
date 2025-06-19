@@ -54,6 +54,9 @@ public class PlayerControllerRPC : NetworkBehaviour
     [Networked] public float NetworkedSpeed { get; set; }
     [Networked] public bool NetworkedIsDashing { get; set; }
 
+    public float maxHealth = 100f;
+    private float currentHealth;
+
     private LocalAmmoUI localAmmoUI;
 
     private void Awake()
@@ -64,6 +67,7 @@ public class PlayerControllerRPC : NetworkBehaviour
 
     public override void Spawned()
     {
+        currentHealth = maxHealth; // Đảm bảo máu luôn full khi spawn
         if (Object.HasInputAuthority)
         {
             playerCamera.gameObject.SetActive(true);
@@ -75,6 +79,13 @@ public class PlayerControllerRPC : NetworkBehaviour
             {
                 localAmmoUI.Show(true);
                 localAmmoUI.SetAmmo(currentAmmo, weapons[currentWeaponIndex].maxAmmo);
+            }
+
+            var healthUI = LocalHealthUI.Instance;
+            if (healthUI != null)
+            {
+                healthUI.Show(true);
+                healthUI.SetHealth(currentHealth, maxHealth);
             }
         }
         else
@@ -348,5 +359,23 @@ public class PlayerControllerRPC : NetworkBehaviour
     {
         NetworkedPosition = pos;
         NetworkedRotation = rot;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        if (!Object.HasStateAuthority) return;
+        currentHealth -= amount;
+        currentHealth = Mathf.Max(currentHealth, 0);
+        if (Object.HasInputAuthority)
+        {
+            var healthUI = LocalHealthUI.Instance;
+            if (healthUI != null)
+                healthUI.SetHealth(currentHealth, maxHealth);
+        }
+        if (currentHealth <= 0)
+        {
+            // chết
+            RPC_Die();
+        }
     }
 }
