@@ -3337,12 +3337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 0}
-  playerPrefab:
+  player1Prefab:
     RawGuidValue: 66c6af17fa69413439a5cd1a482e2572
-  redSpawn: {fileID: 362754652}
-  blueSpawn: {fileID: 1836862455}
-  gameCountdown: 30
-  gameCountdownText: {fileID: 1667502163}
+  player2Prefab:
+    RawGuidValue: 3badc7871ce188f4ebbc381a35fb0470
 --- !u!1001 &642948594
 PrefabInstance:
   m_ObjectHideFlags: 0
