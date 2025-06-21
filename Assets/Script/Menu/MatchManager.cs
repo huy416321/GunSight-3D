@@ -29,36 +29,66 @@ public class MatchManager : NetworkBehaviour
         UpdateUI();
     }
 
-    public void OnPlayerDie(int loserIndex)
+    public void OnPlayerDie(PlayerRef loserRef)
     {
+        Debug.Log($"[OnPlayerDie] StateAuthority: {Object.HasStateAuthority}, isRoundActive: {isRoundActive}");
+        var runner = playerSpawner != null ? playerSpawner.runner : null;
+        if (runner == null)
+        {
+            Debug.LogError("MatchManager: runner is null!");
+            return;
+        }
+        var sortedPlayers = new System.Collections.Generic.List<PlayerRef>(runner.ActivePlayers);
+        sortedPlayers.Sort((a, b) => a.RawEncoded.CompareTo(b.RawEncoded));
+        int loserIndex = sortedPlayers.IndexOf(loserRef);
+        Debug.Log($"OnPlayerDie called, loserIndex: {loserIndex}, isRoundActive: {isRoundActive}");
         if (!Object.HasStateAuthority || !isRoundActive) return;
         isRoundActive = false;
         int winnerIndex = loserIndex == 0 ? 1 : 0;
         if (winnerIndex == 0) player1Score++;
         else player2Score++;
         UpdateUI();
+        Debug.Log($"Score updated: P1={player1Score}, P2={player2Score}");
         if (player1Score >= maxRoundsToWin)
         {
+            Debug.Log("Player 1 WIN!");
             RpcShowWin(1);
         }
         else if (player2Score >= maxRoundsToWin)
         {
+            Debug.Log("Player 2 WIN!");
             RpcShowWin(2);
         }
         else
         {
-            Runner.Invoke(nameof(RpcNextRound), 2f); // delay 2s rồi reset round
+            Debug.Log("StartCoroutine NextRoundDelay");
+            StartCoroutine(NextRoundDelay());
         }
+    }
+
+    private System.Collections.IEnumerator NextRoundDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        RpcNextRound();
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     private void RpcNextRound()
     {
+        Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}");
         currentRound++;
         isRoundActive = true;
         winText.text = "";
         // Reset map, respawn player, hồi máu
-        playerSpawner.RespawnAllPlayers();
+        if (playerSpawner != null)
+        {
+            Debug.Log("RespawnAllPlayers called");
+            playerSpawner.RespawnAllPlayers();
+        }
+        else
+        {
+            Debug.LogWarning("playerSpawner is null in MatchManager!");
+        }
         UpdateUI();
     }
 

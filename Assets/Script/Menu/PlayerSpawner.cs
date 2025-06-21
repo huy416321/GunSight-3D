@@ -13,6 +13,7 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public Vector3 player2SpawnPos = new Vector3(10, 0, 0); // Vị trí spawn cho player 2
 
     private bool spawnedSelf = false;
+    private NetworkObject spawnedPlayerObj;
 
     void Awake()
     {
@@ -55,9 +56,15 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         int index = sortedPlayers.IndexOf(player);
         NetworkPrefabRef prefab = index == 0 ? player1Prefab : player2Prefab;
         Vector3 spawnPos = index == 0 ? player1SpawnPos : player2SpawnPos;
+        // Xoá player cũ nếu còn
+        if (spawnedPlayerObj != null && spawnedPlayerObj.IsValid)
+        {
+            runner.Despawn(spawnedPlayerObj);
+        }
         var obj = runner.Spawn(prefab, spawnPos, Quaternion.identity, player);
         if (obj == null)
             Debug.LogError("Spawn player FAILED! Prefab chưa add vào NetworkRunner hoặc prefab lỗi.");
+        spawnedPlayerObj = obj;
         spawnedSelf = true;
     }
 
@@ -65,8 +72,12 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void RespawnAllPlayers()
     {
         spawnedSelf = false;
-        // Xoá player cũ nếu cần (nếu không tự despawn)
-        // Có thể thêm logic clear map, reset vật phẩm...
+        // Xoá player cũ nếu còn
+        if (spawnedPlayerObj != null && spawnedPlayerObj.IsValid)
+        {
+            runner.Despawn(spawnedPlayerObj);
+            spawnedPlayerObj = null;
+        }
         SpawnLocalPlayer(runner, runner.LocalPlayer);
     }
 

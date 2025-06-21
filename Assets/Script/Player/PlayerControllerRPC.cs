@@ -326,7 +326,12 @@ public class PlayerControllerRPC : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RPC_Die()
     {
-        animator.SetTrigger("Die");
+        Debug.Log($"RPC_Die called on {gameObject.name}, IsStateAuthority: {Object.HasStateAuthority}, InputAuthority: {Object.InputAuthority}");
+        var matchManager = FindFirstObjectByType<MatchManager>();
+        if (matchManager != null && matchManager.Object.HasStateAuthority)
+        {
+            matchManager.OnPlayerDie(Object.InputAuthority);
+        }
     }
 
     public void OnThrowGrenade(InputAction.CallbackContext context)
@@ -363,6 +368,7 @@ public class PlayerControllerRPC : NetworkBehaviour
 
     public void TakeDamage(float amount)
     {
+        Debug.Log($"TakeDamage called on {gameObject.name}, amount: {amount}, currentHealth: {currentHealth}, IsStateAuthority: {Object.HasStateAuthority}, IsInputAuthority: {Object.HasInputAuthority}");
         if (!Object.HasStateAuthority) return;
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
@@ -374,6 +380,7 @@ public class PlayerControllerRPC : NetworkBehaviour
         }
         if (currentHealth <= 0)
         {
+            Debug.Log($"Player {gameObject.name} died. Calling RPC_Die. IsStateAuthority: {Object.HasStateAuthority}");
             // chết
             RPC_Die();
         }
