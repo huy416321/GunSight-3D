@@ -9,6 +9,9 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public NetworkPrefabRef player1Prefab;
     public NetworkPrefabRef player2Prefab;
 
+    public Vector3 player1SpawnPos = new Vector3(0, 0, 0); // Vị trí spawn cho player 1
+    public Vector3 player2SpawnPos = new Vector3(10, 0, 0); // Vị trí spawn cho player 2
+
     private bool spawnedSelf = false;
 
     void Awake()
@@ -46,18 +49,25 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     private void SpawnLocalPlayer(NetworkRunner runner, PlayerRef player)
     {
         if (spawnedSelf) return;
-        // Tìm player có RawEncoded nhỏ nhất (người vào đầu tiên)
-        int minRaw = int.MaxValue;
-        foreach (var p in runner.ActivePlayers)
-        {
-            if (p.RawEncoded < minRaw) minRaw = p.RawEncoded;
-        }
-        NetworkPrefabRef prefab = (player.RawEncoded == minRaw) ? player1Prefab : player2Prefab;
-        Vector3 spawnPos = Vector3.zero;
+        // Đảm bảo ActivePlayers đã được sắp xếp theo RawEncoded tăng dần
+        var sortedPlayers = new System.Collections.Generic.List<PlayerRef>(runner.ActivePlayers);
+        sortedPlayers.Sort((a, b) => a.RawEncoded.CompareTo(b.RawEncoded));
+        int index = sortedPlayers.IndexOf(player);
+        NetworkPrefabRef prefab = index == 0 ? player1Prefab : player2Prefab;
+        Vector3 spawnPos = index == 0 ? player1SpawnPos : player2SpawnPos;
         var obj = runner.Spawn(prefab, spawnPos, Quaternion.identity, player);
         if (obj == null)
             Debug.LogError("Spawn player FAILED! Prefab chưa add vào NetworkRunner hoặc prefab lỗi.");
         spawnedSelf = true;
+    }
+
+    // Thêm hàm này để MatchManager gọi khi reset round
+    public void RespawnAllPlayers()
+    {
+        spawnedSelf = false;
+        // Xoá player cũ nếu cần (nếu không tự despawn)
+        // Có thể thêm logic clear map, reset vật phẩm...
+        SpawnLocalPlayer(runner, runner.LocalPlayer);
     }
 
     // Các hàm callback Fusion bắt buộc, để trống
