@@ -26,6 +26,15 @@ public class FlashlightController : NetworkBehaviour
     {
         if (!Object.HasInputAuthority) return;
 
+        // Luôn ẩn tất cả player khác trước
+        foreach (var p in FindObjectsByType<PlayerControllerRPC>(FindObjectsSortMode.None))
+        {
+            if (p != null && !p.Object.HasInputAuthority)
+            {
+                p.SetVisibleForOther(false);
+            }
+        }
+
         if (isOn)
         {
             Ray ray = new Ray(flashlight.transform.position, flashlight.transform.forward);
@@ -34,27 +43,8 @@ public class FlashlightController : NetworkBehaviour
                 var player = hit.collider.GetComponent<PlayerControllerRPC>();
                 if (player != null && !player.Object.HasInputAuthority)
                 {
-                    // Hiện player bị chiếu sáng (ví dụ: bật renderer, outline, v.v.)
+                    // Hiện player bị chiếu sáng
                     player.SetVisibleForOther(true);
-                }
-            }
-            // Ẩn các player khác không bị chiếu
-            foreach (var p in FindObjectsOfType<PlayerControllerRPC>())
-            {
-                if (p != null && !p.Object.HasInputAuthority && (p != hit.collider.GetComponent<PlayerControllerRPC>()))
-                {
-                    p.SetVisibleForOther(false);
-                }
-            }
-        }
-        else
-        {
-            // Khi tắt đèn pin, ẩn tất cả player khác
-            foreach (var p in FindObjectsOfType<PlayerControllerRPC>())
-            {
-                if (p != null && !p.Object.HasInputAuthority)
-                {
-                    p.SetVisibleForOther(false);
                 }
             }
         }
