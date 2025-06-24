@@ -385,4 +385,15 @@ public class PlayerControllerRPC : NetworkBehaviour
             RPC_Die();
         }
     }
+
+    // Hiện/ẩn player cho local client khác (dùng cho hiệu ứng đèn pin)
+    public void SetVisibleForOther(bool visible)
+    {
+        // Ví dụ: ẩn/hiện toàn bộ Renderer của player
+        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        {
+            renderer.enabled = visible;
+        }
+        // Nếu muốn chỉ hiện outline hoặc hiệu ứng đặc biệt, có thể thay đổi logic ở đây
+    }
 }
