@@ -38,7 +38,9 @@ public class FlashlightController : NetworkBehaviour
         if (isOn)
         {
             Ray ray = new Ray(flashlight.transform.position, flashlight.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, playerLayer))
+            float sphereRadius = 1.5f; // Bán kính vùng phát hiện, có thể chỉnh
+            RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance, playerLayer);
+            foreach (var hit in hits)
             {
                 var player = hit.collider.GetComponent<PlayerControllerRPC>();
                 if (player != null && !player.Object.HasInputAuthority)
