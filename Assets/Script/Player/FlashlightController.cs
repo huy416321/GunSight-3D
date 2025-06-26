@@ -8,6 +8,7 @@ public class FlashlightController : NetworkBehaviour
     public Light flashlight;
     public float maxDistance = 20f;
     public LayerMask playerLayer;
+    public LayerMask wallLayer; // LayerMask cho tường/vật cản
     public float sphereRadius = 1.5f; // Bán kính vùng phát hiện, có thể chỉnh từ script khác
 
     private bool isOn = false;
@@ -39,15 +40,20 @@ public class FlashlightController : NetworkBehaviour
         if (isOn)
         {
             Ray ray = new Ray(flashlight.transform.position, flashlight.transform.forward);
-            // Sử dụng biến public sphereRadius thay vì biến cục bộ
             RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance, playerLayer);
             foreach (var hit in hits)
             {
                 var player = hit.collider.GetComponent<PlayerControllerRPC>();
                 if (player != null && !player.Object.HasInputAuthority)
                 {
-                    // Hiện player bị chiếu sáng
-                    player.SetVisibleForOther(true);
+                    // Kiểm tra có bị tường che không
+                    Vector3 dir = (player.transform.position - flashlight.transform.position).normalized;
+                    float dist = Vector3.Distance(flashlight.transform.position, player.transform.position);
+                    if (!Physics.Raycast(flashlight.transform.position, dir, dist, wallLayer))
+                    {
+                        // Không bị tường che, cho hiện hình
+                        player.SetVisibleForOther(true);
+                    }
                 }
             }
         }
