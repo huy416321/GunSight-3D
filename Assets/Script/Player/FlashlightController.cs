@@ -8,6 +8,7 @@ public class FlashlightController : NetworkBehaviour
     public Light flashlight;
     public float maxDistance = 20f;
     public LayerMask playerLayer;
+    public float sphereRadius = 1.5f; // Bán kính vùng phát hiện, có thể chỉnh từ script khác
 
     private bool isOn = false;
 
@@ -38,7 +39,7 @@ public class FlashlightController : NetworkBehaviour
         if (isOn)
         {
             Ray ray = new Ray(flashlight.transform.position, flashlight.transform.forward);
-            float sphereRadius = 1.5f; // Bán kính vùng phát hiện, có thể chỉnh
+            // Sử dụng biến public sphereRadius thay vì biến cục bộ
             RaycastHit[] hits = Physics.SphereCastAll(ray, sphereRadius, maxDistance, playerLayer);
             foreach (var hit in hits)
             {

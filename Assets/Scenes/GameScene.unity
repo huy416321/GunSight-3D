@@ -4107,7 +4107,7 @@ MonoBehaviour:
   player1Prefab:
     RawGuidValue: 66c6af17fa69413439a5cd1a482e2572
   player2Prefab:
-    RawGuidValue: e2f0906c4333d8e469b439ffb319b50c
+    RawGuidValue: 8472812fe6f414446929af3e3f954454
   player1SpawnPos: {x: -24.33, y: 2.63, z: -0.25}
   player2SpawnPos: {x: -18.32, y: 2.63, z: 34.2}
 --- !u!1 &640746600

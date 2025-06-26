@@ -828,7 +828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_Name
-      value: Player2
+      value: Player1 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_Layer
@@ -988,10 +988,13 @@ PrefabInstance:
       addedObject: {fileID: 7412875820407548530}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3975243804763504314}
+      addedObject: {fileID: 8578907575439899053}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4329652214470739387}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3975243804763504314}
   m_SourcePrefab: {fileID: 100100000, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
 --- !u!4 &4985186330253465673 stripped
 Transform:
@@ -1188,6 +1191,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4a78234f-5b60-4551-ab82-1b933a4ba33d
     m_ActionName: 'Player/Flashlight[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8578907575439899053}
+        m_TargetAssemblyTypeName: PlayerSkillController, Assembly-CSharp
+        m_MethodName: OnActivateRevealSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f453181d-1e2c-47e4-aeb5-702baa3d6660
+    m_ActionName: 'Player/Skill[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1236,6 +1255,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19557ff8f4bbe884f850b6ce0e5f3c17, type: 2}
   weaponObjects:
   - {fileID: 401913087681542087}
+  muzzleFlashPrefab: {fileID: 1998830269065593993, guid: b70fbea4bc8994749ba52e4f560f9f28, type: 3}
   dashDistance: 5
   dashCooldown: 2
   dashDuration: 0.2
@@ -1253,7 +1273,7 @@ MonoBehaviour:
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
   maxHealth: 100
---- !u!114 &3975243804763504314
+--- !u!114 &8578907575439899053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1262,17 +1282,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5789999187898850000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: 840b9106f25eb2c44b3164a50da29914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3824341441
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 7412875820407548530}
-  - {fileID: 4329652214470739387}
-  ForceRemoteRenderTimeframe: 0
+  revealDuration: 5
+  revealCooldown: 10
+  flashlightController: {fileID: 4329652214470739387}
+  flashlightRangeMultiplier: 10
+  flashlightAngleMultiplier: 2
+  flashlightRadiusMultiplier: 2
 --- !u!114 &4329652214470739387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,10 +1304,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashlight: {fileID: 5123270664761064953}
-  maxDistance: 20
+  maxDistance: 10
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  sphereRadius: 1.5
+--- !u!114 &3975243804763504314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789999187898850000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1467985424
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 7412875820407548530}
+  - {fileID: 8578907575439899053}
+  - {fileID: 4329652214470739387}
+  ForceRemoteRenderTimeframe: 0
 --- !u!4 &6562278165940699242 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}

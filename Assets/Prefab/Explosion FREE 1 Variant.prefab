@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1100359242329717819
+--- !u!1001 &7676929461947821076
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -20,9 +20,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8157332986026477640, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
+      propertyPath: LightsModule.rangeCurve.scalar
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 8157332986026477641, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8157332987337599074, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8157332987337599074, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8157332987337599074, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8157332987337599074, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,13 +80,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8157332987337599074, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8157332987337599132, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0e1b57a3fb290a741890ed4c8033fee4, type: 2}
+      objectReference: {fileID: 2100000, guid: fa3fd89b6955c434db7d28a9405f6694, type: 2}
     - target: {fileID: 8157332987337599133, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
       propertyPath: m_Name
-      value: Explosion FREE 2 Variant
+      value: Explosion FREE 1 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8157332987337599133, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
       propertyPath: m_Layer
@@ -86,20 +106,20 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8157332987337599133, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6821815146527627195}
+      addedObject: {fileID: -1488400320831866839}
   m_SourcePrefab: {fileID: 100100000, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
---- !u!1 &9111320563476075686 stripped
+--- !u!1 &1998830269065593993 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8157332987337599133, guid: 3ef8c9151fb4beb41b1d71201c760f53, type: 3}
-  m_PrefabInstance: {fileID: 1100359242329717819}
+  m_PrefabInstance: {fileID: 7676929461947821076}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-6821815146527627195
+--- !u!114 &-1488400320831866839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9111320563476075686}
+  m_GameObject: {fileID: 1998830269065593993}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c44fa0a37d69ad488849b8ec6467337, type: 3}

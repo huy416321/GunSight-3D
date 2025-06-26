@@ -23,6 +23,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     private float lastFireTime = -999f;
     public GameObject[] weaponObjects; // Các vũ khí tương ứng với weapons
     private bool isFiring = false;
+    public GameObject muzzleFlashPrefab; // Prefab hiệu ứng ánh sáng đầu nòng
 
     [Header("Dash")]
     public float dashDistance = 5f;
@@ -309,6 +310,21 @@ public class PlayerControllerRPC : NetworkBehaviour
             Vector3 offset = forward * 0.5f;
             Runner.Spawn(bulletPrefabs[weaponIndex], spawnPos + offset, rot, Object.InputAuthority);
         }
+        // Hiệu ứng ánh sáng đầu nòng
+        if (muzzleFlashPrefab != null && firePoint != null)
+        {
+            var flash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation, firePoint);
+            var ps = flash.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+                Destroy(flash, ps.main.duration + ps.main.startLifetime.constantMax);
+            }
+            else
+            {
+                Destroy(flash, 0.5f);
+            }
+        }
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
@@ -389,9 +405,11 @@ public class PlayerControllerRPC : NetworkBehaviour
     // Hiện/ẩn player cho local client khác (dùng cho hiệu ứng đèn pin)
     public void SetVisibleForOther(bool visible)
     {
-        // Ví dụ: ẩn/hiện toàn bộ Renderer của player
-        foreach (var renderer in GetComponentsInChildren<Renderer>())
+        // Ẩn/hiện toàn bộ Renderer của player, trừ các renderer thuộc layer "MuzzleFlash"
+        foreach (var renderer in GetComponentsInChildren<Renderer>(true))
         {
+            if (renderer.gameObject.layer == LayerMask.NameToLayer("MuzzleFlash"))
+                continue;
             renderer.enabled = visible;
         }
         // Nếu muốn chỉ hiện outline hoặc hiệu ứng đặc biệt, có thể thay đổi logic ở đây
