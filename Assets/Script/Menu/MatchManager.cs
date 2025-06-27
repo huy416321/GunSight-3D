@@ -8,14 +8,17 @@ public class MatchManager : NetworkBehaviour
     [Networked] public int player2Score { get; set; }
     [Networked] public int currentRound { get; set; }
     [Networked] public bool isRoundActive { get; set; }
+    [Networked] public float roundTimer { get; set; }
 
     public TMP_Text roundText;
     public TMP_Text player1ScoreText;
     public TMP_Text player2ScoreText;
     public TMP_Text winText;
+    public TMP_Text timerText;
 
     public PlayerSpawner playerSpawner;
     public int maxRoundsToWin = 3;
+    public float roundTimeLimit = 300f; // 5 phút
 
     public override void Spawned()
     {
@@ -25,8 +28,23 @@ public class MatchManager : NetworkBehaviour
             player2Score = 0;
             currentRound = 1;
             isRoundActive = true;
+            roundTimer = roundTimeLimit;
         }
         UpdateUI();
+    }
+
+    private void Update()
+    {
+        if (!Object.HasStateAuthority || !isRoundActive) return;
+        roundTimer -= Time.deltaTime;
+        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(roundTimer)}";
+        if (roundTimer <= 0f)
+        {
+            Debug.Log("[MatchManager] Round time out!");
+            isRoundActive = false;
+            RpcShowWinName("TIME OUT"); // hoặc gọi logic xử lý hòa
+            StartCoroutine(NextRoundDelay());
+        }
     }
 
     public void OnPlayerDie(PlayerRef loserRef)
@@ -47,17 +65,27 @@ public class MatchManager : NetworkBehaviour
         int winnerIndex = loserIndex == 0 ? 1 : 0;
         if (winnerIndex == 0) player1Score++;
         else player2Score++;
+        // Lấy tên người thắng
+        PlayerRef winnerRef = sortedPlayers[winnerIndex];
+        string winnerName = "";
+        var winnerObj = runner.GetPlayerObject(winnerRef);
+        if (winnerObj != null)
+        {
+            var ctrl = winnerObj.GetComponent<PlayerControllerRPC>();
+            if (ctrl != null && ctrl.nameText != null)
+                winnerName = ctrl.nameText.text;
+        }
         UpdateUI();
         Debug.Log($"Score updated: P1={player1Score}, P2={player2Score}");
         if (player1Score >= maxRoundsToWin)
         {
-            Debug.Log("Player 1 WIN!");
-            RpcShowWin(1);
+            Debug.Log($"{winnerName} WIN!");
+            RpcShowWinName(winnerName);
         }
         else if (player2Score >= maxRoundsToWin)
         {
-            Debug.Log("Player 2 WIN!");
-            RpcShowWin(2);
+            Debug.Log($"{winnerName} WIN!");
+            RpcShowWinName(winnerName);
         }
         else
         {
@@ -75,9 +103,13 @@ public class MatchManager : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     private void RpcNextRound()
     {
-        Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}");
-        currentRound++;
-        isRoundActive = true;
+        Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}, StateAuthority: {Object.HasStateAuthority}");
+        if (Object.HasStateAuthority)
+        {
+            currentRound++;
+            isRoundActive = true;
+            roundTimer = roundTimeLimit;
+        }
         winText.text = "";
         // Reset map, respawn player, hồi máu
         if (playerSpawner != null)
@@ -93,9 +125,9 @@ public class MatchManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RpcShowWin(int winner)
+    private void RpcShowWinName(string winnerName)
     {
-        winText.text = $"Player {winner} WIN!";
+        winText.text = $"{winnerName} WIN!";
         isRoundActive = false;
     }
 
