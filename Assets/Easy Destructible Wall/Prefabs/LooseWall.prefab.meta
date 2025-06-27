@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 10bdc0b650e7d8a4a812751804586b67
+labels:
+- Destruction
+- Destructible
+- Physics
+- Wall
+- Brick
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Prefabs/LooseWall.prefab
+  uploadId: 172002

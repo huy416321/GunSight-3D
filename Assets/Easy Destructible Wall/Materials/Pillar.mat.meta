@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 24bfbcad80af3de47a7a4c4504702852
+labels:
+- Column
+- Pillar
+- Texture
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Materials/Pillar.mat
+  uploadId: 172002

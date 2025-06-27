@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 0b70ba2e7eb4b3c4d83267db10d8b9ed
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Physics Materials/Floor.physicMaterial
+  uploadId: 172002

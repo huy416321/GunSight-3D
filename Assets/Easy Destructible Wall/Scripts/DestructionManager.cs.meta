@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 77bf4647e36d9ca42b762b0a665e9ce8
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Scripts/DestructionManager.cs
+  uploadId: 172002

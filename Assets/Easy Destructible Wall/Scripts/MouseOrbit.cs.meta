@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 453ef9b97588ff84db2faeedffdaf133
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Scripts/MouseOrbit.cs
+  uploadId: 172002
