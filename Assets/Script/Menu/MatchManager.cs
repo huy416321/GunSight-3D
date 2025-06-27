@@ -35,16 +35,20 @@ public class MatchManager : NetworkBehaviour
 
     private void Update()
     {
-        if (!Object.HasStateAuthority || !isRoundActive) return;
-        roundTimer -= Time.deltaTime;
-        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(roundTimer)}";
-        if (roundTimer <= 0f)
+        // Chỉ giảm timer ở StateAuthority
+        if (Object.HasStateAuthority && isRoundActive)
         {
-            Debug.Log("[MatchManager] Round time out!");
-            isRoundActive = false;
-            RpcShowWinName("TIME OUT"); // hoặc gọi logic xử lý hòa
-            StartCoroutine(NextRoundDelay());
+            roundTimer -= Time.deltaTime;
+            if (roundTimer <= 0f)
+            {
+                Debug.Log("[MatchManager] Round time out!");
+                isRoundActive = false;
+                RpcShowWinName("TIME OUT"); // hoặc gọi logic xử lý hòa
+                StartCoroutine(NextRoundDelay());
+            }
         }
+        // Luôn cập nhật UI timer cho mọi client
+        if (timerText) timerText.text = $"Time: {Mathf.CeilToInt(roundTimer)}";
     }
 
     public void OnPlayerDie(PlayerRef loserRef)
