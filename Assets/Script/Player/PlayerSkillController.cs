@@ -30,6 +30,7 @@ public class PlayerSkillController : NetworkBehaviour
     private float defaultMaxDistance;
     private float defaultSphereRadius;
     private float defaultRange;
+    private float defaultIntensity;
 
     [Header("Dash Push Skill Settings")]
     public float dashForce = 20f;
@@ -195,14 +196,16 @@ public class PlayerSkillController : NetworkBehaviour
                 defaultMaxDistance = flashlightController.maxDistance;
                 defaultSphereRadius = flashlightController.sphereRadius;
                 defaultRange = flashlightController.flashlight.range;
+                defaultIntensity = flashlightController.flashlight.intensity;
                 flashlightAimed = true;
             }
             if (isAiming)
             {
                 flashlightController.flashlight.spotAngle = aimFlashlightSpotAngle;
                 flashlightController.maxDistance = aimFlashlightMaxDistance;
-                flashlightController.sphereRadius = aimFlashlightSphereRadius; // Đặt giá trị nhỏ hơn mặc định
-                flashlightController.flashlight.range = 20f; // Tăng range của đèn khi ngắm
+                flashlightController.sphereRadius = aimFlashlightSphereRadius;
+                flashlightController.flashlight.range = 20f;
+                flashlightController.flashlight.intensity = 100f;
             }
             else
             {
@@ -210,6 +213,7 @@ public class PlayerSkillController : NetworkBehaviour
                 flashlightController.maxDistance = defaultMaxDistance;
                 flashlightController.sphereRadius = defaultSphereRadius;
                 flashlightController.flashlight.range = defaultRange;
+                flashlightController.flashlight.intensity = defaultIntensity;
             }
         }
         else

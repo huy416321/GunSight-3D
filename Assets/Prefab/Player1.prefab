@@ -1324,7 +1324,7 @@ MonoBehaviour:
   flashlightAngleMultiplier: 2
   flashlightRadiusMultiplier: 2
   aimFlashlightSpotAngle: 20
-  aimFlashlightMaxDistance: 50
+  aimFlashlightMaxDistance: 20
   aimFlashlightSphereRadius: 1
   aimFlashlightRange: 20
   dashForce: 20
