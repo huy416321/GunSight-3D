@@ -20,6 +20,16 @@ public class PlayerSkillController : NetworkBehaviour
     public float flashlightAngleMultiplier = 2f;
     public float flashlightRadiusMultiplier = 2f; // Multiplier cho sphereRadius
 
+    // Giá trị đèn pin khi ngắm bắn
+    public float aimFlashlightSpotAngle = 20f;
+    public float aimFlashlightMaxDistance = 50f;
+    public float aimFlashlightSphereRadius = 8f;
+    public float aimFlashlightRange = 20f; // Không dùng, chỉ tăng maxDistance
+    private bool flashlightAimed = false;
+    private float defaultSpotAngle;
+    private float defaultMaxDistance;
+    private float defaultSphereRadius;
+
     [Header("Dash Push Skill Settings")]
     public float dashForce = 20f;
     public float dashDistance = 3f;
@@ -29,6 +39,9 @@ public class PlayerSkillController : NetworkBehaviour
     public LayerMask pushLayerMask;
     private bool canUseDashPushSkill = true;
     private Coroutine dashPushCooldownCoroutine;
+
+    [Header("Aiming")]
+    public bool isAiming = false;
 
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
     public void ActivateRevealAllSkill()
@@ -152,6 +165,52 @@ public class PlayerSkillController : NetworkBehaviour
         if (context.performed)
         {
             ActivateDashPushSkill();
+        }
+    }
+
+    // Sự kiện cho Input System để bật/tắt ngắm bắn (chuột phải)
+    public void OnAim(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (!Object.HasInputAuthority) return;
+        if (context.performed)
+        {
+            isAiming = true;
+        }
+        else if (context.canceled)
+        {
+            isAiming = false;
+        }
+    }
+
+    void Update()
+    {
+        // Điều chỉnh đèn pin khi ngắm bắn
+        if (flashlightController != null && flashlightController.flashlight != null)
+        {
+            if (!flashlightAimed)
+            {
+                // Lưu giá trị gốc
+                defaultSpotAngle = flashlightController.flashlight.spotAngle;
+                defaultMaxDistance = flashlightController.maxDistance;
+                defaultSphereRadius = flashlightController.sphereRadius;
+                flashlightAimed = true;
+            }
+            if (isAiming)
+            {
+                flashlightController.flashlight.spotAngle = aimFlashlightSpotAngle;
+                flashlightController.maxDistance = 20f; // Tăng maxDistance lên 20 khi ngắm
+                flashlightController.sphereRadius = aimFlashlightSphereRadius;
+            }
+            else
+            {
+                flashlightController.flashlight.spotAngle = defaultSpotAngle;
+                flashlightController.maxDistance = defaultMaxDistance;
+                flashlightController.sphereRadius = defaultSphereRadius;
+            }
+        }
+        else
+        {
+            flashlightAimed = false;
         }
     }
 }

@@ -155,6 +155,29 @@ public class PlayerControllerRPC : NetworkBehaviour
         if (playerCamera != null && Object.HasInputAuthority)
         {
             playerCamera.transform.rotation = Quaternion.Euler(90, 0, 0);
+            // Lấy trạng thái ngắm từ PlayerSkillController
+            var skillCtrl = GetComponent<PlayerSkillController>();
+            bool aiming = skillCtrl != null && skillCtrl.isAiming;
+            Vector3 cameraOffset = new Vector3(0, 15f, 0); // Độ cao camera
+            if (aiming)
+            {
+                // Camera pan giữa nhân vật và chuột trên mặt đất khi ngắm
+                Vector3 mouseWorld = transform.position;
+                Vector2 mouseScreen = Mouse.current != null ? Mouse.current.position.ReadValue() : Vector2.zero;
+                Ray ray = playerCamera.ScreenPointToRay(mouseScreen);
+                if (Physics.Raycast(ray, out RaycastHit hit, 100f, LayerMask.GetMask("Default")))
+                {
+                    mouseWorld = hit.point;
+                }
+                float followWeight = 0.6f; // 0 = chỉ theo nhân vật, 1 = chỉ theo chuột, 0.5 = ở giữa
+                Vector3 lerpTarget = Vector3.Lerp(transform.position, mouseWorld, followWeight);
+                playerCamera.transform.position = lerpTarget + cameraOffset;
+            }
+            else
+            {
+                // Camera chỉ theo nhân vật
+                playerCamera.transform.position = transform.position + cameraOffset;
+            }
         }
     }
 
