@@ -283,7 +283,16 @@ public class PlayerControllerRPC : NetworkBehaviour
         animator.SetTrigger("Dash");
         // Không set lại animator.SetBool("Dash", ...) trong lúc dash
 
-        Vector3 dashDir = transform.forward;
+        // Lấy hướng dash theo input nếu có, nếu không thì theo forward
+        Vector3 dashDir;
+        if (moveInput != Vector2.zero)
+        {
+            dashDir = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+        }
+        else
+        {
+            dashDir = transform.forward;
+        }
         float dashSpeed = dashDistance / dashDuration;
         float elapsed = 0f;
 

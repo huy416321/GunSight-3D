@@ -20,6 +20,16 @@ public class PlayerSkillController : NetworkBehaviour
     public float flashlightAngleMultiplier = 2f;
     public float flashlightRadiusMultiplier = 2f; // Multiplier cho sphereRadius
 
+    [Header("Dash Push Skill Settings")]
+    public float dashForce = 20f;
+    public float dashDistance = 3f;
+    public float dashPushCooldown = 8f;
+    public float pushRadius = 2f;
+    public float pushUpward = 0.5f;
+    public LayerMask pushLayerMask;
+    private bool canUseDashPushSkill = true;
+    private Coroutine dashPushCooldownCoroutine;
+
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
     public void ActivateRevealAllSkill()
     {
@@ -78,6 +88,53 @@ public class PlayerSkillController : NetworkBehaviour
         revealCoroutine = null;
     }
 
+    // Kích hoạt kỹ năng húc đẩy đối tượng phía trước
+    public void ActivateDashPushSkill()
+    {
+        if (!canUseDashPushSkill) return;
+        if (!Object.HasInputAuthority) return;
+        if (dashPushCooldownCoroutine != null)
+            StopCoroutine(dashPushCooldownCoroutine);
+        dashPushCooldownCoroutine = StartCoroutine(DashPushSkillCooldownCoroutine());
+        StartCoroutine(DashPushCoroutine());
+    }
+
+    private IEnumerator DashPushSkillCooldownCoroutine()
+    {
+        canUseDashPushSkill = false;
+        yield return new WaitForSeconds(dashPushCooldown);
+        canUseDashPushSkill = true;
+    }
+
+    private IEnumerator DashPushCoroutine()
+    {
+        // Dash bằng CharacterController giống PlayerControllerRPC
+        var characterController = GetComponent<CharacterController>();
+        Vector3 dashDir = transform.forward;
+        float dashSpeed = dashDistance / 0.18f; // dashDuration
+        float elapsed = 0f;
+        float dashDuration = 0.18f;
+        while (elapsed < dashDuration)
+        {
+            if (characterController != null)
+                characterController.Move(dashDir * dashSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        // Đẩy các đối tượng phía trước trong bán kính pushRadius
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+        RaycastHit[] hits = Physics.SphereCastAll(origin, pushRadius, transform.forward, dashDistance, pushLayerMask);
+        foreach (var hit in hits)
+        {
+            var hitRb = hit.collider.attachedRigidbody;
+            if (hitRb != null)
+            {
+                Vector3 pushDir = (hitRb.position - origin).normalized + Vector3.up * pushUpward;
+                hitRb.AddForce(pushDir.normalized * dashForce, ForceMode.Impulse);
+            }
+        }
+    }
+
     // Sự kiện cho Input System để kích hoạt kỹ năng
     public void OnActivateRevealSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
@@ -85,6 +142,16 @@ public class PlayerSkillController : NetworkBehaviour
         if (context.performed)
         {
             ActivateRevealAllSkill();
+        }
+    }
+
+    // Sự kiện cho Input System để kích hoạt skill húc đẩy
+    public void OnActivateDashPushSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (!Object.HasInputAuthority) return;
+        if (context.performed)
+        {
+            ActivateDashPushSkill();
         }
     }
 }
