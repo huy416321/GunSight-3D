@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 350213643601090266}
   serializedVersion: 2
   m_LocalRotation: {x: -0.036238477, y: -0.43544024, z: 0.016990378, w: 0.8993275}
-  m_LocalPosition: {x: -0.444, y: 0.724, z: 0.652}
+  m_LocalPosition: {x: -0.134, y: 0.158, z: 0.383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,7 +44,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10
+  m_Intensity: 30
   m_Range: 10.44236
   m_SpotAngle: 97.5547
   m_InnerSpotAngle: 45.71772
@@ -1323,6 +1323,10 @@ MonoBehaviour:
   flashlightRangeMultiplier: 10
   flashlightAngleMultiplier: 2
   flashlightRadiusMultiplier: 2
+  aimFlashlightSpotAngle: 20
+  aimFlashlightMaxDistance: 50
+  aimFlashlightSphereRadius: 1
+  aimFlashlightRange: 20
   dashForce: 20
   dashDistance: 3
   dashPushCooldown: 8
