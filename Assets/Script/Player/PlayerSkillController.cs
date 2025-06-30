@@ -66,19 +66,48 @@ public class PlayerSkillController : NetworkBehaviour
         canUseRevealSkill = true;
     }
 
+    private void UpdateFlashlightState()
+    {
+        if (flashlightController == null || flashlightController.flashlight == null)
+            return;
+        if (!flashlightAimed)
+        {
+            defaultSpotAngle = flashlightController.flashlight.spotAngle;
+            defaultMaxDistance = flashlightController.maxDistance;
+            defaultSphereRadius = flashlightController.sphereRadius;
+            defaultRange = flashlightController.flashlight.range;
+            defaultIntensity = flashlightController.flashlight.intensity;
+            flashlightAimed = true;
+        }
+        if (isAiming)
+        {
+            flashlightController.flashlight.spotAngle = aimFlashlightSpotAngle;
+            flashlightController.maxDistance = aimFlashlightMaxDistance;
+            flashlightController.sphereRadius = aimFlashlightSphereRadius;
+            flashlightController.flashlight.range = 20f;
+            flashlightController.flashlight.intensity = 100f;
+        }
+        else if (isRevealing)
+        {
+            flashlightController.maxDistance = defaultMaxDistance * flashlightRangeMultiplier;
+            flashlightController.flashlight.spotAngle = defaultSpotAngle * flashlightAngleMultiplier;
+            flashlightController.sphereRadius = defaultSphereRadius * flashlightRadiusMultiplier;
+            // Không thay đổi range và intensity khi chỉ reveal
+        }
+        else
+        {
+            flashlightController.flashlight.spotAngle = defaultSpotAngle;
+            flashlightController.maxDistance = defaultMaxDistance;
+            flashlightController.sphereRadius = defaultSphereRadius;
+            flashlightController.flashlight.range = defaultRange;
+            flashlightController.flashlight.intensity = defaultIntensity;
+        }
+    }
+
     private IEnumerator RevealAllPlayersCoroutine()
     {
         isRevealing = true;
-        // Lưu và tăng tầm chiếu đèn pin
-        if (flashlightController != null && flashlightController.flashlight != null)
-        {
-            originalMaxDistance = flashlightController.maxDistance;
-            originalSpotAngle = flashlightController.flashlight.spotAngle;
-            originalSphereRadius = flashlightController.sphereRadius;
-            flashlightController.maxDistance *= flashlightRangeMultiplier;
-            flashlightController.flashlight.spotAngle *= flashlightAngleMultiplier;
-            flashlightController.sphereRadius *= flashlightRadiusMultiplier;
-        }
+        UpdateFlashlightState();
         // Hiện tất cả player khác chỉ trên máy local
         foreach (var p in FindObjectsByType<PlayerControllerRPC>(FindObjectsSortMode.None))
         {
@@ -92,14 +121,8 @@ public class PlayerSkillController : NetworkBehaviour
             if (p != null && !p.Object.HasInputAuthority)
                 p.SetVisibleForOther(false);
         }
-        // Khôi phục tầm chiếu đèn pin
-        if (flashlightController != null && flashlightController.flashlight != null)
-        {
-            flashlightController.maxDistance = originalMaxDistance;
-            flashlightController.flashlight.spotAngle = originalSpotAngle;
-            flashlightController.sphereRadius = originalSphereRadius;
-        }
         isRevealing = false;
+        UpdateFlashlightState();
         revealCoroutine = null;
     }
 
@@ -177,48 +200,17 @@ public class PlayerSkillController : NetworkBehaviour
         if (context.performed)
         {
             isAiming = true;
+            UpdateFlashlightState();
         }
         else if (context.canceled)
         {
             isAiming = false;
+            UpdateFlashlightState();
         }
     }
 
     void Update()
     {
-        // Điều chỉnh đèn pin khi ngắm bắn
-        if (flashlightController != null && flashlightController.flashlight != null)
-        {
-            if (!flashlightAimed)
-            {
-                // Lưu giá trị gốc
-                defaultSpotAngle = flashlightController.flashlight.spotAngle;
-                defaultMaxDistance = flashlightController.maxDistance;
-                defaultSphereRadius = flashlightController.sphereRadius;
-                defaultRange = flashlightController.flashlight.range;
-                defaultIntensity = flashlightController.flashlight.intensity;
-                flashlightAimed = true;
-            }
-            if (isAiming)
-            {
-                flashlightController.flashlight.spotAngle = aimFlashlightSpotAngle;
-                flashlightController.maxDistance = aimFlashlightMaxDistance;
-                flashlightController.sphereRadius = aimFlashlightSphereRadius;
-                flashlightController.flashlight.range = 20f;
-                flashlightController.flashlight.intensity = 100f;
-            }
-            else
-            {
-                flashlightController.flashlight.spotAngle = defaultSpotAngle;
-                flashlightController.maxDistance = defaultMaxDistance;
-                flashlightController.sphereRadius = defaultSphereRadius;
-                flashlightController.flashlight.range = defaultRange;
-                flashlightController.flashlight.intensity = defaultIntensity;
-            }
-        }
-        else
-        {
-            flashlightAimed = false;
-        }
+        // Không set trực tiếp chỉ số flashlight ở đây nữa
     }
 }
