@@ -10,8 +10,10 @@ public class MatchmakingManager : MonoBehaviour
     public GameObject panelPrepare;
     public GameObject panelMatchmaking;
     public GameObject panelGame;
+    public GameObject panelMain; // Thêm biến này
     public TMP_Text matchmakingTimerText;
     public Button quickMatchBtn, rankBtn, prepareStartBtn, matchmakingCancelBtn;
+    public Button mainStartBtn; // Nút Start Game ở panel chính
 
     public NetworkRunner runner;
 
@@ -22,7 +24,8 @@ public class MatchmakingManager : MonoBehaviour
 
     void Start()
     {
-        ShowPanel(panelModeSelect);
+        ShowPanel(panelMain); // Hiện panel chính đầu tiên
+        mainStartBtn.onClick.AddListener(() => ShowPanel(panelModeSelect)); // Bấm Start Game -> panel chọn chế độ
         quickMatchBtn.onClick.AddListener(() => OnModeSelected("QuickMatch"));
         rankBtn.onClick.AddListener(() => OnModeSelected("Rank"));
         prepareStartBtn.onClick.AddListener(StartMatchmaking);
@@ -31,6 +34,7 @@ public class MatchmakingManager : MonoBehaviour
 
     void ShowPanel(GameObject panel)
     {
+        panelMain.SetActive(false); // Ẩn panel chính
         panelModeSelect.SetActive(false);
         panelPrepare.SetActive(false);
         panelMatchmaking.SetActive(false);
@@ -41,7 +45,7 @@ public class MatchmakingManager : MonoBehaviour
     void OnModeSelected(string mode)
     {
         // Lưu mode nếu cần
-        ShowPanel(panelPrepare);
+        ShowPanel(panelPrepare); // Chọn chế độ xong -> panel chuẩn bị
     }
 
     async void StartMatchmaking()
