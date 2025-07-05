@@ -996,6 +996,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3975243804763504314}
   m_SourcePrefab: {fileID: 100100000, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
+--- !u!95 &1004806214633085456 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
+  m_PrefabInstance: {fileID: 6673028721224443777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4985186330253465673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
@@ -1336,6 +1341,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isAiming: 0
+  animator: {fileID: 1004806214633085456}
 --- !u!114 &4329652214470739387
 MonoBehaviour:
   m_ObjectHideFlags: 0

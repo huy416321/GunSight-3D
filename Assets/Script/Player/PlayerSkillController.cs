@@ -45,6 +45,13 @@ public class PlayerSkillController : NetworkBehaviour
     [Header("Aiming")]
     public bool isAiming = false;
 
+    [Header("Animation")]
+    public Animator animator; // Thêm biến Animator cho animation dash
+
+    // Dash theo hướng input
+    private Vector3 dashInputDirection = Vector3.zero;
+    private Vector2 moveInput = Vector2.zero; // Lưu input từ New Input System
+
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
     public void ActivateRevealAllSkill()
     {
@@ -134,6 +141,8 @@ public class PlayerSkillController : NetworkBehaviour
         if (dashPushCooldownCoroutine != null)
             StopCoroutine(dashPushCooldownCoroutine);
         dashPushCooldownCoroutine = StartCoroutine(DashPushSkillCooldownCoroutine());
+        if (animator != null)
+            animator.SetTrigger("DashPush"); // Gọi animation dash
         StartCoroutine(DashPushCoroutine());
     }
 
@@ -142,35 +151,6 @@ public class PlayerSkillController : NetworkBehaviour
         canUseDashPushSkill = false;
         yield return new WaitForSeconds(dashPushCooldown);
         canUseDashPushSkill = true;
-    }
-
-    private IEnumerator DashPushCoroutine()
-    {
-        // Dash bằng CharacterController giống PlayerControllerRPC
-        var characterController = GetComponent<CharacterController>();
-        Vector3 dashDir = transform.forward;
-        float dashSpeed = dashDistance / 0.18f; // dashDuration
-        float elapsed = 0f;
-        float dashDuration = 0.18f;
-        while (elapsed < dashDuration)
-        {
-            if (characterController != null)
-                characterController.Move(dashDir * dashSpeed * Time.deltaTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        // Đẩy các đối tượng phía trước trong bán kính pushRadius
-        Vector3 origin = transform.position + Vector3.up * 0.5f;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, pushRadius, transform.forward, dashDistance, pushLayerMask);
-        foreach (var hit in hits)
-        {
-            var hitRb = hit.collider.attachedRigidbody;
-            if (hitRb != null)
-            {
-                Vector3 pushDir = (hitRb.position - origin).normalized + Vector3.up * pushUpward;
-                hitRb.AddForce(pushDir.normalized * dashForce, ForceMode.Impulse);
-            }
-        }
     }
 
     // Sự kiện cho Input System để kích hoạt kỹ năng
@@ -189,6 +169,9 @@ public class PlayerSkillController : NetworkBehaviour
         if (!Object.HasInputAuthority) return;
         if (context.performed)
         {
+            // Lấy hướng input từ New Input System
+            Vector3 inputDir = new Vector3(moveInput.x, 0, moveInput.y);
+            dashInputDirection = transform.TransformDirection(inputDir);
             ActivateDashPushSkill();
         }
     }
@@ -206,6 +189,34 @@ public class PlayerSkillController : NetworkBehaviour
         {
             isAiming = false;
             UpdateFlashlightState();
+        }
+    }
+    private IEnumerator DashPushCoroutine()
+    {
+        var characterController = GetComponent<CharacterController>();
+        // Dash theo hướng input, nếu không có input thì dash theo forward
+        Vector3 dashDir = dashInputDirection.sqrMagnitude > 0.1f ? dashInputDirection.normalized : transform.forward;
+        float dashSpeed = dashDistance / 0.18f;
+        float elapsed = 0f;
+        float dashDuration = 0.18f;
+        while (elapsed < dashDuration)
+        {
+            if (characterController != null)
+                characterController.Move(dashDir * dashSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        // Đẩy các đối tượng phía trước trong bán kính pushRadius
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+        RaycastHit[] hits = Physics.SphereCastAll(origin, pushRadius, dashDir, dashDistance, pushLayerMask);
+        foreach (var hit in hits)
+        {
+            var hitRb = hit.collider.attachedRigidbody;
+            if (hitRb != null)
+            {
+                Vector3 pushDir = (hitRb.position - origin).normalized + Vector3.up * pushUpward;
+                hitRb.AddForce(pushDir.normalized * dashForce, ForceMode.Impulse);
+            }
         }
     }
 
