@@ -45,7 +45,12 @@ public class MatchmakingManager : MonoBehaviour
     void OnModeSelected(string mode)
     {
         // Lưu mode nếu cần
-        ShowPanel(panelPrepare); // Chọn chế độ xong -> panel chuẩn bị
+        StartCoroutine(WaitForChangePanel()); // Chọn chế độ xong -> panel chuẩn bị
+    }
+    IEnumerator WaitForChangePanel()
+    {
+        yield return new WaitForSeconds(1f);
+        ShowPanel(panelPrepare);
     }
 
     async void StartMatchmaking()

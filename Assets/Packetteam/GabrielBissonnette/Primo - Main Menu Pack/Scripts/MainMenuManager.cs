@@ -298,6 +298,17 @@ public class MainMenuManager : MonoBehaviour
         audioSource.PlayOneShot(uiSpecial);
     }
 
+    public void Fadein()
+    {
+        StartCoroutine(WaitForFadeOut());
+    }
+    IEnumerator WaitForFadeOut()
+    {
+        fadeAnimator.SetTrigger("FadeOut");
+        yield return new WaitForSeconds(1f);
+        fadeAnimator.SetTrigger("FadeIn");
+    }
+
     #endregion
 
 
