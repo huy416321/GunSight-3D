@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: a72885e93c1e4c5449d8f2a4888f2ed7
+labels:
+- Bomb
+- Clock
+- Dynamite
+- Explosive
+- Prop
+- Weapon
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 13147
+  packageName: Bombs pack
+  packageVersion: 1.0
+  assetPath: Assets/Meshes/Bombs pack/Old-timer bomb/Old-timer bomb prefab.prefab
+  uploadId: 29479

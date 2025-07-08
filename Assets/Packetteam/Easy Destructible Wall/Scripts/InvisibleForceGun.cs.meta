@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 72d55057b59b1c346b74c959c95265a0
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Scripts/InvisibleForceGun.cs
+  uploadId: 172002

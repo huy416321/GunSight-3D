@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b85305d02dfde314cb7fa2bac333db0d
+labels:
+- Wall
+- Brick
+- Destruction
+- Destructible
+- Physics
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 331
+  packageName: Easy Destructible Wall
+  packageVersion: 1.5
+  assetPath: Assets/Easy Destructible Wall/Prefabs/ChunkWall_NoFracture.prefab
+  uploadId: 172002
