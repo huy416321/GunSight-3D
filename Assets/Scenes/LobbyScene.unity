@@ -3673,7 +3673,7 @@ MonoBehaviour:
   panelMatchmaking: {fileID: 288420674}
   panelGame: {fileID: 1209467622}
   panelMain: {fileID: 1176574425}
-  matchmakingTimerText: {fileID: 2040686639}
+  matchmakingTimerText: {fileID: 1469480316}
   quickMatchBtn: {fileID: 283850872}
   rankBtn: {fileID: 2046301182}
   prepareStartBtn: {fileID: 2071164452}
