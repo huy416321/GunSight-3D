@@ -60,6 +60,25 @@ public class PlayerSkillController : NetworkBehaviour
         if (!Object.HasInputAuthority) return; // Chỉ local player mới được phép kích hoạt
         if (revealCoroutine != null)
             StopCoroutine(revealCoroutine);
+        if (animator != null)
+            animator.SetTrigger("RevealSkill"); // Gọi animation reveal
+        StartCoroutine(RevealAllSkillWithStun());
+    }
+
+    private IEnumerator RevealAllSkillWithStun()
+    {
+        // Không cho di chuyển 1 giây
+        var playerController = GetComponent<PlayerControllerRPC>();
+        float originalMoveSpeed = 0f;
+        if (playerController != null)
+        {
+            originalMoveSpeed = playerController.moveSpeed;
+            playerController.moveSpeed = 0f;
+        }
+        yield return new WaitForSeconds(0.5f);
+        if (playerController != null)
+            playerController.moveSpeed = originalMoveSpeed;
+        // Sau khi "stun" xong thì mới bắt đầu reveal
         revealCoroutine = StartCoroutine(RevealAllPlayersCoroutine());
         StartCoroutine(RevealSkillCooldownCoroutine());
     }
