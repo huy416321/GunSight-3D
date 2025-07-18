@@ -137,7 +137,11 @@ public class MatchmakingManager : MonoBehaviour
 
     void CancelMatchmaking()
     {
-        // Hủy ghép trận
+        // Hủy ghép trận và ngắt kết nối mạng
+        if (runner != null)
+        {
+            runner.Shutdown();
+        }
         ShowPanel(panelPrepare);
     }
 }
