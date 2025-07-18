@@ -7,6 +7,8 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControllerRPC : NetworkBehaviour
 {
+    // true = cảnh, false = cướp
+    public bool isPolice;
     [Header("Movement")]
     public float moveSpeed = 5f;
     private Vector2 moveInput;
@@ -340,7 +342,13 @@ public class PlayerControllerRPC : NetworkBehaviour
         {
             Quaternion rot = Quaternion.LookRotation(forward);
             Vector3 offset = forward * 0.5f;
-            Runner.Spawn(bulletPrefabs[weaponIndex], spawnPos + offset, rot, Object.InputAuthority);
+            var bulletObj = Runner.Spawn(bulletPrefabs[weaponIndex], spawnPos + offset, rot, Object.InputAuthority);
+            // Gán team cho viên đạn
+            var bullet = bulletObj != null ? bulletObj.GetComponent<Bullet>() : null;
+            if (bullet != null)
+            {
+                bullet.isPoliceShooter = this.isPolice;
+            }
         }
         // Hiệu ứng ánh sáng đầu nòng
         if (muzzleFlashPrefab != null && firePoint != null)
