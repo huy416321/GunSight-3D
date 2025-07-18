@@ -4,6 +4,8 @@ using TMPro;
 
 public class MatchManager : NetworkBehaviour
 {
+    private int alivePolice = 0;
+    private int aliveRobber = 0;
     [Networked] public int player1Score { get; set; }
     [Networked] public int player2Score { get; set; }
     [Networked] public int currentRound { get; set; }
@@ -29,6 +31,27 @@ public class MatchManager : NetworkBehaviour
             currentRound = 1;
             isRoundActive = true;
             roundTimer = roundTimeLimit;
+
+            // Đếm số lượng player mỗi team
+            alivePolice = 0;
+            aliveRobber = 0;
+            var runner = playerSpawner != null ? playerSpawner.runner : null;
+            if (runner != null)
+            {
+                foreach (var p in runner.ActivePlayers)
+                {
+                    var obj = runner.GetPlayerObject(p);
+                    if (obj != null)
+                    {
+                        var ctrl = obj.GetComponent<PlayerControllerRPC>();
+                        if (ctrl != null)
+                        {
+                            if (ctrl.isPolice) alivePolice++;
+                            else aliveRobber++;
+                        }
+                    }
+                }
+            }
         }
         UpdateUI();
     }
@@ -65,36 +88,55 @@ public class MatchManager : NetworkBehaviour
         int loserIndex = sortedPlayers.IndexOf(loserRef);
         Debug.Log($"OnPlayerDie called, loserIndex: {loserIndex}, isRoundActive: {isRoundActive}");
         if (!Object.HasStateAuthority || !isRoundActive) return;
-        isRoundActive = false;
-        int winnerIndex = loserIndex == 0 ? 1 : 0;
-        if (winnerIndex == 0) player1Score++;
-        else player2Score++;
-        // Lấy tên người thắng
-        PlayerRef winnerRef = sortedPlayers[winnerIndex];
-        string winnerName = "";
-        var winnerObj = runner.GetPlayerObject(winnerRef);
-        if (winnerObj != null)
+
+        // Giảm số lượng player còn sống của team
+        var loserObj = runner.GetPlayerObject(loserRef);
+        if (loserObj != null)
         {
-            var ctrl = winnerObj.GetComponent<PlayerControllerRPC>();
-            if (ctrl != null && ctrl.nameText != null)
-                winnerName = ctrl.nameText.text;
+            var ctrl = loserObj.GetComponent<PlayerControllerRPC>();
+            if (ctrl != null)
+            {
+                if (ctrl.isPolice) alivePolice--;
+                else aliveRobber--;
+            }
         }
-        UpdateUI();
-        Debug.Log($"Score updated: P1={player1Score}, P2={player2Score}");
-        if (player1Score >= maxRoundsToWin)
+
+        // Kiểm tra nếu một team bị loại hết
+        if (alivePolice <= 0 || aliveRobber <= 0)
         {
-            Debug.Log($"{winnerName} WIN!");
-            RpcShowWinName(winnerName);
-        }
-        else if (player2Score >= maxRoundsToWin)
-        {
-            Debug.Log($"{winnerName} WIN!");
-            RpcShowWinName(winnerName);
-        }
-        else
-        {
-            Debug.Log("StartCoroutine NextRoundDelay");
-            StartCoroutine(NextRoundDelay());
+            isRoundActive = false;
+            int winnerIndex = loserIndex == 0 ? 1 : 0;
+            if (winnerIndex == 0) player1Score++;
+            else player2Score++;
+            // Lấy tên team thắng
+            PlayerRef winnerRef = sortedPlayers[winnerIndex];
+            string winnerName = "";
+            var winnerObj = runner.GetPlayerObject(winnerRef);
+            if (winnerObj != null)
+            {
+                var ctrl = winnerObj.GetComponent<PlayerControllerRPC>();
+                if (ctrl != null)
+                {
+                    winnerName = ctrl.isPolice ? "Cảnh" : "Cướp";
+                }
+            }
+            UpdateUI();
+            Debug.Log($"Score updated: P1={player1Score}, P2={player2Score}");
+            if (player1Score >= maxRoundsToWin)
+            {
+                Debug.Log($"{winnerName} WIN!");
+                RpcShowWinName(winnerName);
+            }
+            else if (player2Score >= maxRoundsToWin)
+            {
+                Debug.Log($"{winnerName} WIN!");
+                RpcShowWinName(winnerName);
+            }
+            else
+            {
+                Debug.Log("StartCoroutine NextRoundDelay");
+                StartCoroutine(NextRoundDelay());
+            }
         }
     }
 

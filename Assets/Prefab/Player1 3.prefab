@@ -835,15 +835,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.008694
+      value: 40.296394
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1504707
+      value: 2.1504688
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -60.441357
+      value: -38.91318
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1027,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_Name
-      value: Player1
+      value: Player1 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_Layer
@@ -1494,7 +1494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9776a2bbca1dd4546bfa933bc05d947a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPolice: 1
+  isPolice: 0
   moveSpeed: 5
   playerCamera: {fileID: 7663441165663397799}
   weapons:
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   grenadeSpawnPoint: {fileID: 4605547157231617520}
   grenadeThrowForce: 0
   grenadeCooldown: 3
-  _NetworkedPosition: {x: 17.00869, y: 2.150471, z: -60.44136}
+  _NetworkedPosition: {x: 40.29639, y: 2.150469, z: -38.91318}
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
@@ -1584,7 +1584,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 2774038073
+  SortKey: 4251663453
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
