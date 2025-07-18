@@ -8,9 +8,13 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public NetworkRunner runner;
     public NetworkPrefabRef player1Prefab;
     public NetworkPrefabRef player2Prefab;
+    public NetworkPrefabRef player3Prefab;
+    public NetworkPrefabRef player4Prefab;
 
     public Vector3 player1SpawnPos = new Vector3(0, 0, 0); // Vị trí spawn cho player 1
     public Vector3 player2SpawnPos = new Vector3(10, 0, 0); // Vị trí spawn cho player 2
+    public Vector3 player3SpawnPos = new Vector3(-10, 0, 0); // Vị trí spawn cho player 3
+    public Vector3 player4SpawnPos = new Vector3(0, 0, 10); // Vị trí spawn cho player 4
 
     private bool spawnedSelf = false;
     private NetworkObject spawnedPlayerObj;
@@ -54,8 +58,31 @@ public class PlayerSpawner : MonoBehaviour, INetworkRunnerCallbacks
         var sortedPlayers = new System.Collections.Generic.List<PlayerRef>(runner.ActivePlayers);
         sortedPlayers.Sort((a, b) => a.RawEncoded.CompareTo(b.RawEncoded));
         int index = sortedPlayers.IndexOf(player);
-        NetworkPrefabRef prefab = index == 0 ? player1Prefab : player2Prefab;
-        Vector3 spawnPos = index == 0 ? player1SpawnPos : player2SpawnPos;
+        NetworkPrefabRef prefab;
+        Vector3 spawnPos;
+        switch (index)
+        {
+            case 0:
+                prefab = player1Prefab;
+                spawnPos = player1SpawnPos;
+                break;
+            case 1:
+                prefab = player2Prefab;
+                spawnPos = player2SpawnPos;
+                break;
+            case 2:
+                prefab = player3Prefab;
+                spawnPos = player3SpawnPos;
+                break;
+            case 3:
+                prefab = player4Prefab;
+                spawnPos = player4SpawnPos;
+                break;
+            default:
+                prefab = player1Prefab;
+                spawnPos = player1SpawnPos;
+                break;
+        }
         // Xoá player cũ nếu còn
         if (spawnedPlayerObj != null && spawnedPlayerObj.IsValid)
         {

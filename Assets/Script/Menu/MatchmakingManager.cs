@@ -6,6 +6,8 @@ using System.Collections;
 
 public class MatchmakingManager : MonoBehaviour
 {
+    // Các GameObject sẽ kích hoạt lần lượt khi có người chơi mới
+    public GameObject[] activateOnPlayerJoin;
     public GameObject panelModeSelect;
     public GameObject panelPrepare;
     public GameObject panelMatchmaking;
@@ -30,6 +32,13 @@ public class MatchmakingManager : MonoBehaviour
         rankBtn.onClick.AddListener(() => OnModeSelected("Rank"));
         prepareStartBtn.onClick.AddListener(StartMatchmaking);
         matchmakingCancelBtn.onClick.AddListener(CancelMatchmaking);
+
+        // Ẩn tất cả các GameObject khi bắt đầu
+        if (activateOnPlayerJoin != null)
+        {
+            foreach (var obj in activateOnPlayerJoin)
+                if (obj != null) obj.SetActive(false);
+        }
     }
 
     void ShowPanel(GameObject panel)
@@ -84,10 +93,25 @@ public class MatchmakingManager : MonoBehaviour
 
     IEnumerator MatchmakingTimer()
     {
+        int lastPlayerCount = 0;
         while (true)
         {
             matchmakingTime += Time.deltaTime;
             matchmakingTimerText.text = $"Đang tìm trận: {matchmakingTime:F1}s";
+
+            // Kiểm tra số lượng người chơi (trừ chính mình)
+            int playerCount = runner != null && runner.SessionInfo != null ? runner.SessionInfo.PlayerCount : 1;
+            int otherPlayers = Mathf.Max(0, playerCount - 1);
+            if (activateOnPlayerJoin != null)
+            {
+                for (int i = 0; i < activateOnPlayerJoin.Length; i++)
+                {
+                    if (activateOnPlayerJoin[i] != null)
+                        activateOnPlayerJoin[i].SetActive(i < otherPlayers);
+                }
+            }
+            lastPlayerCount = playerCount;
+
             // Kiểm tra nếu đã đủ 2 người
             if (CheckEnoughPlayers())
             {
@@ -107,13 +131,17 @@ public class MatchmakingManager : MonoBehaviour
         if (runner == null)
             runner = FindFirstObjectByType<NetworkRunner>();
         if (runner != null && runner.SessionInfo != null)
-            return runner.SessionInfo.PlayerCount >= 2;
+            return runner.SessionInfo.PlayerCount >= 4;
         return false;
     }
 
     void CancelMatchmaking()
     {
-        // Hủy ghép trận
+        // Hủy ghép trận và ngắt kết nối mạng
+        if (runner != null)
+        {
+            runner.Shutdown();
+        }
         ShowPanel(panelPrepare);
     }
 }
