@@ -213,7 +213,7 @@ public class PlayerSkillController : NetworkBehaviour
     private IEnumerator DashPushCoroutine()
     {
         // Chờ 2 giây trước khi đẩy
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.9f);
         // Chỉ đẩy các object phía trước (không dash), giảm một nửa khoảng cách đẩy
         Vector3 dashDir = dashInputDirection.sqrMagnitude > 0.1f ? dashInputDirection.normalized : transform.forward;
         float pushDistance = dashDistance * 0.5f;
