@@ -11,6 +11,7 @@ public class MatchManager : NetworkBehaviour
     [Networked] public int currentRound { get; set; }
     [Networked] public bool isRoundActive { get; set; }
     [Networked] public float roundTimer { get; set; }
+    [Networked] public bool isWaitingRound { get; set; }
 
     public TMP_Text roundText;
     public TMP_Text player1ScoreText;
@@ -28,8 +29,8 @@ public class MatchManager : NetworkBehaviour
         {
             player1Score = 0;
             player2Score = 0;
-            currentRound = 1;
-            isRoundActive = true;
+            currentRound = 0;
+            isRoundActive = false;
             roundTimer = roundTimeLimit;
 
             // Đếm số lượng player mỗi team
@@ -52,6 +53,8 @@ public class MatchManager : NetworkBehaviour
                     }
                 }
             }
+            // Đếm ngược round 1
+            StartCoroutine(RoundCountdownCoroutine());
         }
         UpdateUI();
     }
@@ -108,33 +111,17 @@ public class MatchManager : NetworkBehaviour
             int winnerIndex = loserIndex == 0 ? 1 : 0;
             if (winnerIndex == 0) player1Score++;
             else player2Score++;
-            // Lấy tên team thắng
-            PlayerRef winnerRef = sortedPlayers[winnerIndex];
-            string winnerName = "";
-            var winnerObj = runner.GetPlayerObject(winnerRef);
-            if (winnerObj != null)
-            {
-                var ctrl = winnerObj.GetComponent<PlayerControllerRPC>();
-                if (ctrl != null)
-                {
-                    winnerName = ctrl.isPolice ? "Cảnh" : "Cướp";
-                }
-            }
             UpdateUI();
             Debug.Log($"Score updated: P1={player1Score}, P2={player2Score}");
-            if (player1Score >= maxRoundsToWin)
+            string winMsg = "";
+            if (player1Score >= maxRoundsToWin || winnerIndex == 0)
+                winMsg = "Cảnh WIN!";
+            else if (player2Score >= maxRoundsToWin || winnerIndex == 1)
+                winMsg = "Cướp WIN!";
+            Debug.Log(winMsg);
+            RpcShowWinName(winMsg);
+            if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
             {
-                Debug.Log($"{winnerName} WIN!");
-                RpcShowWinName(winnerName);
-            }
-            else if (player2Score >= maxRoundsToWin)
-            {
-                Debug.Log($"{winnerName} WIN!");
-                RpcShowWinName(winnerName);
-            }
-            else
-            {
-                Debug.Log("StartCoroutine NextRoundDelay");
                 StartCoroutine(NextRoundDelay());
             }
         }
@@ -150,13 +137,27 @@ public class MatchManager : NetworkBehaviour
     private void RpcNextRound()
     {
         Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}, StateAuthority: {Object.HasStateAuthority}");
+        StartCoroutine(RoundCountdownCoroutine());
+    }
+
+    private System.Collections.IEnumerator RoundCountdownCoroutine()
+    {
+        isWaitingRound = true;
+        int countdown = 5;
+        for (int i = countdown; i > 0; i--)
+        {
+            if (winText != null)
+                winText.text = $"Round {currentRound + 1} bắt đầu sau: {i}s";
+            yield return new WaitForSeconds(1f);
+        }
+        winText.text = "";
         if (Object.HasStateAuthority)
         {
             currentRound++;
             isRoundActive = true;
             roundTimer = roundTimeLimit;
         }
-        winText.text = "";
+        isWaitingRound = false;
         // Reset map, respawn player, hồi máu
         if (playerSpawner != null)
         {
@@ -171,9 +172,9 @@ public class MatchManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RpcShowWinName(string winnerName)
+    private void RpcShowWinName(string winMessage)
     {
-        winText.text = $"{winnerName} WIN!";
+        winText.text = winMessage;
         isRoundActive = false;
     }
 

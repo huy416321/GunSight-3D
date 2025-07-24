@@ -114,12 +114,24 @@ public class PlayerControllerRPC : NetworkBehaviour
             // KHÔNG set lại animator.SetBool("Dash", ...) ở đây
             return;
         }
-        // Di chuyển
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y).normalized;
-        characterController.SimpleMove(move * moveSpeed);
-        float speed = moveInput.sqrMagnitude;
-        animator.SetFloat("Speed", speed);
-        NetworkedSpeed = speed;
+        // Chặn di chuyển nếu đang đếm ngược round
+        var matchManager = FindFirstObjectByType<MatchManager>();
+        bool isLocked = matchManager != null && matchManager.isWaitingRound;
+        if (!isLocked)
+        {
+            // Di chuyển
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+            characterController.SimpleMove(move * moveSpeed);
+            float speed = moveInput.sqrMagnitude;
+            animator.SetFloat("Speed", speed);
+            NetworkedSpeed = speed;
+        }
+        else
+        {
+            // Nếu bị khoá, dừng animation chạy
+            animator.SetFloat("Speed", 0f);
+            NetworkedSpeed = 0f;
+        }
         // KHÔNG set lại animator.SetBool("Dash", ...) ở đây
         NetworkedIsDashing = isDashing;
 
@@ -185,6 +197,13 @@ public class PlayerControllerRPC : NetworkBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        // Nếu đang đếm ngược round thì không nhận input di chuyển
+        var matchManager = FindFirstObjectByType<MatchManager>();
+        if (matchManager != null && matchManager.isWaitingRound)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
         moveInput = context.canceled ? Vector2.zero : context.ReadValue<Vector2>();
     }
 

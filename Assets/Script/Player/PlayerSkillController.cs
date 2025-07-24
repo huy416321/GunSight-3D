@@ -212,22 +212,13 @@ public class PlayerSkillController : NetworkBehaviour
     }
     private IEnumerator DashPushCoroutine()
     {
-        var characterController = GetComponent<CharacterController>();
-        // Dash theo hướng input, nếu không có input thì dash theo forward
+        // Chờ 2 giây trước khi đẩy
+        yield return new WaitForSeconds(2f);
+        // Chỉ đẩy các object phía trước (không dash), giảm một nửa khoảng cách đẩy
         Vector3 dashDir = dashInputDirection.sqrMagnitude > 0.1f ? dashInputDirection.normalized : transform.forward;
-        float dashSpeed = dashDistance / 0.18f;
-        float elapsed = 0f;
-        float dashDuration = 0.18f;
-        while (elapsed < dashDuration)
-        {
-            if (characterController != null)
-                characterController.Move(dashDir * dashSpeed * Time.deltaTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        // Đẩy các đối tượng phía trước trong bán kính pushRadius
+        float pushDistance = dashDistance * 0.5f;
         Vector3 origin = transform.position + Vector3.up * 0.5f;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, pushRadius, dashDir, dashDistance, pushLayerMask);
+        RaycastHit[] hits = Physics.SphereCastAll(origin, pushRadius, dashDir, pushDistance, pushLayerMask);
         foreach (var hit in hits)
         {
             var hitRb = hit.collider.attachedRigidbody;
@@ -237,6 +228,7 @@ public class PlayerSkillController : NetworkBehaviour
                 hitRb.AddForce(pushDir.normalized * dashForce, ForceMode.Impulse);
             }
         }
+        yield break;
     }
 
     void Update()
