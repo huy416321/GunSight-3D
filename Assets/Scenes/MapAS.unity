@@ -8884,6 +8884,7 @@ MonoBehaviour:
   _currentRound: 0
   _isRoundActive: 0
   _roundTimer: 0
+  _isWaitingRound: 0
   roundText: {fileID: 407145731}
   player1ScoreText: {fileID: 1326339413}
   player2ScoreText: {fileID: 1535483903}
@@ -12687,7 +12688,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f6b8a559cacea2a4d8ee8303d815336a, type: 2}
+  - {fileID: 2100000, guid: 08955ddeabdeb05469e94d64d8d74f2e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
