@@ -1027,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_Name
-      value: Player1 1
+      value: PlayerRife
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_Layer
@@ -1421,19 +1421,7 @@ MonoBehaviour:
     m_ActionId: f453181d-1e2c-47e4-aeb5-702baa3d6660
     m_ActionName: 'Player/Skill[/Keyboard/e]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8578907575439899053}
-        m_TargetAssemblyTypeName: PlayerSkillController, Assembly-CSharp
-        m_MethodName: OnActivateDashPushSkill
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 71ac4df7-33c7-4de7-8eff-15f97210e114
     m_ActionName: 'Player/Skill2[/Keyboard/q]'
   - m_PersistentCalls:
@@ -1584,7 +1572,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 3852162824
+  SortKey: 2774038073
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
