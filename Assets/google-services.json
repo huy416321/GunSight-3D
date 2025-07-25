@@ -13,7 +13,12 @@
           "package_name": "com.afo.gunsight3d"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "889862097337-hpj4mknjvlofi0d3iu1dornega0tlj8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCkPyp4pZgM0D7DcLCi2ieDIriaJx5WyNM"
@@ -21,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889862097337-hpj4mknjvlofi0d3iu1dornega0tlj8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
