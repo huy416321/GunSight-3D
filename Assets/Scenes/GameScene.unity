@@ -8161,6 +8161,55 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &754572986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 754572988}
+  - component: {fileID: 754572987}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &754572987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754572986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 82a11ae3f38b6de488969b9aa32bb38e, type: 2}
+--- !u!4 &754572988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754572986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.624887, y: -8.489764, z: -50.74327}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758211081
 GameObject:
   m_ObjectHideFlags: 0
@@ -23288,10 +23337,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 58976032580996222, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
-      propertyPath: fovMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 117718880a233b145b71aadd946d6caa, type: 2}
+    - target: {fileID: 1993454602647253886, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468684191847670086, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3778606486130180706, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3975243804763504314, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
       propertyPath: SortKey
       value: 1608876019
@@ -23299,6 +23356,10 @@ PrefabInstance:
     - target: {fileID: 5789999187898850000, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
       propertyPath: m_Name
       value: PlayerRife
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123452215033881667, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6562278165940699242, guid: 66c6af17fa69413439a5cd1a482e2572, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25687,3 +25748,4 @@ SceneRoots:
   - {fileID: 21721815}
   - {fileID: 1086266122}
   - {fileID: 1903043298}
+  - {fileID: 754572988}
