@@ -214,7 +214,21 @@ public class PlayerControllerRPC : NetworkBehaviour
         Vector2 mouseScreenPosition = context.ReadValue<Vector2>();
         Ray ray = playerCamera.ScreenPointToRay(mouseScreenPosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, LayerMask.GetMask("Default")))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, LayerMask.GetMask("Wall")))
+        {
+            // Nếu raycast trúng vật cản, hướng camera về điểm đó
+            Vector3 lookPoint = hit.point;
+            Vector3 direction = (lookPoint - playerCamera.transform.position);
+            direction.y = 0f; // Chỉ xoay theo mặt phẳng ngang
+            direction.Normalize();
+
+            if (direction != Vector3.zero)
+            {
+                float offsetY = 50f; // chỉnh lại nếu model không hướng Z+
+                playerCamera.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, offsetY, 0);
+            }
+        }
+        else
         {
             Vector3 lookPoint = hit.point;
             Vector3 direction = (lookPoint - transform.position);
