@@ -2091,16 +2091,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840b9106f25eb2c44b3164a50da29914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
   revealDuration: 5
   revealCooldown: 10
-  flashlightController: {fileID: 4329652214470739387}
-  flashlightRangeMultiplier: 10
-  flashlightAngleMultiplier: 2
-  flashlightRadiusMultiplier: 2
-  aimFlashlightSpotAngle: 20
-  aimFlashlightMaxDistance: 20
-  aimFlashlightSphereRadius: 1
-  aimFlashlightRange: 20
+  fieldOfViewMesh: {fileID: 1852488827576330398}
   dashForce: 20
   dashDistance: 3
   dashPushCooldown: 8
@@ -2108,7 +2102,7 @@ MonoBehaviour:
   pushUpward: 0.5
   pushLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
   isAiming: 0
   animator: {fileID: 1004806214633085456}
 --- !u!114 &4329652214470739387

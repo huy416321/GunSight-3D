@@ -4,6 +4,8 @@ using Fusion;
 
 public class PlayerSkillController : NetworkBehaviour
 {
+    [Header("Camera Reference")]
+    public Camera playerCamera;
     [Header("Skill Settings")]
     public float revealDuration = 5f;
     private Coroutine revealCoroutine;
@@ -178,6 +180,24 @@ public class PlayerSkillController : NetworkBehaviour
         {
             isAiming = true;
             UpdateFOVState();
+
+            // Camera nhìn theo chuột khi aim
+            if (playerCamera != null)
+            {
+                Vector2 mouseScreenPosition = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+                Ray ray = playerCamera.ScreenPointToRay(mouseScreenPosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, 100f, LayerMask.GetMask("Default", "Ground")))
+                {
+                    Vector3 lookPoint = hit.point;
+                    Vector3 direction = (lookPoint - transform.position);
+                    direction.y = 0f;
+                    direction.Normalize();
+                    if (direction != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                    }
+                }
+            }
         }
         else if (context.canceled)
         {
@@ -188,7 +208,7 @@ public class PlayerSkillController : NetworkBehaviour
     private IEnumerator DashPushCoroutine()
     {
         // Chờ 2 giây trước khi đẩy
-        yield return new WaitForSeconds(0.9f);
+        yield return new WaitForSeconds(0.5f);
         // Chỉ đẩy các object phía trước (không dash), giảm một nửa khoảng cách đẩy
         Vector3 dashDir = dashInputDirection.sqrMagnitude > 0.1f ? dashInputDirection.normalized : transform.forward;
         float pushDistance = dashDistance * 0.5f;

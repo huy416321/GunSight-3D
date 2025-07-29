@@ -1853,6 +1853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840b9106f25eb2c44b3164a50da29914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 7663441165663397799}
   revealDuration: 5
   revealCooldown: 10
   fieldOfViewMesh: {fileID: 58976032580996222}
@@ -1863,7 +1864,7 @@ MonoBehaviour:
   pushUpward: 0.5
   pushLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
   isAiming: 0
   animator: {fileID: 1004806214633085456}
 --- !u!114 &4329652214470739387
