@@ -18,6 +18,11 @@ MonoBehaviour:
     mixer: {fileID: 24300002, guid: 669e719be78e13e469be817afa517c17, type: 2}
     sounds:
     - {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
+  - name: ShotRife
+    volume: 1
+    mixer: {fileID: 24300002, guid: 669e719be78e13e469be817afa517c17, type: 2}
+    sounds:
+    - {fileID: 8300000, guid: bdefbf4e714838b4ab25f809e1ee97e2, type: 3}
   - name: Reload
     volume: 1
     mixer: {fileID: 24300002, guid: 669e719be78e13e469be817afa517c17, type: 2}

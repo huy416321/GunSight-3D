@@ -6,6 +6,7 @@ namespace SmallHedge.SoundManager
     public enum SoundType
     {
         Shoot,
+        ShotRife,
         Reload,
         Step
     }
