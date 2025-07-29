@@ -6979,7 +6979,7 @@ MonoBehaviour:
   player1Prefab:
     RawGuidValue: 66c6af17fa69413439a5cd1a482e2572
   player2Prefab:
-    RawGuidValue: 00000000000000000000000000000000
+    RawGuidValue: 66c6af17fa69413439a5cd1a482e2572
   player3Prefab:
     RawGuidValue: 00000000000000000000000000000000
   player4Prefab:
