@@ -1,8 +1,10 @@
 using UnityEngine;
 
 
+using Fusion;
+
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class FieldOfViewMesh : MonoBehaviour
+public class FieldOfViewMesh : NetworkBehaviour
 {
     [Header("Field of View Settings")]
     public float viewRadius = 15f;
@@ -31,8 +33,19 @@ public class FieldOfViewMesh : MonoBehaviour
 
     void LateUpdate()
     {
-        DrawFieldOfView();
-        DetectTargets();
+        // Chỉ hiện mesh vùng nhìn của chính mình
+        if (Object.HasInputAuthority)
+        {
+            if (viewMeshFilter != null && viewMeshFilter.gameObject.activeSelf == false)
+                viewMeshFilter.gameObject.SetActive(true);
+            DrawFieldOfView();
+            DetectTargets();
+        }
+        else
+        {
+            if (viewMeshFilter != null && viewMeshFilter.gameObject.activeSelf == true)
+                viewMeshFilter.gameObject.SetActive(false);
+        }
     }
 
     void DrawFieldOfView()
@@ -72,19 +85,54 @@ public class FieldOfViewMesh : MonoBehaviour
 
     void DetectTargets()
     {
+        if (!Object.HasInputAuthority) return;
+
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
         foreach (var target in targetsInViewRadius)
         {
-            Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
-            float angleToTarget = Vector3.Angle(transform.forward, dirToTarget);
-            if (angleToTarget < viewAngle / 2f)
+            // Kiểm tra nếu là player online
+            var player = target.GetComponent<PlayerControllerRPC>();
+            if (player != null && !player.Object.HasInputAuthority)
             {
-                float distToTarget = Vector3.Distance(transform.position, target.transform.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
+                float angleToTarget = Vector3.Angle(transform.forward, dirToTarget);
+                if (angleToTarget < viewAngle / 2f)
                 {
-                    Renderer rend = target.GetComponent<Renderer>();
-                    if (rend != null)
-                        rend.enabled = true;
+                    float distToTarget = Vector3.Distance(transform.position, player.transform.position);
+                    if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                    {
+                        player.SetVisibleForOther(true);
+                    }
+                    else
+                    {
+                        player.SetVisibleForOther(false);
+                    }
+                }
+                else
+                {
+                    player.SetVisibleForOther(false);
+                }
+            }
+            else
+            {
+                // Đối tượng thường
+                Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
+                float angleToTarget = Vector3.Angle(transform.forward, dirToTarget);
+                if (angleToTarget < viewAngle / 2f)
+                {
+                    float distToTarget = Vector3.Distance(transform.position, target.transform.position);
+                    if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                    {
+                        Renderer rend = target.GetComponent<Renderer>();
+                        if (rend != null)
+                            rend.enabled = true;
+                    }
+                    else
+                    {
+                        Renderer rend = target.GetComponent<Renderer>();
+                        if (rend != null)
+                            rend.enabled = false;
+                    }
                 }
                 else
                 {
@@ -92,12 +140,6 @@ public class FieldOfViewMesh : MonoBehaviour
                     if (rend != null)
                         rend.enabled = false;
                 }
-            }
-            else
-            {
-                Renderer rend = target.GetComponent<Renderer>();
-                if (rend != null)
-                    rend.enabled = false;
             }
         }
     }

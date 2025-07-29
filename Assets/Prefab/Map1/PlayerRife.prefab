@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 15
-  viewAngle: 100
+  viewAngle: 45
   meshResolution: 1
   obstacleMask:
     serializedVersion: 2
@@ -1915,6 +1915,8 @@ MonoBehaviour:
   - {fileID: 8578907575439899053}
   - {fileID: 4329652214470739387}
   - {fileID: 9102238838715447264}
+  - {fileID: 58976032580996222}
+  - {fileID: 7023528139858466355}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &9102238838715447264
 MonoBehaviour:
