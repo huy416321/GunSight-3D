@@ -591,12 +591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784800598fc2556449dbbde346e13cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 15
-  viewAngle: 45
+  viewRadius: 11
+  viewAngle: 40
   meshResolution: 1
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 769
   fovMaterial: {fileID: 2100000, guid: 117718880a233b145b71aadd946d6caa, type: 2}
   targetMask:
     serializedVersion: 2

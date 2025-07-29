@@ -91,7 +91,7 @@ public class PlayerSkillController : NetworkBehaviour
         }
         if (isAiming)
         {
-            fieldOfViewMesh.viewAngle = 20f;
+            fieldOfViewMesh.viewAngle = 10f;
             fieldOfViewMesh.viewRadius = 25f; // Tăng bán kính vùng nhìn khi ngắm
             // Có thể tăng viewRadius nếu muốn khi aim
         }
