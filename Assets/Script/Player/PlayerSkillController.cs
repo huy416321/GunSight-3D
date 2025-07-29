@@ -11,26 +11,11 @@ public class PlayerSkillController : NetworkBehaviour
     public float revealCooldown = 10f;
     private bool isRevealing = false;
 
-    [Header("Flashlight Reference")]
-    public FlashlightController flashlightController;
-    private float originalMaxDistance;
-    private float originalSpotAngle;
-    private float originalSphereRadius; // Lưu lại bán kính vùng phát hiện
-    public float flashlightRangeMultiplier = 10f;
-    public float flashlightAngleMultiplier = 2f;
-    public float flashlightRadiusMultiplier = 2f; // Multiplier cho sphereRadius
-
-    // Giá trị đèn pin khi ngắm bắn
-    public float aimFlashlightSpotAngle = 20f;
-    public float aimFlashlightMaxDistance = 50f;
-    public float aimFlashlightSphereRadius = 8f;
-    public float aimFlashlightRange = 20f; // Không dùng, chỉ tăng maxDistance
-    private bool flashlightAimed = false;
-    private float defaultSpotAngle;
-    private float defaultMaxDistance;
-    private float defaultSphereRadius;
-    private float defaultRange;
-    private float defaultIntensity;
+    [Header("Field of View Reference")]
+    public FieldOfViewMesh fieldOfViewMesh;
+    private float defaultViewAngle;
+    private float defaultViewRadius;
+    private bool fovAimed = false;
 
     [Header("Dash Push Skill Settings")]
     public float dashForce = 20f;
@@ -92,48 +77,38 @@ public class PlayerSkillController : NetworkBehaviour
         canUseRevealSkill = true;
     }
 
-    private void UpdateFlashlightState()
+    private void UpdateFOVState()
     {
-        if (flashlightController == null || flashlightController.flashlight == null)
+        if (fieldOfViewMesh == null)
             return;
-        if (!flashlightAimed)
+        if (!fovAimed)
         {
-            defaultSpotAngle = flashlightController.flashlight.spotAngle;
-            defaultMaxDistance = flashlightController.maxDistance;
-            defaultSphereRadius = flashlightController.sphereRadius;
-            defaultRange = flashlightController.flashlight.range;
-            defaultIntensity = flashlightController.flashlight.intensity;
-            flashlightAimed = true;
+            defaultViewAngle = fieldOfViewMesh.viewAngle;
+            defaultViewRadius = fieldOfViewMesh.viewRadius;
+            fovAimed = true;
         }
         if (isAiming)
         {
-            flashlightController.flashlight.spotAngle = aimFlashlightSpotAngle;
-            flashlightController.maxDistance = aimFlashlightMaxDistance;
-            flashlightController.sphereRadius = aimFlashlightSphereRadius;
-            flashlightController.flashlight.range = 20f;
-            flashlightController.flashlight.intensity = 100f;
+            fieldOfViewMesh.viewAngle = 20f;
+            fieldOfViewMesh.viewRadius = 25f; // Tăng bán kính vùng nhìn khi ngắm
+            // Có thể tăng viewRadius nếu muốn khi aim
         }
         else if (isRevealing)
         {
-            flashlightController.maxDistance = defaultMaxDistance * flashlightRangeMultiplier;
-            flashlightController.flashlight.spotAngle = defaultSpotAngle * flashlightAngleMultiplier;
-            flashlightController.sphereRadius = defaultSphereRadius * flashlightRadiusMultiplier;
-            // Không thay đổi range và intensity khi chỉ reveal
+            fieldOfViewMesh.viewAngle = defaultViewAngle * 1.5f;
+            fieldOfViewMesh.viewRadius = defaultViewRadius * 1.5f;
         }
         else
         {
-            flashlightController.flashlight.spotAngle = defaultSpotAngle;
-            flashlightController.maxDistance = defaultMaxDistance;
-            flashlightController.sphereRadius = defaultSphereRadius;
-            flashlightController.flashlight.range = defaultRange;
-            flashlightController.flashlight.intensity = defaultIntensity;
+            fieldOfViewMesh.viewAngle = defaultViewAngle;
+            fieldOfViewMesh.viewRadius = defaultViewRadius;
         }
     }
 
     private IEnumerator RevealAllPlayersCoroutine()
     {
         isRevealing = true;
-        UpdateFlashlightState();
+        UpdateFOVState();
         // Hiện tất cả player khác chỉ trên máy local
         foreach (var p in FindObjectsByType<PlayerControllerRPC>(FindObjectsSortMode.None))
         {
@@ -148,7 +123,7 @@ public class PlayerSkillController : NetworkBehaviour
                 p.SetVisibleForOther(false);
         }
         isRevealing = false;
-        UpdateFlashlightState();
+        UpdateFOVState();
         revealCoroutine = null;
     }
 
@@ -202,12 +177,12 @@ public class PlayerSkillController : NetworkBehaviour
         if (context.performed)
         {
             isAiming = true;
-            UpdateFlashlightState();
+            UpdateFOVState();
         }
         else if (context.canceled)
         {
             isAiming = false;
-            UpdateFlashlightState();
+            UpdateFOVState();
         }
     }
     private IEnumerator DashPushCoroutine()
