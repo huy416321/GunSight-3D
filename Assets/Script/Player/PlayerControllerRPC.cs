@@ -36,10 +36,8 @@ public class PlayerControllerRPC : NetworkBehaviour
     private float lastDashTime = -999f;
 
 
-    [Header("Bullet Settings")]
-    public GameObject[] bulletPrefabs; // Mỗi vũ khí 1 loại đạn
+    [Header("Bullet Settings")] 
     public Transform firePoint;
-    public float fireCooldown = 0.3f;
 
 
     [Header("UI")]
@@ -357,11 +355,11 @@ public class PlayerControllerRPC : NetworkBehaviour
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void RPC_Fire(Vector3 spawnPos, Vector3 forward, int weaponIndex)
     {
-        if (bulletPrefabs.Length > weaponIndex && bulletPrefabs[weaponIndex] != null)
+        if (weapons.Length > weaponIndex && weapons[weaponIndex] != null && weapons[weaponIndex].bulletPrefab != null)
         {
             Quaternion rot = Quaternion.LookRotation(forward);
             Vector3 offset = forward * 0.5f;
-            var bulletObj = Runner.Spawn(bulletPrefabs[weaponIndex], spawnPos + offset, rot, Object.InputAuthority);
+            var bulletObj = Runner.Spawn(weapons[weaponIndex].bulletPrefab, spawnPos + offset, rot, Object.InputAuthority);
             // Gán team cho viên đạn
             var bullet = bulletObj != null ? bulletObj.GetComponent<Bullet>() : null;
             if (bullet != null)
