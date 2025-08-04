@@ -19,9 +19,11 @@ public class MatchManager : NetworkBehaviour
     public TMP_Text winText;
     public TMP_Text timerText;
 
+
     public PlayerSpawner playerSpawner;
     public int maxRoundsToWin = 3;
     public float roundTimeLimit = 300f; // 5 phút
+
 
     public override void Spawned()
     {
@@ -69,7 +71,7 @@ public class MatchManager : NetworkBehaviour
             {
                 Debug.Log("[MatchManager] Round time out!");
                 isRoundActive = false;
-                RpcShowWinName("TIME OUT"); // hoặc gọi logic xử lý hòa
+                RpcShowWinName("TIME OUT", player1Score, player2Score); // hoặc gọi logic xử lý hòa
                 StartCoroutine(NextRoundDelay());
             }
         }
@@ -119,7 +121,7 @@ public class MatchManager : NetworkBehaviour
             else if (player2Score >= maxRoundsToWin || winnerIndex == 1)
                 winMsg = "Cướp WIN!";
             Debug.Log(winMsg);
-            RpcShowWinName(winMsg);
+            RpcShowWinName(winMsg, player1Score, player2Score);
             if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
             {
                 StartCoroutine(NextRoundDelay());
@@ -171,29 +173,24 @@ public class MatchManager : NetworkBehaviour
         UpdateUI();
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RpcShowWinName(string winMessage)
-    {
-        winText.text = winMessage;
-        isRoundActive = false;
-        // Chỉ về lobby nếu một team thắng đủ 3 round
-        if (player1Score >= maxRoundsToWin || player2Score >= maxRoundsToWin)
-        {
-            StartCoroutine(ReturnToLobbyCoroutine());
-        }
-    }
 
-    private System.Collections.IEnumerator ReturnToLobbyCoroutine()
+// Truyền cả điểm số để mọi client đều cập nhật đúng
+[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+private void RpcShowWinName(string winMessage, int p1Score, int p2Score)
+{
+    winText.text = winMessage;
+    isRoundActive = false;
+    player1Score = p1Score;
+    player2Score = p2Score;
+    UpdateUI();
+    // Nếu đã kết thúc trận thì gọi UI end game ngoài
+    if (player1Score >= maxRoundsToWin || player2Score >= maxRoundsToWin)
     {
-        yield return new WaitForSeconds(2f);
-        // Ngắt kết nối Fusion
-        if (Runner != null)
-        {
-            Runner.Shutdown();
-        }
-        // Load lại scene lobby (giả sử tên scene là "Lobby")
-        UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
+        var ui = FindObjectOfType<EndGameUIManager>();
+        if (ui != null) ui.ShowEndGame(winMessage);
     }
+}
+
 
     private void UpdateUI()
     {
