@@ -71,8 +71,13 @@ public class MatchManager : NetworkBehaviour
             {
                 Debug.Log("[MatchManager] Round time out!");
                 isRoundActive = false;
-                RpcShowWinName("TIME OUT", player1Score, player2Score); // hoặc gọi logic xử lý hòa
-                StartCoroutine(NextRoundDelay());
+                player2Score++;
+                UpdateUI();
+                RpcShowWinName("Cướp WIN! (Hết giờ)", player1Score, player2Score);
+                if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
+                {
+                    StartCoroutine(NextRoundDelay());
+                }
             }
         }
         // Luôn cập nhật UI timer cho mọi client

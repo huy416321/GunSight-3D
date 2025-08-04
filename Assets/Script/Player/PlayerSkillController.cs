@@ -197,6 +197,12 @@ public class PlayerSkillController : NetworkBehaviour
                         transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
                     }
                 }
+                else
+                {
+                    // Nếu raycast không trúng gì thì tắt trạng thái ngắm bắn
+                    isAiming = false;
+                    UpdateFOVState();
+                }
             }
         }
         else if (context.canceled)
