@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f33593176eea5f4c8944c33e5338458, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
-  weaponName: 
-  bulletPrefab: {fileID: 0}
-  fireRate: 0.5
-  maxAmmo: 30
+  weaponName: Sniper
+  bulletPrefab: {fileID: 2086261179823682334, guid: fd6afed9ffa419944ba4dec5b7edfc72, type: 3}
+  fireRate: 1
+  maxAmmo: 5
   recoilAmount: 1.5
   bulletSpread: 0.05

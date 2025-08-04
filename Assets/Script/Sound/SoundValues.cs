@@ -7,7 +7,9 @@ namespace SmallHedge.SoundManager
     {
         Shoot,
         ShotRife,
+        ShootSniper,
         Reload,
+        ReloadSniper,
         Step
     }
 }

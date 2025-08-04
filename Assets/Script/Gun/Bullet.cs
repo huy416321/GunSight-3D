@@ -6,6 +6,8 @@ public class Bullet : NetworkBehaviour
     public float speed = 20f;
     public float lifetime = 3f;
 
+    public float damage = 10f; 
+
     // Lưu team của người bắn
     public bool isPoliceShooter;
 
@@ -35,8 +37,8 @@ public class Bullet : NetworkBehaviour
             var player = other.GetComponent<PlayerControllerRPC>();
             if (player != null)
             {
-                float damage = (player.isPolice == isPoliceShooter) ? 5f : 20f;
-                player.TakeDamage(damage);
+                float finalDamage = (player.isPolice == isPoliceShooter) ? damage * 0.25f : damage;
+                player.TakeDamage(finalDamage);
             }
             Runner.Despawn(Object);
         }

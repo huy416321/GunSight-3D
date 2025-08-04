@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6712157663646941283}
   - component: {fileID: 2470738353224945149}
   m_Layer: 0
-  m_Name: SM_Bullet_01
+  m_Name: RifeBulletr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   lifetime: 3
+  damage: 30
   isPoliceShooter: 0
 --- !u!114 &-3548065792484068766
 MonoBehaviour:
