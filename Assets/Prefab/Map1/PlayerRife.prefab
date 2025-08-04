@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9776a2bbca1dd4546bfa933bc05d947a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPolice: 1
+  isPolice: 0
   moveSpeed: 5
   playerCamera: {fileID: 7663441165663397799}
   weapons:

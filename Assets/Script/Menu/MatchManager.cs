@@ -176,6 +176,23 @@ public class MatchManager : NetworkBehaviour
     {
         winText.text = winMessage;
         isRoundActive = false;
+        // Chỉ về lobby nếu một team thắng đủ 3 round
+        if (player1Score >= maxRoundsToWin || player2Score >= maxRoundsToWin)
+        {
+            StartCoroutine(ReturnToLobbyCoroutine());
+        }
+    }
+
+    private System.Collections.IEnumerator ReturnToLobbyCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        // Ngắt kết nối Fusion
+        if (Runner != null)
+        {
+            Runner.Shutdown();
+        }
+        // Load lại scene lobby (giả sử tên scene là "Lobby")
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LobbyScene");
     }
 
     private void UpdateUI()
