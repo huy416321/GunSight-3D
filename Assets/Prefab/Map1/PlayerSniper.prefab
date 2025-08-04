@@ -2936,6 +2936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9776a2bbca1dd4546bfa933bc05d947a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
   isPolice: 1
   moveSpeed: 5
   playerCamera: {fileID: 551145471570292084}

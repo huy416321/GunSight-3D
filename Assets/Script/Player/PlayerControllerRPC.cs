@@ -7,6 +7,12 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerControllerRPC : NetworkBehaviour
 {
+    [Header("VFX")]
+    public GameObject damageVFXPrefab;
+    private GameObject damageVFXInstance;
+    private float cameraShakeDuration = 0.15f;
+    private float cameraShakeMagnitude = 0.3f;
+    private Coroutine cameraShakeCoroutine;
     // true = cảnh, false = cướp
     public bool isPolice;
     [Header("Movement")]
@@ -445,6 +451,14 @@ public class PlayerControllerRPC : NetworkBehaviour
         if (!Object.HasStateAuthority) return;
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
+        // Camera shake chỉ cho local player
+        if (Object.HasInputAuthority && playerCamera != null)
+        {
+            if (cameraShakeCoroutine != null) StopCoroutine(cameraShakeCoroutine);
+            cameraShakeCoroutine = StartCoroutine(CameraShakeCoroutine());
+        }
+        // VFX sát thương cho mọi client
+        PlayDamageVFX();
         if (Object.HasInputAuthority)
         {
             var healthUI = LocalHealthUI.Instance;
@@ -470,5 +484,35 @@ public class PlayerControllerRPC : NetworkBehaviour
             renderer.enabled = visible;
         }
         // Nếu muốn chỉ hiện outline hoặc hiệu ứng đặc biệt, có thể thay đổi logic ở đây
+        // ...existing code...
     }
-}
+    // Camera shake khi bị sát thương (local only)
+    private IEnumerator CameraShakeCoroutine()
+    {
+        Vector3 originalPos = playerCamera.transform.localPosition;
+        float elapsed = 0f;
+        while (elapsed < cameraShakeDuration)
+        {
+            float x = Random.Range(-1f, 1f) * cameraShakeMagnitude;
+            float y = Random.Range(-1f, 1f) * cameraShakeMagnitude;
+            playerCamera.transform.localPosition = originalPos + new Vector3(x, y, 0);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        playerCamera.transform.localPosition = originalPos;
+    }
+
+    // VFX sát thương (cho mọi client)
+    private void PlayDamageVFX()
+    {
+        if (damageVFXPrefab == null) return;
+        if (damageVFXInstance != null)
+        {
+            Destroy(damageVFXInstance);
+        }
+        // Spawn VFX tại vị trí player, làm con của player
+        damageVFXInstance = Instantiate(damageVFXPrefab, firePoint.position, Quaternion.identity, transform);
+        // Tự huỷ sau 1s (hoặc tuỳ prefab)
+        Destroy(damageVFXInstance, 1f);
+    }
+    }

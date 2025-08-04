@@ -29335,7 +29335,7 @@ MonoBehaviour:
   quickMatchBtn: {fileID: 283850872}
   rankBtn: {fileID: 2046301182}
   prepareStartBtn: {fileID: 2071164452}
-  matchmakingCancelBtn: {fileID: 0}
+  matchmakingCancelBtn: {fileID: 257123798}
   mainStartBtn: {fileID: 2121666369}
   runner: {fileID: 170427159}
   matchMode: 2
