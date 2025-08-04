@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3548588485384254794}
   - component: {fileID: 3548588485384254795}
   - component: {fileID: 7639025572118004214}
+  - component: {fileID: -5732153513222178008}
   m_Layer: 0
   m_Name: Blood Splash
   m_TagString: Untagged
@@ -4847,3 +4848,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c44fa0a37d69ad488849b8ec6467337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5732153513222178008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3548588485384254792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1907168489
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0

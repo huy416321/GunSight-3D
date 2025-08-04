@@ -1,10 +1,7 @@
 fileFormatVersion: 2
 guid: 2f9e7dc163581394da1e00b561eed65d
-PrefabImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+labels:
+- FusionPrefab
 AssetOrigin:
   serializedVersion: 1
   productId: 244171
@@ -12,3 +9,8 @@ AssetOrigin:
   packageVersion: 1.0.1
   assetPath: Assets/Simple FX Kit/Prefabs/Blood Splash.prefab
   uploadId: 623505
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

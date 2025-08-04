@@ -457,8 +457,8 @@ public class PlayerControllerRPC : NetworkBehaviour
             if (cameraShakeCoroutine != null) StopCoroutine(cameraShakeCoroutine);
             cameraShakeCoroutine = StartCoroutine(CameraShakeCoroutine());
         }
-        // VFX sát thương cho mọi client
-        PlayDamageVFX();
+        // Gọi RPC để tất cả client đều thấy VFX sát thương
+        RPC_PlayDamageVFX();
         if (Object.HasInputAuthority)
         {
             var healthUI = LocalHealthUI.Instance;
@@ -502,7 +502,14 @@ public class PlayerControllerRPC : NetworkBehaviour
         playerCamera.transform.localPosition = originalPos;
     }
 
-    // VFX sát thương (cho mọi client)
+    // RPC để phát VFX sát thương cho mọi client
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_PlayDamageVFX()
+    {
+        PlayDamageVFX();
+    }
+
+    // VFX sát thương (chỉ gọi local, nhưng được gọi qua RPC để mọi client đều thấy)
     private void PlayDamageVFX()
     {
         if (damageVFXPrefab == null) return;
