@@ -10,9 +10,6 @@ public class PlayerControllerRPC : NetworkBehaviour
     [Header("VFX")]
     public GameObject damageVFXPrefab;
     private GameObject damageVFXInstance;
-    private float cameraShakeDuration = 0.15f;
-    private float cameraShakeMagnitude = 0.3f;
-    private Coroutine cameraShakeCoroutine;
     // true = cảnh, false = cướp
     public bool isPolice;
     [Header("Movement")]
@@ -453,12 +450,6 @@ public class PlayerControllerRPC : NetworkBehaviour
         bloodAnimation.SetTrigger("Hit"); // Gọi animation máu
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
-        // Camera shake chỉ cho local player
-        if (Object.HasInputAuthority && playerCamera != null)
-        {
-            if (cameraShakeCoroutine != null) StopCoroutine(cameraShakeCoroutine);
-            cameraShakeCoroutine = StartCoroutine(CameraShakeCoroutine());
-        }
         // Gọi RPC để tất cả client đều thấy VFX sát thương
         RPC_PlayDamageVFX();
         if (Object.HasInputAuthority)
@@ -487,21 +478,6 @@ public class PlayerControllerRPC : NetworkBehaviour
         }
         // Nếu muốn chỉ hiện outline hoặc hiệu ứng đặc biệt, có thể thay đổi logic ở đây
         // ...existing code...
-    }
-    // Camera shake khi bị sát thương (local only)
-    private IEnumerator CameraShakeCoroutine()
-    {
-        Vector3 originalPos = playerCamera.transform.localPosition;
-        float elapsed = 0f;
-        while (elapsed < cameraShakeDuration)
-        {
-            float x = Random.Range(-1f, 1f) * cameraShakeMagnitude;
-            float y = Random.Range(-1f, 1f) * cameraShakeMagnitude;
-            playerCamera.transform.localPosition = originalPos + new Vector3(x, y, 0);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        playerCamera.transform.localPosition = originalPos;
     }
 
     // RPC để phát VFX sát thương cho mọi client
