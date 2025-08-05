@@ -2649,6 +2649,7 @@ Transform:
   - {fileID: 6107328465835153645}
   - {fileID: 6953594965089962047}
   - {fileID: 6136627133466058007}
+  - {fileID: 712104156157538897}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8401236185421448872
@@ -2939,6 +2940,7 @@ MonoBehaviour:
   damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
   isPolice: 1
   moveSpeed: 5
+  bloodAnimation: {fileID: 5916019642035529333}
   playerCamera: {fileID: 551145471570292084}
   weapons:
   - {fileID: 11400000, guid: 9dd04ae698de12e4c8d3780805faeadb, type: 2}
@@ -3899,6 +3901,78 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0008254647, y: -0.1755895, z: 0.01894173}
     m_Extent: {x: 0.89670676, y: 0.9590331, z: 0.2906229}
   m_DirtyAABB: 0
+--- !u!1 &8467930606119403045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712104156157538897}
+  - component: {fileID: 5916019642035529333}
+  - component: {fileID: 1842672869840314287}
+  m_Layer: 0
+  m_Name: GetHitani
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &712104156157538897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8467930606119403045}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 876.3621, y: 713.38275, z: 98.85987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 52815773664544087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5916019642035529333
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8467930606119403045}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 306ec95bd05cc5e4fba269cee2cb7a83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1842672869840314287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8467930606119403045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: e84bfedac825c874c9be1bee7c83ffb5, type: 2}
 --- !u!1 &8500049150499979870
 GameObject:
   m_ObjectHideFlags: 0

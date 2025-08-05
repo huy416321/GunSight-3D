@@ -482,6 +482,78 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!1 &3052036880260582030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887232203404024810}
+  - component: {fileID: 6206160245328773932}
+  - component: {fileID: 1551548245517804024}
+  m_Layer: 0
+  m_Name: GetHitani
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1887232203404024810
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052036880260582030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 879.3929, y: 713.38275, z: 99.04325}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6562278165940699242}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6206160245328773932
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052036880260582030}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 306ec95bd05cc5e4fba269cee2cb7a83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1551548245517804024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052036880260582030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: e84bfedac825c874c9be1bee7c83ffb5, type: 2}
 --- !u!1 &4985692798743574936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,15 +1389,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.175373
+      value: 18.359234
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1504726
+      value: 2.1504707
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -59.262653
+      value: -58.68338
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1673,6 +1745,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5899036071472845620}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1887232203404024810}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       insertIndex: 0
       addedObject: {fileID: 401913087681301479}
@@ -2185,6 +2260,7 @@ MonoBehaviour:
   damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
   isPolice: 0
   moveSpeed: 5
+  bloodAnimation: {fileID: 6206160245328773932}
   playerCamera: {fileID: 7663441165663397799}
   weapons:
   - {fileID: 11400000, guid: 19557ff8f4bbe884f850b6ce0e5f3c17, type: 2}

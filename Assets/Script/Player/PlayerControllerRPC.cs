@@ -20,6 +20,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     private Vector2 moveInput;
     private CharacterController characterController;
     private Animator animator;
+    public Animator bloodAnimation; 
 
     [Header("Camera")]
     public Camera playerCamera;
@@ -449,6 +450,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     {
         Debug.Log($"TakeDamage called on {gameObject.name}, amount: {amount}, currentHealth: {currentHealth}, IsStateAuthority: {Object.HasStateAuthority}, IsInputAuthority: {Object.HasInputAuthority}");
         if (!Object.HasStateAuthority) return;
+        bloodAnimation.SetTrigger("Hit"); // Gọi animation máu
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
         // Camera shake chỉ cho local player
