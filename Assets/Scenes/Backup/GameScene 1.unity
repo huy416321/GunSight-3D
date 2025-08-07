@@ -3347,7 +3347,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 2280279677
+  SortKey: 600135949
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -3371,6 +3371,7 @@ MonoBehaviour:
   _currentRound: 0
   _isRoundActive: 0
   _roundTimer: 0
+  _isWaitingRound: 0
   roundText: {fileID: 1354460918}
   player1ScoreText: {fileID: 1011024950}
   player2ScoreText: {fileID: 361935553}
@@ -4899,7 +4900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7704727017105219806, guid: b8d012c5e4d72ac4991c510af43d2abf, type: 3}
       propertyPath: SortKey
-      value: 2169195756
+      value: 489052028
       objectReference: {fileID: 0}
     - target: {fileID: 8723151538019943266, guid: b8d012c5e4d72ac4991c510af43d2abf, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5031,7 +5032,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1048191236
+  SortKey: 3663014804
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -9075,7 +9076,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 132707310102409467, guid: 021ed61f088678e408f7f2bc2b1035ab, type: 3}
       propertyPath: SortKey
-      value: 3561546665
+      value: 1881402937
       objectReference: {fileID: 0}
     - target: {fileID: 3435979917184028415, guid: 021ed61f088678e408f7f2bc2b1035ab, type: 3}
       propertyPath: m_LocalPosition.x
