@@ -45,6 +45,16 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnAim(InputValue value) 
+        {
+            AimInput(value.isPressed);
+        }
+
+        public void OnShoot(InputValue value) 
+        {
+            ShootInput(value.isPressed);
+        }
 #endif
 
 
