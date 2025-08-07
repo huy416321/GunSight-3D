@@ -2004,7 +2004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4911945978013901975}
   - component: {fileID: 5614915578805974435}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: Ch18 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3842,7 +3842,7 @@ GameObject:
   - component: {fileID: 969479318541115212}
   - component: {fileID: 5816352499722344507}
   m_Layer: 6
-  m_Name: PlayerSheld 1
+  m_Name: PlayerSheld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3857,7 +3857,7 @@ Transform:
   m_GameObject: {fileID: 9174684199419614146}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.667156, y: 2.1504698, z: -38.807076}
+  m_LocalPosition: {x: 16.2, y: 2.1504698, z: -59.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4173,7 +4173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
-  isPolice: 0
+  isPolice: 1
   moveSpeed: 5
   bloodAnimation: {fileID: 6274332526747862304}
   playerCamera: {fileID: 5926721670727838354}
@@ -4191,7 +4191,7 @@ MonoBehaviour:
   grenadeSpawnPoint: {fileID: 2656049597271426962}
   grenadeThrowForce: 0
   grenadeCooldown: 3
-  _NetworkedPosition: {x: 37.667156, y: 2.1504698, z: -38.807076}
+  _NetworkedPosition: {x: 16.2, y: 2.1504698, z: -59.3}
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
@@ -4255,7 +4255,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 834918368
+  SortKey: 3548692394
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
