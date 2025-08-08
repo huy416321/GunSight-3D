@@ -26737,6 +26737,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerShieldthir
       objectReference: {fileID: 0}
+    - target: {fileID: 7701548470004614307, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.419
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701548470004614307, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.384
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701548470004614307, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
