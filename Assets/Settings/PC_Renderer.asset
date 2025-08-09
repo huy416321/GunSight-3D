@@ -200,7 +200,8 @@ MonoBehaviour:
   - {fileID: -5490336712799510547}
   - {fileID: -6486041166675910952}
   - {fileID: -3008184636688074538}
-  m_RendererFeatureMap: ad6b866f10d7b46cc8989652555bea87e6b611c5ba0fe610fc1f4941a8ad9b6bed9f4c48d967ceb3d8deb865ecf3fca5d6786bcf02c840d6
+  - {fileID: 4638760382341437131}
+  m_RendererFeatureMap: ad6b866f10d7b46cc8989652555bea87e6b611c5ba0fe610fc1f4941a8ad9b6bed9f4c48d967ceb3d8deb865ecf3fca5d6786bcf02c840d6cbd69d93fd2f6040
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -219,7 +220,7 @@ MonoBehaviour:
     failOperation: 0
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
-  m_RenderingMode: 2
+  m_RenderingMode: 1
   m_DepthPrimingMode: 0
   m_CopyDepthMode: 0
   m_DepthAttachmentFormat: 0
@@ -268,6 +269,19 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 60
+--- !u!114 &4638760382341437131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88220018f1b06b344a49d415134312c6, type: 3}
+  m_Name: PRISMDeferredNightVisionFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
 --- !u!114 &7753982121609863164
 MonoBehaviour:
   m_ObjectHideFlags: 0
