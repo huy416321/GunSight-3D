@@ -5,8 +5,11 @@ using StarterAssets;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 using UnityEngine.Animations.Rigging;
+using Fusion;
+using System;
 
-public class ThirdPersonShooterController : MonoBehaviour {
+public class ThirdPersonShooterController : MonoBehaviour
+{
 
     [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
@@ -19,6 +22,7 @@ public class ThirdPersonShooterController : MonoBehaviour {
     [SerializeField] private Transform vfxHitGreen;
     [SerializeField] private Transform vfxHitRed;
 
+    private Vector3 mouseWorldPosition;
     private ThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
     private Animator animator;
@@ -33,7 +37,7 @@ public class ThirdPersonShooterController : MonoBehaviour {
 
     private void Update()
     {
-        Vector3 mouseWorldPosition = Vector3.zero;
+        mouseWorldPosition = Vector3.zero;
 
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
@@ -45,29 +49,8 @@ public class ThirdPersonShooterController : MonoBehaviour {
             hitTransform = raycastHit.transform;
         }
 
-        if (starterAssetsInputs.aim)
-        {
-            aimVirtualCamera.gameObject.SetActive(true);
-            thirdPersonController.SetSensitivity(aimSensitivity);
-            thirdPersonController.SetRotateOnMove(false);
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
-            aimRigweight = 1f;
-
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-
-            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
-        }
-        else
-        {
-            aimVirtualCamera.gameObject.SetActive(false);
-            thirdPersonController.SetSensitivity(normalSensitivity);
-            thirdPersonController.SetRotateOnMove(true);
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
-            aimRigweight = 0f;
-        }
-
+        RpcAim();
+        RpcSkill();
 
         if (starterAssetsInputs.shoot)
         {
@@ -91,9 +74,45 @@ public class ThirdPersonShooterController : MonoBehaviour {
             //*/
             starterAssetsInputs.shoot = false;
         }
-        
+
         aimRig.weight = Mathf.Lerp(aimRig.weight, aimRigweight, Time.deltaTime * 20f);
 
     }
 
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RpcAim()
+    {
+        if (starterAssetsInputs.aim)
+        {
+            aimVirtualCamera.gameObject.SetActive(true);
+            thirdPersonController.SetSensitivity(aimSensitivity);
+            thirdPersonController.SetRotateOnMove(false);
+            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
+            aimRigweight = 1f;
+
+            Vector3 worldAimTarget = mouseWorldPosition;
+            worldAimTarget.y = transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+
+            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+        }
+        else
+        {
+            aimVirtualCamera.gameObject.SetActive(false);
+            thirdPersonController.SetSensitivity(normalSensitivity);
+            thirdPersonController.SetRotateOnMove(true);
+            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
+            aimRigweight = 0f;
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RpcSkill()
+    {
+        if (starterAssetsInputs.skill)
+        {
+            animator.SetTrigger("Skill");
+            starterAssetsInputs.skill = false;
+        }
+    }
 }

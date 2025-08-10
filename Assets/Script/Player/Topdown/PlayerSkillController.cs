@@ -56,11 +56,11 @@ public class PlayerSkillController : NetworkBehaviour
     {
         // Không cho di chuyển 1 giây
         var playerController = GetComponent<PlayerControllerRPC>();
-        float originalMoveSpeed = 0f;
+        float originalMoveSpeed = 5f;
         if (playerController != null)
         {
             originalMoveSpeed = playerController.moveSpeed;
-            playerController.moveSpeed = 0f;
+            playerController.moveSpeed = 5f;
         }
         yield return new WaitForSeconds(0.5f);
         if (playerController != null)
