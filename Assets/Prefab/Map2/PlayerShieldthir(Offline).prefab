@@ -1269,6 +1269,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cd51ed452ecfc4eb1dcffeb6f85b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SortKey: 883567813
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3271159270254889387}
+  ForceRemoteRenderTimeframe: 0
+  classPlayer: 0
   aimRig: {fileID: 2612516781581876078}
   aimVirtualCamera: {fileID: 4424998355679491481}
   normalSensitivity: 1
@@ -1281,6 +1289,8 @@ MonoBehaviour:
   spawnBulletPosition: {fileID: 8800568730079493199}
   vfxHitGreen: {fileID: 0}
   vfxHitRed: {fileID: 0}
+  NightVisionEffect: {fileID: 0}
+  light: {fileID: 0}
 --- !u!114 &6917722155716206595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,6 +1326,9 @@ MonoBehaviour:
   sprint: 0
   aim: 0
   shoot: 0
+  skill: 0
+  kneel: 0
+  light: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1

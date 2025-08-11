@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using Fusion;
 
-public class LocalAmmoUI : MonoBehaviour
+public class LocalAmmoUI : NetworkBehaviour
 {
     public static LocalAmmoUI Instance;
     public TextMeshProUGUI ammoText;

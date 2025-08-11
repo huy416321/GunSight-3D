@@ -1,4 +1,5 @@
 using UnityEngine;
+using Fusion;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif

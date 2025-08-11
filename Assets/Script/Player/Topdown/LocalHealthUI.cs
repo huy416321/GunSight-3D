@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Fusion;
 
-public class LocalHealthUI : MonoBehaviour
+public class LocalHealthUI : NetworkBehaviour
 {
     public static LocalHealthUI Instance;
     public Slider healthSlider;

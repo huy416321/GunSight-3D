@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
+using Fusion;
 
-public class UIManager : MonoBehaviour
+public class UIManager : NetworkBehaviour
 {
     [SerializeField] private TextMeshProUGUI ammoText;
 
