@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d2cbfc23f95dff34ab63bf0c3418b478
+guid: 066d8229d4f733f4f9af5562273885cb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,23 +31,23 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Crouched Run
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 39
-      lastFrame: 65
+      firstFrame: 0
+      lastFrame: 46
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0

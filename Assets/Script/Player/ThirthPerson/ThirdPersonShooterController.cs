@@ -11,6 +11,7 @@ using System;
 public class ThirdPersonShooterController : MonoBehaviour
 {
 
+    [SerializeField] private Classplayer classPlayer;
     [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
     [SerializeField] private float normalSensitivity;
@@ -27,6 +28,9 @@ public class ThirdPersonShooterController : MonoBehaviour
     private StarterAssetsInputs starterAssetsInputs;
     private Animator animator;
     private float aimRigweight;
+
+    public GameObject NightVisionEffect;
+    public Light light;
 
     private void Awake()
     {
@@ -51,7 +55,18 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         RpcAim();
         RpcSkill();
+        RpcKneel();
+        RpcShoot();
+        Rpclight();
 
+
+        aimRig.weight = Mathf.Lerp(aimRig.weight, aimRigweight, Time.deltaTime * 20f);
+
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RpcShoot()
+    {
         if (starterAssetsInputs.shoot)
         {
             /*
@@ -74,12 +89,9 @@ public class ThirdPersonShooterController : MonoBehaviour
             //*/
             starterAssetsInputs.shoot = false;
         }
-
-        aimRig.weight = Mathf.Lerp(aimRig.weight, aimRigweight, Time.deltaTime * 20f);
-
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     private void RpcAim()
     {
         if (starterAssetsInputs.aim)
@@ -106,13 +118,44 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RpcKneel()
+    {
+        if (starterAssetsInputs.kneel)
+        {
+            animator.SetBool("Kneel", true);
+        }
+        else
+        {
+            animator.SetBool("Kneel", false);
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     private void RpcSkill()
     {
-        if (starterAssetsInputs.skill)
+        if (starterAssetsInputs.skill && classPlayer == Classplayer.Shielder)
         {
             animator.SetTrigger("Skill");
             starterAssetsInputs.skill = false;
         }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void Rpclight()
+    {
+        if (starterAssetsInputs.light)
+        {
+            light.enabled = !light.enabled;
+            starterAssetsInputs.light = false;
+        }
+    }
+
+
+    public enum Classplayer
+    {
+        Rife,
+        Sniper,
+        Shielder
     }
 }

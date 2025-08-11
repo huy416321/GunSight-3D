@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Fusion;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -297,6 +298,7 @@ namespace StarterAssets
             }
         }
 
+        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
         private void JumpAndGravity()
         {
             if (Grounded)

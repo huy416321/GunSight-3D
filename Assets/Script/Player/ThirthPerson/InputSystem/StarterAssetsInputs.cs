@@ -15,6 +15,8 @@ namespace StarterAssets
 		public bool aim;
 		public bool shoot;
 		public bool skill;
+		public bool kneel;
+		public bool light;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -59,7 +61,17 @@ namespace StarterAssets
 
 		public void OnSkill(InputValue value) 
 		{
-			skill = value.isPressed;
+			SkillInput(value.isPressed);
+		}
+
+		public void OnKneel(InputValue value) 
+		{
+			KneelInput(value.isPressed);
+		}
+
+		public void OnLight(InputValue value) 
+		{
+			LightInput(value.isPressed);
 		}
 #endif
 
@@ -96,6 +108,16 @@ namespace StarterAssets
 		public void SkillInput(bool newSkillState)
 		{
 			skill = newSkillState;
+		}
+
+		public void KneelInput(bool newKneelState)
+		{
+			kneel = newKneelState;
+		}
+
+		public void LightInput(bool newLightState)
+		{
+			light = newLightState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
