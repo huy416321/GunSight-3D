@@ -816,7 +816,7 @@ Transform:
   m_GameObject: {fileID: 1981605898986131094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.70000076, y: 1.6249998, z: -4}
+  m_LocalPosition: {x: -4.2315273, y: 1.6249976, z: -4.632557}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 285631585073384450}
   - component: {fileID: 6175862699398897853}
   - component: {fileID: 7958918106045463313}
-  - component: {fileID: 1538832115762822534}
+  - component: {fileID: -3456332971507389337}
   m_Layer: 8
   m_Name: PlayerShieldthir
   m_TagString: Player
@@ -1272,7 +1272,7 @@ Transform:
   m_GameObject: {fileID: 2847376567262337542}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.03572, y: 2.1405964, z: -49.650246}
+  m_LocalPosition: {x: 22.388462, y: 2.1504717, z: -58.43357}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1672,9 +1672,9 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 6175862699398897853}
-  - {fileID: 1538832115762822534}
+  - {fileID: -3456332971507389337}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &1538832115762822534
+--- !u!114 &-3456332971507389337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

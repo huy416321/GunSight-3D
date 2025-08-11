@@ -4916,7 +4916,7 @@ MonoBehaviour:
   player2ScoreText: {fileID: 361935553}
   winText: {fileID: 1354460918}
   timerText: {fileID: 1407145204}
-  playerSpawner: {fileID: 632645627}
+  playerSpawner: {fileID: 0}
   maxRoundsToWin: 3
   roundTimeLimit: 200
 --- !u!4 &414956259
@@ -7065,22 +7065,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 632645621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b572c98c0bde7478fa095a1a311e12, type: 3}
+  m_Script: {fileID: 11500000, guid: 516c95a4053fa4d4589d901d297d6943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 0}
   player1Prefab:
     RawGuidValue: c1e5949c8e6ee4b4fbf7b9077e21f70d
   player2Prefab:
-    RawGuidValue: c1e5949c8e6ee4b4fbf7b9077e21f70d
+    RawGuidValue: f890b553e37d00f4aaaa26669d5fb853
   player3Prefab:
-    RawGuidValue: e2b1d90a1b354824f879e85d594fb717
+    RawGuidValue: 00000000000000000000000000000000
   player4Prefab:
     RawGuidValue: 00000000000000000000000000000000
-  player1SpawnPos: {x: 20.177813, y: 2.1504703, z: -56.935944}
-  player2SpawnPos: {x: 22.041786, y: 2.1504703, z: -58.791203}
-  player3SpawnPos: {x: 34.469055, y: 2.1504698, z: -38.019592}
-  player4SpawnPos: {x: 40.92376, y: 2.1504698, z: -38.212257}
+  player1SpawnPos: {x: 22.38846, y: 2.1504717, z: -58.43357}
+  player2SpawnPos: {x: 17.45693, y: 2.1504693, z: -59.066128}
+  player3SpawnPos: {x: 0, y: 0, z: 0}
+  player4SpawnPos: {x: 0, y: 0, z: 0}
 --- !u!1 &647618022
 GameObject:
   m_ObjectHideFlags: 0
