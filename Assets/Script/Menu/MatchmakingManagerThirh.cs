@@ -4,7 +4,7 @@ using TMPro;
 using Fusion;
 using System.Collections;
 
-public class MatchmakingManager : MonoBehaviour
+public class MatchmakingManagerThirh : MonoBehaviour
 {
     // Các GameObject sẽ kích hoạt lần lượt khi có người chơi mới
     public GameObject[] activateOnPlayerJoin;
@@ -28,7 +28,8 @@ public class MatchmakingManager : MonoBehaviour
     {
         ShowPanel(panelMain); // Hiện panel chính đầu tiên
         mainStartBtn.onClick.AddListener(() => ShowPanel(panelModeSelect)); // Bấm Start Game -> panel chọn chế độ
-        quickMatchBtn.onClick.AddListener(() => OnModeSelected("QuickMatch"));
+        // quickMatchBtn.onClick.AddListener(() => OnModeSelected("QuickMatch"));
+        rankBtn.onClick.AddListener(() => OnModeSelected("Rank"));
         prepareStartBtn.onClick.AddListener(StartMatchmaking);
         matchmakingCancelBtn.onClick.AddListener(CancelMatchmaking);
 
@@ -117,7 +118,7 @@ public class MatchmakingManager : MonoBehaviour
                 // Đủ người thì chuyển scene, đếm ngược sẽ xử lý ở PlayerSpawner
                 if (runner != null)
                 {
-                    runner.LoadScene("GameScene");
+                    runner.LoadScene("RankedScene");
                 }
                 yield break;
             }

@@ -17,7 +17,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     private Vector2 moveInput;
     private CharacterController characterController;
     private Animator animator;
-    public Animator bloodAnimation; 
+    public Animator bloodAnimation;
 
     [Header("Camera")]
     public Camera playerCamera;
@@ -40,7 +40,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     private float lastDashTime = -999f;
 
 
-    [Header("Bullet Settings")] 
+    [Header("Bullet Settings")]
     public Transform firePoint;
 
 
@@ -63,6 +63,9 @@ public class PlayerControllerRPC : NetworkBehaviour
     private float currentHealth;
 
     private LocalAmmoUI localAmmoUI;
+
+    public AudioClip[] FootstepAudioClips;
+    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
     private void Awake()
     {
@@ -155,7 +158,7 @@ public class PlayerControllerRPC : NetworkBehaviour
             RPC_Fire(firePoint.position, forward, currentWeaponIndex);
             RPC_PlayAnim("Shoot");
             ApplyRecoil(weapon.recoilAmount);
-        }    
+        }
 
         // Gửi vị trí lên network
         RPC_UpdateTransform(transform.position, transform.rotation);
@@ -231,22 +234,22 @@ public class PlayerControllerRPC : NetworkBehaviour
         }
     }
 
-// Bắn
+    // Bắn
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed)
-        isFiring = true;
+            isFiring = true;
         else if (context.canceled)
-        isFiring = false;
+            isFiring = false;
     }
     private void ApplyRecoil(float amount)
     {
         transform.position -= transform.forward * 0.05f * amount;
         // hoặc thêm animation nếu thích
     }
-//
+    //
 
-// Nạp đạn
+    // Nạp đạn
     public void OnReload(InputAction.CallbackContext context)
     {
         if (!Object.HasInputAuthority) return;
@@ -279,7 +282,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     }
     //
 
-// Chuyển đổi vũ khí
+    // Chuyển đổi vũ khí
     public void OnSwitchWeapon1(InputAction.CallbackContext context)
     {
         if (context.performed) SwitchWeapon(0);
@@ -500,4 +503,16 @@ public class PlayerControllerRPC : NetworkBehaviour
         // Tự huỷ sau 1s (hoặc tuỳ prefab)
         Destroy(damageVFXInstance, 1f);
     }
+    
+    private void OnFootstep(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            {
+                if (FootstepAudioClips.Length > 0)
+                {
+                    var index = Random.Range(0, FootstepAudioClips.Length);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(characterController.center), FootstepAudioVolume);
+                }
+            }
+        }
     }
