@@ -9720,7 +9720,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801514893}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11345,6 +11345,14 @@ PrefabInstance:
     - target: {fileID: 2847376567262337542, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
       propertyPath: m_Name
       value: PlayerShieldthir
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042158492782247388, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
+      propertyPath: light
+      value: 
+      objectReference: {fileID: 801514896}
+    - target: {fileID: 5042158492782247388, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
+      propertyPath: classPlayer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6378023754075968385, guid: c1e5949c8e6ee4b4fbf7b9077e21f70d, type: 3}
       propertyPath: m_LocalPosition.x
