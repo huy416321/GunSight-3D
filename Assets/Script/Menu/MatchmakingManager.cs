@@ -6,6 +6,7 @@ using System.Collections;
 
 public class MatchmakingManager : MonoBehaviour
 {
+    private string sceneToLoad;
     // Các GameObject sẽ kích hoạt lần lượt khi có người chơi mới
     public GameObject[] activateOnPlayerJoin;
     public GameObject panelModeSelect;
@@ -53,7 +54,18 @@ public class MatchmakingManager : MonoBehaviour
 
     void OnModeSelected(string mode)
     {
-        // Lưu mode nếu cần
+        // Chọn scene theo mode
+        if (mode == "QuickMatch")
+        {
+            sceneToLoad = "GameScene";
+            matchMode = MatchMode.Host;
+        }
+        else if (mode == "Rank")
+        {
+            sceneToLoad = "RankedScene";
+            matchMode = MatchMode.Host;
+        }
+        // Có thể thêm các mode khác nếu cần
         StartCoroutine(WaitForChangePanel()); // Chọn chế độ xong -> panel chuẩn bị
     }
     IEnumerator WaitForChangePanel()
@@ -115,10 +127,10 @@ public class MatchmakingManager : MonoBehaviour
             // Kiểm tra nếu đã đủ 2 người
             if (CheckEnoughPlayers())
             {
-                // Đủ người thì chuyển scene, đếm ngược sẽ xử lý ở PlayerSpawner
+                // Đủ người thì chuyển scene đúng theo mode
                 if (runner != null)
                 {
-                    runner.LoadScene("GameScene");
+                    runner.LoadScene(sceneToLoad);
                 }
                 yield break;
             }
