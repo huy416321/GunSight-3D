@@ -59,7 +59,7 @@ public class MatchmakingManagerThirh : MonoBehaviour
     IEnumerator WaitForChangePanel()
     {
         yield return new WaitForSeconds(1f);
-        ShowPanel(panelPrepare);
+        // ShowPanel(panelPrepare);
     }
 
     async void StartMatchmaking()
@@ -131,7 +131,7 @@ public class MatchmakingManagerThirh : MonoBehaviour
         if (runner == null)
             runner = FindFirstObjectByType<NetworkRunner>();
         if (runner != null && runner.SessionInfo != null)
-            return runner.SessionInfo.PlayerCount >= 2;
+            return runner.SessionInfo.PlayerCount >= 1;
         return false;
     }
 
