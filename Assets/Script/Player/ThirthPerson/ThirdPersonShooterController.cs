@@ -8,7 +8,7 @@ using UnityEngine.Animations.Rigging;
 using Fusion;
 using System;
 
-public class ThirdPersonShooterController : MonoBehaviour
+public class ThirdPersonShooterController : NetworkBehaviour
 {
 
     [SerializeField] private Classplayer classPlayer;

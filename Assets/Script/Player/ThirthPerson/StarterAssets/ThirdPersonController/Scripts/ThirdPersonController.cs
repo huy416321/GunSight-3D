@@ -13,7 +13,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : NetworkBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -161,15 +161,18 @@ namespace StarterAssets
 
         private void Update()
         {
+            // Chỉ xử lý cho chính player (InputAuthority)
+            if (!HasInputAuthority) return;
             _hasAnimator = TryGetComponent(out _animator);
-
-            JumpAndGravity();
+            RpcJumpAndGravity();
             GroundedCheck();
             Move();
         }
 
         private void LateUpdate()
         {
+            // Chỉ xử lý camera cho chính player
+            if (!HasInputAuthority) return;
             CameraRotation();
         }
 
@@ -299,7 +302,7 @@ namespace StarterAssets
         }
 
         [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-        private void JumpAndGravity()
+        private void RpcJumpAndGravity()
         {
             if (Grounded)
             {
