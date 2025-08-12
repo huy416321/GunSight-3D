@@ -301,7 +301,7 @@ namespace StarterAssets
             }
         }
 
-        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
         private void RpcJumpAndGravity()
         {
             if (Grounded)

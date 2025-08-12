@@ -64,7 +64,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void RpcShoot()
     {
         if (starterAssetsInputs.shoot)
@@ -91,7 +91,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void RpcAim()
     {
         if (starterAssetsInputs.aim)
@@ -118,7 +118,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void RpcKneel()
     {
         if (starterAssetsInputs.kneel)
@@ -131,7 +131,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void RpcSkill()
     {
         if (starterAssetsInputs.skill && classPlayer == Classplayer.Shielder)
@@ -141,7 +141,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void Rpclight()
     {
         if (starterAssetsInputs.light)

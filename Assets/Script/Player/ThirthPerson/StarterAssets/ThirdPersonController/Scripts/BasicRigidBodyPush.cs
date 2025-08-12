@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Fusion;
 
-public class BasicRigidBodyPush : MonoBehaviour
+public class BasicRigidBodyPush : NetworkBehaviour
 {
 	public LayerMask pushLayers;
 	public bool canPush;
