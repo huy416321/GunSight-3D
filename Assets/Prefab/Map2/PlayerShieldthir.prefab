@@ -816,7 +816,7 @@ Transform:
   m_GameObject: {fileID: 1981605898986131094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.2315273, y: 1.6249976, z: -4.632557}
+  m_LocalPosition: {x: 0.70000076, y: 1.625, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1255,6 +1255,7 @@ GameObject:
   - component: {fileID: 285631585073384450}
   - component: {fileID: 6175862699398897853}
   - component: {fileID: 7958918106045463313}
+  - component: {fileID: 5020274703846450563}
   m_Layer: 8
   m_Name: PlayerShieldthir
   m_TagString: Player
@@ -1383,6 +1384,11 @@ MonoBehaviour:
   CameraAngleOverride: 0
   LockCameraPosition: 0
   RotationSpeed: 100
+  _NetSpeed: 0
+  _NetMotionSpeed: 0
+  _NetGrounded: 0
+  _NetJump: 0
+  _NetFreeFall: 0
 --- !u!114 &5042158492782247388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1398,6 +1404,7 @@ MonoBehaviour:
   classPlayer: 2
   aimRig: {fileID: 2612516781581876078}
   aimVirtualCamera: {fileID: 4424998355679491481}
+  followVirtualCamera: {fileID: 0}
   normalSensitivity: 1
   aimSensitivity: 0.5
   aimColliderLayerMask:
@@ -1675,7 +1682,21 @@ MonoBehaviour:
   - {fileID: 6917722155716206595}
   - {fileID: 3271159270254889387}
   - {fileID: 6175862699398897853}
+  - {fileID: 5020274703846450563}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &5020274703846450563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847376567262337542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574b1f66749cf0e4c9bdf3fe512092aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InterpSpeed: 15
 --- !u!1 &2860197077301654842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,7 +1968,7 @@ MonoBehaviour:
   CameraDistance: 4
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 773
+    m_Bits: 837
   IgnoreTag: Player
   CameraRadius: 0.15
   DampingIntoCollision: 0
@@ -2034,7 +2055,7 @@ MonoBehaviour:
   CameraDistance: 2.5
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 773
+    m_Bits: 837
   IgnoreTag: Player
   CameraRadius: 0.15
   DampingIntoCollision: 0

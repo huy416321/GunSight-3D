@@ -10,15 +10,15 @@ public class SimpleNetworkTransform : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (Object.HasStateAuthority)
+        if (HasInputAuthority)
         {
-            // Sync local transform lên network
+            Debug.Log($"[SNT] HasInputAuthority: Syncing position {transform.position} and rotation {transform.rotation}");
             NetworkPosition = transform.position;
             NetworkRotation = transform.rotation;
         }
         else
         {
-            // Interpolate từ network về local
+            Debug.Log($"[SNT] No InputAuthority: Interpolating to {NetworkPosition} / {NetworkRotation}");
             transform.position = Vector3.Lerp(transform.position, NetworkPosition, Runner.DeltaTime * InterpSpeed);
             transform.rotation = Quaternion.Slerp(transform.rotation, NetworkRotation, Runner.DeltaTime * InterpSpeed);
         }

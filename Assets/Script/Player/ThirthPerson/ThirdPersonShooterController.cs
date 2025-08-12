@@ -14,6 +14,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [SerializeField] private Classplayer classPlayer;
     [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera followVirtualCamera;
     [SerializeField] private float normalSensitivity;
     [SerializeField] private float aimSensitivity;
     [SerializeField] private LayerMask aimColliderLayerMask = new LayerMask();
@@ -41,25 +42,38 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Update()
     {
-        mouseWorldPosition = Vector3.zero;
-
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-        Transform hitTransform = null;
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+        if (HasInputAuthority)
         {
-            debugTransform.position = raycastHit.point;
-            mouseWorldPosition = raycastHit.point;
-            hitTransform = raycastHit.transform;
+            mouseWorldPosition = Vector3.zero;
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+            Transform hitTransform = null;
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderLayerMask))
+            {
+                debugTransform.position = raycastHit.point;
+                mouseWorldPosition = raycastHit.point;
+                hitTransform = raycastHit.transform;
+            }
+
+            RpcAim();
+            RpcSkill();
+            RpcKneel();
+            RpcShoot();
+            Rpclight();
+            // Luôn bật camera follow cho player local
+            if (followVirtualCamera != null && !followVirtualCamera.gameObject.activeSelf)
+                followVirtualCamera.gameObject.SetActive(true);
         }
-
-        RpcAim();
-        RpcSkill();
-        RpcKneel();
-        RpcShoot();
-        Rpclight();
-
-
+        else
+        {
+            // Tắt camera follow cho player remote
+            if (followVirtualCamera != null && followVirtualCamera.gameObject.activeSelf)
+                followVirtualCamera.gameObject.SetActive(false);
+            // Tắt camera aim cho player remote (phòng trường hợp bị bật)
+            if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
+                aimVirtualCamera.gameObject.SetActive(false);
+        }
+        // Luôn sync aimRig cho mọi người chơi
         aimRig.weight = Mathf.Lerp(aimRig.weight, aimRigweight, Time.deltaTime * 20f);
 
     }
