@@ -10,6 +10,11 @@ using System;
 
 public class ThirdPersonShooterController : NetworkBehaviour
 {
+    // Networked animation states
+    [Networked] private bool IsAiming { get; set; }
+    [Networked] private bool IsKneeling { get; set; }
+    [Networked] private bool IsUsingSkill { get; set; }
+    [Networked] private float NetAimRigWeight { get; set; }
 
     [SerializeField] private Classplayer classPlayer;
     [SerializeField] private Rig aimRig;
@@ -31,7 +36,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     private float aimRigweight;
 
     public GameObject NightVisionEffect;
-    public Light light;
+    public new Light light;
 
     private void Awake()
     {
@@ -55,14 +60,24 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 hitTransform = raycastHit.transform;
             }
 
-            RpcAim();
-            RpcSkill();
-            RpcKneel();
+            // Cập nhật trạng thái networked
+            IsAiming = starterAssetsInputs.aim;
+            IsKneeling = starterAssetsInputs.kneel;
+            IsUsingSkill = starterAssetsInputs.skill && classPlayer == Classplayer.Shielder;
+
+            // Cập nhật NetAimRigWeight cho mọi client
+            NetAimRigWeight = aimRigweight;
+
             RpcShoot();
             Rpclight();
             // Luôn bật camera follow cho player local
             if (followVirtualCamera != null && !followVirtualCamera.gameObject.activeSelf)
                 followVirtualCamera.gameObject.SetActive(true);
+
+            // Set Animator cho local player
+            animator.SetBool("Kneel", starterAssetsInputs.kneel);
+            animator.SetBool("Skill", starterAssetsInputs.skill && classPlayer == Classplayer.Shielder);
+            animator.SetLayerWeight(1, starterAssetsInputs.aim ? 1f : 0f);
         }
         else
         {
@@ -72,9 +87,16 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Tắt camera aim cho player remote (phòng trường hợp bị bật)
             if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
                 aimVirtualCamera.gameObject.SetActive(false);
+
+            // Set Animator cho remote player
+            animator.SetBool("Kneel", IsKneeling);
+            animator.SetBool("Skill", IsUsingSkill);
+            animator.SetLayerWeight(1, IsAiming ? 1f : 0f);
+            // Nếu muốn remote client cũng quay hướng aim, có thể thêm code nội suy transform.forward ở đây
         }
+
         // Luôn sync aimRig cho mọi người chơi
-        aimRig.weight = Mathf.Lerp(aimRig.weight, aimRigweight, Time.deltaTime * 20f);
+        aimRig.weight = Mathf.Lerp(aimRig.weight, HasInputAuthority ? aimRigweight : NetAimRigWeight, Time.deltaTime * 20f);
 
     }
 
@@ -105,55 +127,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    private void RpcAim()
-    {
-        if (starterAssetsInputs.aim)
-        {
-            aimVirtualCamera.gameObject.SetActive(true);
-            thirdPersonController.SetSensitivity(aimSensitivity);
-            thirdPersonController.SetRotateOnMove(false);
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 13f));
-            aimRigweight = 1f;
 
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-
-            transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
-        }
-        else
-        {
-            aimVirtualCamera.gameObject.SetActive(false);
-            thirdPersonController.SetSensitivity(normalSensitivity);
-            thirdPersonController.SetRotateOnMove(true);
-            animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 0f, Time.deltaTime * 13f));
-            aimRigweight = 0f;
-        }
-    }
-
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    private void RpcKneel()
-    {
-        if (starterAssetsInputs.kneel)
-        {
-            animator.SetBool("Kneel", true);
-        }
-        else
-        {
-            animator.SetBool("Kneel", false);
-        }
-    }
-
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    private void RpcSkill()
-    {
-        if (starterAssetsInputs.skill && classPlayer == Classplayer.Shielder)
-        {
-            animator.SetTrigger("Skill");
-            starterAssetsInputs.skill = false;
-        }
-    }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void Rpclight()
