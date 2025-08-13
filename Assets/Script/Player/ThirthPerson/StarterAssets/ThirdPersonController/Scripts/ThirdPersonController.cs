@@ -15,6 +15,16 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : NetworkBehaviour
     {
+        // Networked position/rotation/velocity for Fusion
+        [Networked] private Vector3 NetworkPosition { get; set; }
+        [Networked] private Quaternion NetworkRotation { get; set; }
+        [Networked] private Vector3 NetworkVelocity { get; set; }
+
+        // Interpolation/snap config
+        public float InterpSpeed = 15f;
+        public float SnapThreshold = 2.0f;
+        public float ExtrapolationTime = 0.1f;
+        private Vector3 lastPosition;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -147,6 +157,8 @@ namespace StarterAssets
 
         private void Start()
         {
+            lastPosition = transform.position;
+        
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -173,6 +185,11 @@ namespace StarterAssets
                 JumpAndGravityShared();
                 GroundedCheckShared();
                 MoveShared();
+                // Đồng bộ vị trí, rotation, velocity lên mạng
+                NetworkPosition = transform.position;
+                NetworkRotation = transform.rotation;
+                NetworkVelocity = (transform.position - lastPosition) / Time.deltaTime;
+                lastPosition = transform.position;
                 // Local player: set animator bằng giá trị local
                 if (_hasAnimator)
                 {
@@ -185,6 +202,20 @@ namespace StarterAssets
             }
             else
             {
+                // Dự đoán vị trí dựa trên velocity
+                Vector3 predictedPosition = NetworkPosition + NetworkVelocity * ExtrapolationTime;
+                // Nếu lệch xa thì snap luôn
+                if (Vector3.Distance(transform.position, predictedPosition) > SnapThreshold)
+                {
+                    transform.position = predictedPosition;
+                    transform.rotation = NetworkRotation;
+                }
+                else
+                {
+                    // Nội suy mượt mà
+                    transform.position = Vector3.Lerp(transform.position, predictedPosition, Time.deltaTime * InterpSpeed);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, NetworkRotation, Time.deltaTime * InterpSpeed);
+                }
                 // Remote player: set animator bằng giá trị networked
                 if (_hasAnimator)
                 {

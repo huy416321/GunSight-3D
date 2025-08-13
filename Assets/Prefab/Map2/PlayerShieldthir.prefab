@@ -1404,7 +1404,7 @@ MonoBehaviour:
   classPlayer: 2
   aimRig: {fileID: 2612516781581876078}
   aimVirtualCamera: {fileID: 4424998355679491481}
-  followVirtualCamera: {fileID: 0}
+  followVirtualCamera: {fileID: 1634800772202309465}
   normalSensitivity: 1
   aimSensitivity: 0.5
   aimColliderLayerMask:
@@ -1697,6 +1697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InterpSpeed: 15
+  SnapThreshold: 2
+  ExtrapolationTime: 0.1
 --- !u!1 &2860197077301654842
 GameObject:
   m_ObjectHideFlags: 0
