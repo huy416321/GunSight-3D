@@ -49,16 +49,6 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Update()
     {
-        // Cập nhật weight cho Rig khi ngắm bắn
-        if (starterAssetsInputs.aim)
-        {
-            aimRigweight = 1f;
-        }
-        else
-        {
-            aimRigweight = 0f;
-        }
-
         if (HasInputAuthority)
         {
             mouseWorldPosition = Vector3.zero;
@@ -94,11 +84,13 @@ public class ThirdPersonShooterController : NetworkBehaviour
             {
                 if (aimVirtualCamera != null && !aimVirtualCamera.gameObject.activeSelf)
                     aimVirtualCamera.gameObject.SetActive(true);
+                    aimRigweight = 1f;
             }
             else
             {
                 if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
                     aimVirtualCamera.gameObject.SetActive(false);
+                    aimRigweight = 0f;
             }
 
             // Set Animator cho local player
