@@ -10,6 +10,8 @@ using System;
 
 public class ThirdPersonShooterController : NetworkBehaviour
 {
+    [Networked] private Vector3 NetAimTarget { get; set; }
+    [SerializeField] private Transform aimTarget; // Kéo Sphere (target của constraint) vào đây
     // Networked animation states
     [Networked] private bool IsAiming { get; set; }
     [Networked] private bool IsKneeling { get; set; }
@@ -47,6 +49,16 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Update()
     {
+        // Cập nhật weight cho Rig khi ngắm bắn
+        if (starterAssetsInputs.aim)
+        {
+            aimRigweight = 1f;
+        }
+        else
+        {
+            aimRigweight = 0f;
+        }
+
         if (HasInputAuthority)
         {
             mouseWorldPosition = Vector3.zero;
@@ -59,6 +71,9 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 mouseWorldPosition = raycastHit.point;
                 hitTransform = raycastHit.transform;
             }
+
+            // Đồng bộ vị trí target aim qua mạng
+            NetAimTarget = mouseWorldPosition;
 
             // Cập nhật trạng thái networked
             IsAiming = starterAssetsInputs.aim;
@@ -74,6 +89,18 @@ public class ThirdPersonShooterController : NetworkBehaviour
             if (followVirtualCamera != null && !followVirtualCamera.gameObject.activeSelf)
                 followVirtualCamera.gameObject.SetActive(true);
 
+            // Bật/tắt camera ngắm cho local player
+            if (starterAssetsInputs.aim)
+            {
+                if (aimVirtualCamera != null && !aimVirtualCamera.gameObject.activeSelf)
+                    aimVirtualCamera.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
+                    aimVirtualCamera.gameObject.SetActive(false);
+            }
+
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
             animator.SetBool("Skill", starterAssetsInputs.skill && classPlayer == Classplayer.Shielder);
@@ -84,7 +111,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Tắt camera follow cho player remote
             if (followVirtualCamera != null && followVirtualCamera.gameObject.activeSelf)
                 followVirtualCamera.gameObject.SetActive(false);
-            // Tắt camera aim cho player remote (phòng trường hợp bị bật)
+            // Luôn tắt camera aim cho player remote
             if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
                 aimVirtualCamera.gameObject.SetActive(false);
 
@@ -98,6 +125,9 @@ public class ThirdPersonShooterController : NetworkBehaviour
         // Luôn sync aimRig cho mọi người chơi
         aimRig.weight = Mathf.Lerp(aimRig.weight, HasInputAuthority ? aimRigweight : NetAimRigWeight, Time.deltaTime * 20f);
 
+        // Luôn cập nhật vị trí target cho constraint (mọi client)
+        if (aimTarget != null)
+            aimTarget.position = NetAimTarget;
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]

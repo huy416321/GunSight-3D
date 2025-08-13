@@ -1403,6 +1403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cd51ed452ecfc4eb1dcffeb6f85b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimTarget: {fileID: 3490966509138560643}
   classPlayer: 2
   aimRig: {fileID: 2612516781581876078}
   aimVirtualCamera: {fileID: 4424998355679491481}
