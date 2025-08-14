@@ -142,6 +142,13 @@ public class ThirdPersonShooterController : NetworkBehaviour
         {
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
             aimDir = Quaternion.Euler(UnityEngine.Random.insideUnitSphere * weaponData.bulletSpread * 100f) * aimDir;
+            Vector3 lookDir = NetAimTarget - transform.position;
+            lookDir.y = 0f; // Chỉ xoay trục Y
+            if (lookDir.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(lookDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
+            }
             if (HasStateAuthority)
             {
                 Runner.Spawn(
