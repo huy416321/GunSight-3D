@@ -71,8 +71,8 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 hitTransform = raycastHit.transform;
             }
 
-            // Đồng bộ vị trí target aim qua mạng
-            NetAimTarget = mouseWorldPosition;
+            // Đồng bộ vị trí target aim qua mạng (làm mượt NetAimTarget)
+            NetAimTarget = Vector3.Lerp(NetAimTarget, mouseWorldPosition, Time.deltaTime * 20f);
 
             // Cập nhật trạng thái networked
             IsAiming = starterAssetsInputs.aim;
@@ -104,7 +104,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
-            animator.SetBool("Skill", starterAssetsInputs.skill && classPlayer == Classplayer.Shielder);
+            animator.SetBool("Skill", starterAssetsInputs.skill);
             animator.SetLayerWeight(1, starterAssetsInputs.aim ? 1f : 0f);
         }
         else
@@ -126,9 +126,9 @@ public class ThirdPersonShooterController : NetworkBehaviour
         // Luôn sync aimRig cho mọi người chơi
         aimRig.weight = Mathf.Lerp(aimRig.weight, HasInputAuthority ? aimRigweight : NetAimRigWeight, Time.deltaTime * 20f);
 
-        // Luôn cập nhật vị trí target cho constraint (mọi client)
+        // Luôn cập nhật vị trí target cho constraint (mọi client) - làm mượt
         if (aimTarget != null)
-        aimTarget.position = Vector3.Lerp(aimTarget.position, NetAimTarget, Time.deltaTime * 20f);
+            aimTarget.position = Vector3.Lerp(aimTarget.position, NetAimTarget, Time.deltaTime * 20f);
         // Xoay nhân vật theo hướng aim khi đang aim (chỉ trục Y)
         if ((HasInputAuthority && starterAssetsInputs.aim) || (!HasInputAuthority && IsAiming))
         {

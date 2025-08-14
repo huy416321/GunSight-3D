@@ -122,6 +122,7 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
         private bool _rotateOnMove = true;
+    
 
         private const float _threshold = 0.01f;
 
@@ -383,7 +384,8 @@ namespace StarterAssets
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
-                if (_rotateOnMove)
+                // Chỉ xoay theo hướng di chuyển nếu KHÔNG aim
+                if (_rotateOnMove && !_input.aim)
                 {
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
                 }
