@@ -18,6 +18,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Networked] private bool IsAiming { get; set; }
     [Networked] private bool IsKneeling { get; set; }
     [Networked] private bool IsUsingSkill { get; set; }
+    [Networked] private bool IsReloading { get; set; }
     [Networked] private float NetAimRigWeight { get; set; }
 
     [SerializeField] private Classplayer classPlayer;
@@ -78,7 +79,8 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Cập nhật trạng thái networked
             IsAiming = starterAssetsInputs.aim;
             IsKneeling = starterAssetsInputs.kneel;
-            IsUsingSkill = starterAssetsInputs.skill && classPlayer == Classplayer.Shielder;
+            IsUsingSkill = starterAssetsInputs.skill;
+            IsReloading = starterAssetsInputs.reload;
 
             // Cập nhật NetAimRigWeight cho mọi client
             NetAimRigWeight = aimRigweight;
@@ -105,6 +107,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
             animator.SetBool("Skill", starterAssetsInputs.skill);
+            animator.SetBool("Reload", starterAssetsInputs.reload);
             animator.SetLayerWeight(1, starterAssetsInputs.aim ? 1f : 0f);
         }
         else
@@ -119,6 +122,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Set Animator cho remote player
             animator.SetBool("Kneel", IsKneeling);
             animator.SetBool("Skill", IsUsingSkill);
+            animator.SetBool("Reload", IsReloading);
             animator.SetLayerWeight(1, IsAiming ? 1f : 0f);
             // Nếu muốn remote client cũng quay hướng aim, có thể thêm code nội suy transform.forward ở đây
         }
@@ -185,6 +189,15 @@ public class ThirdPersonShooterController : NetworkBehaviour
             {
                 bullet.isPoliceShooter = false; // hoặc truyền biến team nếu có
             }
+        }
+    }
+
+    private void Reload()
+    {
+        if (weaponData != null && currentAmmo < weaponData.maxAmmo)
+        {
+            currentAmmo = weaponData.maxAmmo;
+            Debug.Log($"Player {Object.Id} reloaded. Current ammo: {currentAmmo}");
         }
     }
 

@@ -15,6 +15,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool aim;
 		public bool shoot;
+		public bool reload;
 		public bool skill;
 		public bool kneel;
 		public bool light;
@@ -59,8 +60,13 @@ namespace StarterAssets
         {
             ShootInput(value.isPressed);
         }
+		
+		public void OnReload(InputValue value) 
+		{
+			ReloadInput(value.isPressed);
+		}
 
-		public void OnSkill(InputValue value) 
+		public void OnSkill(InputValue value)
 		{
 			SkillInput(value.isPressed);
 		}
@@ -105,6 +111,11 @@ namespace StarterAssets
         public void ShootInput(bool newShootState) {
             shoot = newShootState;
         }
+
+		public void ReloadInput(bool newReloadState)
+		{
+			reload = newReloadState;
+		}
 
 		public void SkillInput(bool newSkillState)
 		{

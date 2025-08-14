@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Reload",
+                    "type": "PassThrough",
+                    "id": "56a5a41f-ad87-4da7-9d51-03bfbb9695c3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Skill",
                     "type": "PassThrough",
                     "id": "75d5070d-2fe6-4f1b-b8e1-12d9855c9ba6",
@@ -316,6 +325,17 @@
                     "processors": "",
                     "groups": ";KeyboardMouse",
                     "action": "Light",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07e9bc46-b54d-4270-9d8c-149022a600fc",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
