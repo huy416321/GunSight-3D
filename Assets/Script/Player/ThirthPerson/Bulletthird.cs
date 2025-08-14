@@ -15,7 +15,8 @@ public class Bulletthird : NetworkBehaviour
 
     public override void Spawned()
     {
-        aliveTime = 0f;
+    aliveTime = 0f;
+    Debug.Log($"[Bulletthird] Spawned on client {Runner.LocalPlayer.PlayerId}, ObjectId: {Object.Id}");
     }
 
     private void Update()
@@ -34,6 +35,7 @@ public class Bulletthird : NetworkBehaviour
         // Gây sát thương nếu trúng player
         if (Object.HasStateAuthority)
         {
+            Debug.Log($"[Bulletthird] OnTriggerEnter on client {Runner.LocalPlayer.PlayerId}, ObjectId: {Object.Id}, Hit: {other.name}");
             var playerHealth = other.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {

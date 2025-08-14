@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cd51ed452ecfc4eb1dcffeb6f85b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: a78b60ebf75dc5b4fb16238a772bd627, type: 2}
+  weaponData: {fileID: 11400000, guid: 90234e4fd076ce448a1289d4bd4afb23, type: 2}
   aimTarget: {fileID: 6294694727729056908}
   classPlayer: 0
   aimRig: {fileID: 1552581661725165203}
