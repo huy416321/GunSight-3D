@@ -75,7 +75,6 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Cập nhật NetAimRigWeight cho mọi client
             NetAimRigWeight = aimRigweight;
 
-            RpcShoot();
             Rpclight();
             // Luôn bật camera follow cho player local
             if (followVirtualCamera != null && !followVirtualCamera.gameObject.activeSelf)
@@ -86,13 +85,13 @@ public class ThirdPersonShooterController : NetworkBehaviour
             {
                 if (aimVirtualCamera != null && !aimVirtualCamera.gameObject.activeSelf)
                     aimVirtualCamera.gameObject.SetActive(true);
-                    aimRigweight = 1f;
+                aimRigweight = 1f;
             }
             else
             {
                 if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
                     aimVirtualCamera.gameObject.SetActive(false);
-                    aimRigweight = 0f;
+                aimRigweight = 0f;
             }
 
             // Set Animator cho local player
@@ -133,31 +132,36 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
             }
         }
-    }
-
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    private void RpcShoot()
-    {
+        
+        // Xử lý bắn đạn: chỉ gửi RPC khi nhấn shoot
         if (starterAssetsInputs.shoot && weaponData != null)
         {
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
             aimDir = Quaternion.Euler(UnityEngine.Random.insideUnitSphere * weaponData.bulletSpread * 100f) * aimDir;
-            Vector3 lookDir = NetAimTarget - transform.position;
-            lookDir.y = 0f; // Chỉ xoay trục Y
-            if (lookDir.sqrMagnitude > 0.001f)
+            RPC_Fire(spawnBulletPosition.position, aimDir);
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RPC_Fire(Vector3 spawnPos, Vector3 forward)
+    {
+        if (weaponData != null && weaponData.bulletPrefab != null)
+        {
+            Debug.Log($"RPC_Fire called by {Object.InputAuthority} at position {spawnPos} with forward {forward}");
+            Quaternion rot = Quaternion.LookRotation(forward, Vector3.up);
+            Vector3 offset = forward * 0.5f;
+            var bulletObj = Runner.Spawn(
+                weaponData.bulletPrefab,
+                spawnPos + offset,
+                rot,
+                Object.InputAuthority
+            );
+            // Gán team cho viên đạn nếu có script Bulletthird
+            var bullet = bulletObj != null ? bulletObj.GetComponent<Bulletthird>() : null;
+            if (bullet != null)
             {
-                Quaternion targetRot = Quaternion.LookRotation(lookDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
+                bullet.isPoliceShooter = false; // hoặc truyền biến team nếu có
             }
-            if (HasStateAuthority)
-            {
-                Runner.Spawn(
-                    weaponData.bulletPrefab,
-                    spawnBulletPosition.position,
-                    Quaternion.LookRotation(aimDir, Vector3.up)
-                );
-            }
-            starterAssetsInputs.shoot = false;
         }
     }
 
