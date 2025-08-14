@@ -185,11 +185,11 @@ Transform:
   m_GameObject: {fileID: 499349030023967906}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.273, z: 0.902}
+  m_LocalPosition: {x: 0.816, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1008470680066563061}
+  m_Father: {fileID: 8065059822783267648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508551965863849910
 GameObject:
@@ -1281,7 +1281,6 @@ Transform:
   - {fileID: 7788979549624058831}
   - {fileID: 8884833941966614648}
   - {fileID: 7644618631844133488}
-  - {fileID: 8800568730079493199}
   - {fileID: 9134923601747239182}
   - {fileID: 3490966509138560643}
   - {fileID: 307771040904345832}
@@ -1403,6 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cd51ed452ecfc4eb1dcffeb6f85b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: a78b60ebf75dc5b4fb16238a772bd627, type: 2}
   aimTarget: {fileID: 3490966509138560643}
   classPlayer: 2
   aimRig: {fileID: 2612516781581876078}
@@ -2507,7 +2507,8 @@ Transform:
   m_LocalPosition: {x: -0.15200005, y: -0.03899768, z: -0.36499938}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8800568730079493199}
   m_Father: {fileID: 8196231737505092772}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -98.471}
 --- !u!33 &6302775557045570675
@@ -3028,6 +3029,7 @@ Transform:
   m_Children:
   - {fileID: 5673517605927654593}
   - {fileID: 1742030159246235279}
+  - {fileID: 3451880280741630457}
   - {fileID: 7503595455581634439}
   - {fileID: 7710335673020919118}
   m_Father: {fileID: 1008470680066563061}
@@ -3475,7 +3477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 3691520684403232671}
+    m_ConstrainedObject: {fileID: 4982329279845354589}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -4036,6 +4038,92 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   m_ComponentOwner: {fileID: 846248845691079748}
+--- !u!1 &7374740301910171722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3451880280741630457}
+  - component: {fileID: 3459518594411205935}
+  m_Layer: 0
+  m_Name: RightHand (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3451880280741630457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7374740301910171722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 307771040904345832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3459518594411205935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7374740301910171722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 3691520684403232671}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 3490966509138560643}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_MinLimit: -180
+    m_MaxLimit: 180
+    m_AimAxis: 2
+    m_UpAxis: 0
+    m_WorldUpType: 0
+    m_WorldUpObject: {fileID: 0}
+    m_WorldUpAxis: 2
+    m_MaintainOffset: 0
+    m_ConstrainedAxes:
+      x: 1
+      y: 1
+      z: 1
 --- !u!1 &7766213057426690062
 GameObject:
   m_ObjectHideFlags: 0

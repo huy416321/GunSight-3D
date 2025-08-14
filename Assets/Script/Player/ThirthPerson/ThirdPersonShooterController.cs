@@ -9,7 +9,9 @@ using Fusion;
 using System;
 
 public class ThirdPersonShooterController : NetworkBehaviour
+
 {
+    [SerializeField] private WeaponData weaponData;
     [Networked] private Vector3 NetAimTarget { get; set; }
     [SerializeField] private Transform aimTarget; // Kéo Sphere (target của constraint) vào đây
     // Networked animation states
@@ -125,26 +127,18 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     private void RpcShoot()
     {
-        if (starterAssetsInputs.shoot)
+        if (starterAssetsInputs.shoot && weaponData != null)
         {
-            /*
-            // Hit Scan Shoot
-            if (hitTransform != null) {
-                // Hit something
-                if (hitTransform.GetComponent<BulletTarget>() != null) {
-                    // Hit target
-                    Instantiate(vfxHitGreen, mouseWorldPosition, Quaternion.identity);
-                } else {
-                    // Hit something else
-                    Instantiate(vfxHitRed, mouseWorldPosition, Quaternion.identity);
-                }
-            }
-            //*/
-            //*
-            // Projectile Shoot
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-            Instantiate(pfBulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
-            //*/
+            aimDir = Quaternion.Euler(UnityEngine.Random.insideUnitSphere * weaponData.bulletSpread * 100f) * aimDir;
+            if (HasStateAuthority)
+            {
+                Runner.Spawn(
+                    weaponData.bulletPrefab,
+                    spawnBulletPosition.position,
+                    Quaternion.LookRotation(aimDir, Vector3.up)
+                );
+            }
             starterAssetsInputs.shoot = false;
         }
     }
