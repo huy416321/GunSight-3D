@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PistoleThird
   m_EditorClassIdentifier: 
   fireSound: {fileID: 8300000, guid: a1bcb09f8f74d94438f2560aa3619f37, type: 3}
-  reloadSound: {fileID: 8300000, guid: 1f28cb9b20dfc7e47a9a6e0d12deb1ad, type: 3}
+  reloadSound: {fileID: 8300000, guid: e5198250a6a57408bb36e14bc4a322c4, type: 3}
   emptyAmmoSound: {fileID: 8300000, guid: 3485998c8cefb914d9868b40cdc04d56, type: 3}
   weaponName: 
-  bulletPrefab: {fileID: 2086261179823682334, guid: 72ec7ae8833281544b0ce9402ca78ab7, type: 3}
+  bulletPrefab: {fileID: 2086261179823682334, guid: fcebf361d43b8e849a7d410a270a2c05, type: 3}
   fireRate: 0.5
   maxAmmo: 12
   recoilAmount: 0

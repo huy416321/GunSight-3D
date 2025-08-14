@@ -5,6 +5,8 @@ public class Bulletthird : NetworkBehaviour
 {
     public float speed = 20f;
     public float lifetime = 3f;
+    public ParticleSystem hitEffect; // Hiệu ứng khi trúng đích
+    public AudioClip hitSound; // Âm thanh khi trúng đích
 
     public float damage; 
 
@@ -41,6 +43,14 @@ public class Bulletthird : NetworkBehaviour
             {
                 float finalDamage = (playerHealth.isPolice == isPoliceShooter) ? damage * 1f : damage * 2f;
                 playerHealth.TakeDamage(finalDamage);
+            }
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                // Nếu trúng tường có thể phá hủy, thì tạo hiệu ứng và despawn bullet
+                if (hitEffect != null)
+                    Instantiate(hitEffect, transform.position, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(hitSound, transform.position, 0.5f);
             }
             Runner.Despawn(Object);
         }

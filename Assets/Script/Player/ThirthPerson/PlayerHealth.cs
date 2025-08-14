@@ -10,6 +10,7 @@ public class PlayerHealth : NetworkBehaviour
     [Header("Health Settings")]
     public float maxHealth = 100f;
     public Animator HitAnimator; // Animator to play hit animation
+    public AudioClip hitSound; // Âm thanh khi bị trúng đạn
     [Networked] public float currentHealth { get; set; }
 
     private void Start()
@@ -44,6 +45,7 @@ public class PlayerHealth : NetworkBehaviour
         if (!HasStateAuthority) return;
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
         HitAnimator.SetTrigger("Hit"); // Trigger hit animation
+        AudioSource.PlayClipAtPoint(hitSound, transform.position, 0.2f); // Play hit sound
         if (currentHealth <= 0f)
         {
             Die();

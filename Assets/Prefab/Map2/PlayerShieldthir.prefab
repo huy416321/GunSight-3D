@@ -1353,6 +1353,7 @@ MonoBehaviour:
   isPolice: 1
   maxHealth: 100
   HitAnimator: {fileID: 8132171609065638637}
+  hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
   _currentHealth: 0
 --- !u!114 &5042158492782247388
 MonoBehaviour:
@@ -1960,7 +1961,7 @@ GameObject:
   - component: {fileID: 2043849214109780999}
   - component: {fileID: 8132171609065638637}
   - component: {fileID: 9171387989285139091}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GetHitani
   m_TagString: Untagged
   m_Icon: {fileID: 0}
