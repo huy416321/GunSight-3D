@@ -21,4 +21,4 @@ MonoBehaviour:
   maxAmmo: 12
   recoilAmount: 0
   bulletSpread: 0
-  FootstepAudioVolume: 1
+  FootstepAudioVolume: 0.5

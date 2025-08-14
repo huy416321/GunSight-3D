@@ -4865,7 +4865,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414956259}
-  - component: {fileID: 414956258}
+  - component: {fileID: 414956260}
   - component: {fileID: 414956257}
   m_Layer: 0
   m_Name: Roundmana (1)
@@ -4891,34 +4891,8 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 414956258}
+  - {fileID: 414956260}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &414956258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414956256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bac0763e3f17e9d4682009bb4ffaa476, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player1Score: 0
-  _player2Score: 0
-  _currentRound: 0
-  _isRoundActive: 0
-  _roundTimer: 0
-  _isWaitingRound: 1
-  roundText: {fileID: 1354460918}
-  player1ScoreText: {fileID: 1011024950}
-  player2ScoreText: {fileID: 361935553}
-  winText: {fileID: 1354460918}
-  timerText: {fileID: 1407145204}
-  playerSpawner: {fileID: 0}
-  maxRoundsToWin: 3
-  roundTimeLimit: 200
 --- !u!4 &414956259
 Transform:
   m_ObjectHideFlags: 0
@@ -4934,6 +4908,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &414956260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414956256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b22cb310812d945b4818566cfba7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player1Score: 0
+  _player2Score: 0
+  _currentRound: 0
+  _isRoundActive: 0
+  _roundTimer: 0
+  _isWaitingRound: 0
+  roundText: {fileID: 1354460918}
+  player1ScoreText: {fileID: 1011024950}
+  player2ScoreText: {fileID: 361935553}
+  winText: {fileID: 1354460918}
+  timerText: {fileID: 1407145204}
+  playerSpawner: {fileID: 0}
+  maxRoundsToWin: 3
+  roundTimeLimit: 300
 --- !u!1001 &431007880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10606,7 +10606,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 414956258}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MatchManager, Assembly-CSharp
         m_MethodName: OnReturnToLobbyButton
         m_Mode: 1
