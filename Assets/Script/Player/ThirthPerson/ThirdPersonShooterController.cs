@@ -38,6 +38,8 @@ public class ThirdPersonShooterController : NetworkBehaviour
     private StarterAssetsInputs starterAssetsInputs;
     private Animator animator;
     private float aimRigweight;
+    private float shootCooldown = 0f;
+    private int currentAmmo = 0;
 
     public GameObject NightVisionEffect;
     public new Light light;
@@ -47,10 +49,16 @@ public class ThirdPersonShooterController : NetworkBehaviour
         thirdPersonController = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         animator = GetComponent<Animator>();
+        // Khởi tạo số lượng đạn khi bắt đầu
+        if (weaponData != null)
+            currentAmmo = weaponData.maxAmmo;
     }
 
     private void Update()
     {
+         // Đếm thời gian cooldown bắn
+            if (shootCooldown > 0f)
+                shootCooldown -= Time.deltaTime;   
         if (HasInputAuthority)
         {
             mouseWorldPosition = Vector3.zero;
@@ -134,10 +142,15 @@ public class ThirdPersonShooterController : NetworkBehaviour
         }
         
         // Xử lý bắn đạn: chỉ gửi RPC khi nhấn shoot
-        if (starterAssetsInputs.shoot && weaponData != null)
+        if (starterAssetsInputs.shoot && weaponData != null && shootCooldown <= 0f && currentAmmo > 0)
         {
+            // Tính hướng đạn với độ lệch từ weaponData.bulletSpread
             Vector3 aimDir = (mouseWorldPosition - spawnBulletPosition.position).normalized;
-            aimDir = Quaternion.Euler(UnityEngine.Random.insideUnitSphere * weaponData.bulletSpread * 100f) * aimDir;
+            float spread = weaponData.bulletSpread;
+            aimDir = Quaternion.Euler(
+                UnityEngine.Random.Range(-spread, spread),
+                UnityEngine.Random.Range(-spread, spread),
+                0f) * aimDir;
             // Xoay nhân vật theo hướng bắn (chỉ trục Y)
             Vector3 lookDir = aimDir;
             lookDir.y = 0f;
@@ -147,6 +160,8 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
             }
             RPC_Fire(spawnBulletPosition.position, aimDir);
+            shootCooldown = weaponData.fireRate;
+            currentAmmo--;
         }
     }
 
