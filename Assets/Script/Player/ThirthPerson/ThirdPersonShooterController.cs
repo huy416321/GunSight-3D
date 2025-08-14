@@ -107,7 +107,14 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
             animator.SetBool("Skill", starterAssetsInputs.skill);
-            animator.SetBool("Reload", starterAssetsInputs.reload);
+            if (currentAmmo < weaponData.maxAmmo)
+            {
+                animator.SetBool("Reload", starterAssetsInputs.reload); // Không tự động reload khi còn đạn
+            }
+            else
+            {
+                animator.SetBool("Reload", false);
+            }
             animator.SetLayerWeight(1, starterAssetsInputs.aim ? 1f : 0f);
         }
         else
@@ -144,7 +151,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
             }
         }
-        
+
         // Xử lý bắn đạn: chỉ gửi RPC khi nhấn shoot
         if (starterAssetsInputs.shoot && weaponData != null && shootCooldown <= 0f && currentAmmo > 0)
         {
@@ -161,8 +168,10 @@ public class ThirdPersonShooterController : NetworkBehaviour
             if (lookDir.sqrMagnitude > 0.001f)
             {
                 Quaternion targetRot = Quaternion.LookRotation(lookDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 100f);
             }
+
+
             RPC_Fire(spawnBulletPosition.position, aimDir);
             shootCooldown = weaponData.fireRate;
             currentAmmo--;
@@ -177,6 +186,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             Debug.Log($"RPC_Fire called by {Object.InputAuthority} at position {spawnPos} with forward {forward}");
             Quaternion rot = Quaternion.LookRotation(forward, Vector3.up);
             Vector3 offset = forward * 0.5f;
+            AudioSource.PlayClipAtPoint(weaponData.fireSound, transform.position, weaponData.FootstepAudioVolume);
             var bulletObj = Runner.Spawn(
                 weaponData.bulletPrefab,
                 spawnPos + offset,
@@ -200,9 +210,13 @@ public class ThirdPersonShooterController : NetworkBehaviour
             Debug.Log($"Player {Object.Id} reloaded. Current ammo: {currentAmmo}");
         }
     }
-
-    
-
+    private void Reloadsound()
+    {
+        if (weaponData != null && weaponData.reloadSound != null)
+        {
+            AudioSource.PlayClipAtPoint(weaponData.reloadSound, transform.position, weaponData.FootstepAudioVolume);
+        }
+    }
 
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
