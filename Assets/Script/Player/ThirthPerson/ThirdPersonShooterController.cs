@@ -47,6 +47,13 @@ public class ThirdPersonShooterController : NetworkBehaviour
         thirdPersonController = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         animator = GetComponent<Animator>();
+
+        if (aimTarget == null)
+        {
+            GameObject go = new GameObject("AimTarget");
+            aimTarget = go.transform;
+            debugTransform = go.transform;
+        }
     }
 
     private void Update()
@@ -121,7 +128,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
         // Luôn cập nhật vị trí target cho constraint (mọi client)
         if (aimTarget != null)
-            aimTarget.position = NetAimTarget;
+        aimTarget.position = Vector3.Lerp(aimTarget.position, NetAimTarget, Time.deltaTime * 20f);
         // Xoay nhân vật theo hướng aim khi đang aim (chỉ trục Y)
         if ((HasInputAuthority && starterAssetsInputs.aim) || (!HasInputAuthority && IsAiming))
         {
