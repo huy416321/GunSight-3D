@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211f2ea7e7bc0e944a32a0ac4129a380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 70
   lifetime: 3
   damage: 10
   isPoliceShooter: 0
