@@ -47,13 +47,6 @@ public class ThirdPersonShooterController : NetworkBehaviour
         thirdPersonController = GetComponent<ThirdPersonController>();
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         animator = GetComponent<Animator>();
-
-        if (aimTarget == null)
-        {
-            GameObject go = new GameObject("AimTarget");
-            aimTarget = go.transform;
-            debugTransform = go.transform;
-        }
     }
 
     private void Update()
