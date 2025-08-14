@@ -122,6 +122,17 @@ public class ThirdPersonShooterController : NetworkBehaviour
         // Luôn cập nhật vị trí target cho constraint (mọi client)
         if (aimTarget != null)
             aimTarget.position = NetAimTarget;
+        // Xoay nhân vật theo hướng aim khi đang aim (chỉ trục Y)
+        if ((HasInputAuthority && starterAssetsInputs.aim) || (!HasInputAuthority && IsAiming))
+        {
+            Vector3 lookDir = NetAimTarget - transform.position;
+            lookDir.y = 0f; // Chỉ xoay trục Y
+            if (lookDir.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(lookDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 20f);
+            }
+        }
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]

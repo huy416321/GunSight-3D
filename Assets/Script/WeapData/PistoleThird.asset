@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f33593176eea5f4c8944c33e5338458, type: 3}
+  m_Name: PistoleThird
+  m_EditorClassIdentifier: 
+  weaponName: 
+  bulletPrefab: {fileID: 2086261179823682334, guid: 72ec7ae8833281544b0ce9402ca78ab7, type: 3}
+  fireRate: 1
+  maxAmmo: 12
+  recoilAmount: 0
+  bulletSpread: 0
