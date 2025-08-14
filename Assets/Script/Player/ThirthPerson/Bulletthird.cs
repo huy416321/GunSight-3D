@@ -6,7 +6,7 @@ public class Bulletthird : NetworkBehaviour
     public float speed = 20f;
     public float lifetime = 3f;
 
-    public float damage = 10f; 
+    public float damage; 
 
     // Lưu team của người bắn
     public bool isPoliceShooter;
@@ -39,7 +39,7 @@ public class Bulletthird : NetworkBehaviour
             var playerHealth = other.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                float finalDamage = (playerHealth.isPolice == isPoliceShooter) ? 10f : 30f;
+                float finalDamage = (playerHealth.isPolice == isPoliceShooter) ? damage * 1f : damage * 2f;
                 playerHealth.TakeDamage(finalDamage);
             }
             Runner.Despawn(Object);

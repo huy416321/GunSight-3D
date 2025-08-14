@@ -9,6 +9,7 @@ public class PlayerHealth : NetworkBehaviour
     public bool isPolice; // Added variable to indicate if the player is police
     [Header("Health Settings")]
     public float maxHealth = 100f;
+    public Animator HitAnimator; // Animator to play hit animation
     [Networked] public float currentHealth { get; set; }
 
     private void Start()
@@ -42,6 +43,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (!HasStateAuthority) return;
         currentHealth = Mathf.Max(currentHealth - amount, 0f);
+        HitAnimator.SetTrigger("Hit"); // Trigger hit animation
         if (currentHealth <= 0f)
         {
             Die();
