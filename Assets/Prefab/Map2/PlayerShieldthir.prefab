@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: 3726622805009978024}
   - component: {fileID: 2561972304599244683}
   - component: {fileID: 4306440384316797300}
+  - component: {fileID: 3689128389018484592}
   - component: {fileID: 5042158492782247388}
   - component: {fileID: 6917722155716206595}
   - component: {fileID: 3271159270254889387}
@@ -1335,6 +1336,21 @@ MonoBehaviour:
   _NetGrounded: 0
   _NetJump: 0
   _NetFreeFall: 0
+--- !u!114 &3689128389018484592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847376567262337542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564da6940ee503f408f1b7aa518c4e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPolice: 1
+  maxHealth: 100
+  _currentHealth: 0
 --- !u!114 &5042158492782247388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,6 +1642,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 4306440384316797300}
+  - {fileID: 3689128389018484592}
   - {fileID: 5042158492782247388}
   - {fileID: 6917722155716206595}
   - {fileID: 3271159270254889387}
@@ -2099,7 +2116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8884833941966614648}
   - component: {fileID: 3071388895167378116}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ch18
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3548065792484068766}
   - component: {fileID: -6712157663646941283}
   - component: {fileID: 2470738353224945149}
-  - component: {fileID: -2505015520506744692}
+  - component: {fileID: -725178742918362194}
   m_Layer: 0
   m_Name: RifeBulletr
   m_TagString: Untagged
@@ -55,7 +55,7 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: -2505015520506744692}
+  - {fileID: -725178742918362194}
   ForceRemoteRenderTimeframe: 0
 --- !u!54 &-6712157663646941283
 Rigidbody:
@@ -105,7 +105,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.14
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2505015520506744692
+--- !u!114 &-725178742918362194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,10 +114,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2086261179823682334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0016930b42a25f4dbdb7cc8fcde69fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 211f2ea7e7bc0e944a32a0ac4129a380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 20
   lifetime: 3
   damage: 10
   isPoliceShooter: 0
