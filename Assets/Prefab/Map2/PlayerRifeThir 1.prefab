@@ -2486,7 +2486,7 @@ GameObject:
   - component: {fileID: 4087826904829424304}
   - component: {fileID: 3236103810066921890}
   m_Layer: 6
-  m_Name: PlayerRifeThir
+  m_Name: PlayerRifeThir 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2905,7 +2905,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 1139431843
+  SortKey: 3842261634
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
@@ -2929,7 +2929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564da6940ee503f408f1b7aa518c4e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPolice: 1
+  isPolice: 0
   maxHealth: 100
   HitAnimator: {fileID: 3130981145240220991}
   hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}

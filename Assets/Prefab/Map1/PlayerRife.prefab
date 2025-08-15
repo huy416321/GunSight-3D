@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 11
-  viewAngle: 40
+  viewAngle: 360
   meshResolution: 1
   obstacleMask:
     serializedVersion: 2
@@ -1389,15 +1389,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.359234
+      value: 17.346104
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1504707
+      value: 2.1504688
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -58.68338
+      value: -59.63605
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2258,7 +2258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
-  isPolice: 0
+  isPolice: 1
   moveSpeed: 5
   bloodAnimation: {fileID: 6206160245328773932}
   playerCamera: {fileID: 7663441165663397799}
@@ -2276,7 +2276,7 @@ MonoBehaviour:
   grenadeSpawnPoint: {fileID: 4605547157231617520}
   grenadeThrowForce: 0
   grenadeCooldown: 3
-  _NetworkedPosition: {x: 17.27191, y: 2.15047, z: -58.18044}
+  _NetworkedPosition: {x: 17.346104, y: 2.1504688, z: -59.63605}
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
@@ -2314,9 +2314,13 @@ MonoBehaviour:
   dashPushCooldown: 8
   pushRadius: 2
   pushUpward: 0.5
+  forceMode: 1
+  pushForce: 10
   pushLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  pushSound: {fileID: 0}
+  FootstepAudioVolume: 0.5
   isAiming: 0
   animator: {fileID: 1004806214633085456}
 --- !u!114 &4329652214470739387

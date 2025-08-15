@@ -30,6 +30,8 @@ public class PlayerSkillController : NetworkBehaviour
     public LayerMask pushLayerMask;
     private bool canUseDashPushSkill = true;
     private Coroutine dashPushCooldownCoroutine;
+    public AudioClip pushSound;
+    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
     [Header("Aiming")]
     public bool isAiming = false;
@@ -235,11 +237,16 @@ public class PlayerSkillController : NetworkBehaviour
                 col.enabled = false;
             }
         }
-        // if (foundDestroyWall && pushSound != null)
-        // {
-        //     Invoke(nameof(PlayPushSound), 0f);
-        // }
+        if (foundDestroyWall && pushSound != null)
+        {
+            Invoke(nameof(PlayPushSound), 0f);
+        }
         yield break;
+    }
+
+    private void PlayPushSound()
+    {
+        AudioSource.PlayClipAtPoint(pushSound, transform.position, FootstepAudioVolume);
     }
 
     void Update()
