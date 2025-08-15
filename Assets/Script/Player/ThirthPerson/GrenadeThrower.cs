@@ -11,11 +11,6 @@ public class GrenadeThrower : NetworkBehaviour
     public float throwForce = 15f;
     public AudioClip throwSound;
 
-    [Header("flashover")]
-    [Header("FlashBag Settings")]
-    public Volume flashover;
-    public CanvasGroup flashoverCanvasGroup;
-    public AudioClip flashoverSound;
 
     [Range(0, 1)] public float throwVolume = 0.7f;
     private StarterAssetsInputs starterAssetsInputs;
@@ -37,18 +32,11 @@ public class GrenadeThrower : NetworkBehaviour
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(throwPoint.up * -1 * throwForce, ForceMode.Impulse);
+            rb.AddForce(throwPoint.forward * throwForce, ForceMode.Impulse);
         }
         if (throwSound != null)
         {
             AudioSource.PlayClipAtPoint(throwSound, throwPoint.position, throwVolume);
         }
-    }
-
-    private void Flashbanged()
-    {
-        flashover.weight = 1f;
-        AudioSource.PlayClipAtPoint(flashoverSound, transform.position, throwVolume);
-        flashoverCanvasGroup.alpha = 1f;
     }
 }

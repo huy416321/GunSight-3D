@@ -739,13 +739,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375341221817445613}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.035, y: -0, z: 0}
+  m_LocalRotation: {x: -0.24055451, y: -0.64888847, z: 0.25276157, w: 0.6761575}
+  m_LocalPosition: {x: -0.005858, y: 0.005061, z: -0.000349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6134421278887949713}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.156, y: -87.584, z: 40.844}
 --- !u!1 &1392938127348266995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1501,55 @@ Transform:
   - {fileID: 514530920297025013}
   m_Father: {fileID: 3276914414433929782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3350276490204365481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6535414141889909539}
+  - component: {fileID: 7626939234206596939}
+  m_Layer: 15
+  m_Name: Flashbag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6535414141889909539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350276490204365481}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.31, y: 1.452, z: 0.616}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4374297517465536937}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7626939234206596939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3350276490204365481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0.534
+  sharedProfile: {fileID: 11400000, guid: 712ec0ad004e60d46bc800ae408430cb, type: 2}
 --- !u!1 &3563298545401421278
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,6 +2502,7 @@ GameObject:
   - component: {fileID: 1135944297850345963}
   - component: {fileID: 2080762547871095667}
   - component: {fileID: 4087826904829424304}
+  - component: {fileID: 3236103810066921890}
   m_Layer: 6
   m_Name: PlayerRifeThir
   m_TagString: Player
@@ -2484,6 +2534,7 @@ Transform:
   - {fileID: 1574658201467700663}
   - {fileID: 3930880180638292563}
   - {fileID: 7145080645329788760}
+  - {fileID: 6535414141889909539}
   - {fileID: 6294694727729056908}
   - {fileID: 1897825918722729793}
   m_Father: {fileID: 0}
@@ -2656,6 +2707,7 @@ MonoBehaviour:
   shoot: 0
   reload: 0
   skill: 0
+  throwGrenade: 0
   kneel: 0
   light: 0
   analogMovement: 0
@@ -2881,6 +2933,7 @@ MonoBehaviour:
   - {fileID: 3280056529911050023}
   - {fileID: 3450653236590735169}
   - {fileID: 4087826904829424304}
+  - {fileID: 3236103810066921890}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4087826904829424304
 MonoBehaviour:
@@ -2899,6 +2952,26 @@ MonoBehaviour:
   HitAnimator: {fileID: 3130981145240220991}
   hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
   _currentHealth: 0
+--- !u!114 &3236103810066921890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452227306260628664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a272ae2b4f5cd499574f492f2178ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadePrefab: {fileID: 1772106316598131674, guid: 5d0702640ec14b44f8b577cace8690a9, type: 3}
+  throwPoint: {fileID: 6535414141889909539}
+  throwForce: 15
+  throwSound: {fileID: 0}
+  flashover: {fileID: 0}
+  flashoverCanvasGroup: {fileID: 0}
+  flashoverSound: {fileID: 0}
+  throwVolume: 0.7
 --- !u!1 &6533248599760822287
 GameObject:
   m_ObjectHideFlags: 0
