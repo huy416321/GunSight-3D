@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Fusion;
+using UnityEngine.Rendering;
 
 public class PushNearbyObjects : NetworkBehaviour
 {
@@ -9,9 +10,12 @@ public class PushNearbyObjects : NetworkBehaviour
     public float pushForce = 10f;
     public LayerMask pushLayerMask;
     public ForceMode forceMode = ForceMode.Impulse;
-
     public AudioClip pushSound;
+
+
+
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+
 
     public void Push()
     {

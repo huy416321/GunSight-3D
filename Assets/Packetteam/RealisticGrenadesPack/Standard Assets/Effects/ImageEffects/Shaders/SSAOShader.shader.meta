@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 544683e73c477274498bb6a987756c29
+timeCreated: 1455315414
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 53211
+  packageName: Realistic Grenades Pack
+  packageVersion: 1.0.2
+  assetPath: Assets/RealisticGrenadesPack/Standard Assets/Effects/ImageEffects/Shaders/SSAOShader.shader
+  uploadId: 165610

@@ -17,6 +17,7 @@ namespace StarterAssets
 		public bool shoot;
 		public bool reload;
 		public bool skill;
+		public bool throwGrenade;
 		public bool kneel;
 		public bool light;
 
@@ -70,8 +71,13 @@ namespace StarterAssets
 		{
 			SkillInput(value.isPressed);
 		}
+		
+		public void OnThrowGrenade(InputValue value) 
+		{
+			ThrowGrenadeInput(value.isPressed);
+		}
 
-		public void OnKneel(InputValue value) 
+		public void OnKneel(InputValue value)
 		{
 			KneelInput(value.isPressed);
 		}
@@ -120,6 +126,11 @@ namespace StarterAssets
 		public void SkillInput(bool newSkillState)
 		{
 			skill = newSkillState;
+		}
+
+		public void ThrowGrenadeInput(bool newThrowGrenadeState)
+		{
+			throwGrenade = newThrowGrenadeState;
 		}
 
 		public void KneelInput(bool newKneelState)

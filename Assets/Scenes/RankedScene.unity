@@ -7070,7 +7070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runner: {fileID: 0}
   player1Prefab:
-    RawGuidValue: f890b553e37d00f4aaaa26669d5fb853
+    RawGuidValue: c1e5949c8e6ee4b4fbf7b9077e21f70d
   player2Prefab:
     RawGuidValue: c1e5949c8e6ee4b4fbf7b9077e21f70d
   player3Prefab:
