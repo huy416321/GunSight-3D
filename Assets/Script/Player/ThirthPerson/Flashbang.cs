@@ -35,15 +35,18 @@ public class Flashbang : NetworkBehaviour
             var player = hit.GetComponent<NetworkBehaviour>();
             if (player != null && player != this)
             {
-                // Tìm camera của người chơi
                 var cam = hit.GetComponentInChildren<Camera>();
                 if (cam != null)
                 {
-                    // Gọi hiệu ứng flash cho người chơi đó
-                    var flashScript = hit.GetComponent<Flashbang>();
-                    if (flashScript != null)
+                    Vector3 toFlash = (transform.position - cam.transform.position).normalized;
+                    float angle = Vector3.Angle(cam.transform.forward, toFlash);
+                    if (angle <= maxAngle)
                     {
-                        flashScript.ActivateFlashEffect(cam.transform, maxAngle);
+                        var flashScript = hit.GetComponent<Flashbang>();
+                        if (flashScript != null)
+                        {
+                            flashScript.ActivateFlashEffect(cam.transform, maxAngle);
+                        }
                     }
                 }
             }
