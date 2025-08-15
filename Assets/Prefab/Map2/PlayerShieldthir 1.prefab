@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564da6940ee503f408f1b7aa518c4e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPolice: 1
+  isPolice: 0
   maxHealth: 100
   HitAnimator: {fileID: 8132171609065638637}
   hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
@@ -2235,7 +2235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8884833941966614648}
   - component: {fileID: 3071388895167378116}
-  m_Layer: 6
+  m_Layer: 14
   m_Name: Ch18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
