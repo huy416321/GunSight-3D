@@ -19,6 +19,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Networked] private bool IsKneeling { get; set; }
     [Networked] private bool IsUsingSkill { get; set; }
     [Networked] private bool IsReloading { get; set; }
+    [Networked] private bool IsthrowGrenade { get; set; }
     [Networked] private float NetAimRigWeight { get; set; }
 
     [SerializeField] private Classplayer classPlayer;
@@ -82,6 +83,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             IsKneeling = starterAssetsInputs.kneel;
             IsUsingSkill = starterAssetsInputs.skill;
             IsReloading = starterAssetsInputs.reload;
+            IsthrowGrenade = starterAssetsInputs.throwGrenade;
 
             // Cập nhật NetAimRigWeight cho mọi client
             NetAimRigWeight = aimRigweight;
@@ -109,7 +111,27 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
-            animator.SetBool("Skill", starterAssetsInputs.skill);
+
+            if(starterAssetsInputs.skill && starterAssetsInputs.aim)
+            {
+                starterAssetsInputs.aim = false;
+                animator.SetBool("Skill", starterAssetsInputs.skill);
+            }
+            else
+            {
+                animator.SetBool("Skill", starterAssetsInputs.skill);
+            }
+            
+            if (starterAssetsInputs.throwGrenade && starterAssetsInputs.aim)
+            {
+                starterAssetsInputs.aim = false; // Tắt aim khi ném bom
+                animator.SetBool("ThorwGrenade", starterAssetsInputs.throwGrenade);
+            }
+            else
+            {
+                animator.SetBool("ThorwGrenade", starterAssetsInputs.throwGrenade);
+            }
+
             if (currentAmmo < weaponData.maxAmmo)
             {
                 animator.SetBool("Reload", starterAssetsInputs.reload); // Không tự động reload khi còn đạn
@@ -118,6 +140,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             {
                 animator.SetBool("Reload", false);
             }
+
             animator.SetLayerWeight(1, starterAssetsInputs.aim ? 1f : 0f);
         }
         else
@@ -133,6 +156,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             animator.SetBool("Kneel", IsKneeling);
             animator.SetBool("Skill", IsUsingSkill);
             animator.SetBool("Reload", IsReloading);
+            animator.SetBool("ThorwGrenade", IsthrowGrenade);
             animator.SetLayerWeight(1, IsAiming ? 1f : 0f);
             // Nếu muốn remote client cũng quay hướng aim, có thể thêm code nội suy transform.forward ở đây
         }

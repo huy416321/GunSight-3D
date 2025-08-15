@@ -26,7 +26,7 @@ public class GrenadeThrower : NetworkBehaviour
     }
     private void Update()
     {
-        
+
     }
 
     public void ThrowGrenade()
@@ -37,7 +37,7 @@ public class GrenadeThrower : NetworkBehaviour
         Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(throwPoint.up * throwForce, ForceMode.Impulse);
+            rb.AddForce(throwPoint.up * -1 * throwForce, ForceMode.Impulse);
         }
         if (throwSound != null)
         {
