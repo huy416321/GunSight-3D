@@ -171,10 +171,12 @@ public class ThirdPersonShooterController : NetworkBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 100f);
             }
 
-
             RPC_Fire(spawnBulletPosition.position, aimDir);
             shootCooldown = weaponData.fireRate;
             currentAmmo--;
+            // Cập nhật UI ammo
+            if (LocalAmmoUI.Instance != null)
+                LocalAmmoUI.Instance.SetAmmo(currentAmmo, weaponData.maxAmmo);
         }
     }
 
@@ -208,6 +210,9 @@ public class ThirdPersonShooterController : NetworkBehaviour
         {
             currentAmmo = weaponData.maxAmmo;
             Debug.Log($"Player {Object.Id} reloaded. Current ammo: {currentAmmo}");
+            // Cập nhật UI ammo
+            if (LocalAmmoUI.Instance != null)
+                LocalAmmoUI.Instance.SetAmmo(currentAmmo, weaponData.maxAmmo);
         }
     }
     private void Reloadsound()
