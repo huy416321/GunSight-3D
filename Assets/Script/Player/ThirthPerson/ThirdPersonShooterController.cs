@@ -44,6 +44,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     public GameObject NightVisionEffect;
     public new Light light;
+    [Networked] private bool IsLightOn { get; set; }
 
     private void Awake()
     {
@@ -84,7 +85,9 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
             // Cập nhật NetAimRigWeight cho mọi client
             NetAimRigWeight = aimRigweight;
-
+            
+            if (light != null)
+                light.enabled = IsLightOn;
             Rpclight();
             // Luôn bật camera follow cho player local
             if (followVirtualCamera != null && !followVirtualCamera.gameObject.activeSelf)
@@ -229,8 +232,16 @@ public class ThirdPersonShooterController : NetworkBehaviour
     {
         if (starterAssetsInputs.light)
         {
-            light.enabled = !light.enabled;
+            IsLightOn = !IsLightOn;
+            if (light != null)
+                light.enabled = IsLightOn;
             starterAssetsInputs.light = false;
+        }
+        else
+        {
+            // Remote client: cập nhật trạng thái light
+            if (light != null)
+                light.enabled = IsLightOn;
         }
     }
 

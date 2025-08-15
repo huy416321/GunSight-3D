@@ -2656,8 +2656,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8968277595970897528}
   - component: {fileID: 4362506872865372703}
-  m_Layer: 6
-  m_Name: GameObject
+  m_Layer: 15
+  m_Name: nightvision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
