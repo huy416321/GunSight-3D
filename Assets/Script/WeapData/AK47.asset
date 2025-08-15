@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f33593176eea5f4c8944c33e5338458, type: 3}
   m_Name: AK47
   m_EditorClassIdentifier: 
+  fireSound: {fileID: 8300000, guid: a1bcb09f8f74d94438f2560aa3619f37, type: 3}
+  reloadSound: {fileID: 0}
+  emptyAmmoSound: {fileID: 0}
   weaponName: AK47
   bulletPrefab: {fileID: 2086261179823682334, guid: 1471e98bb0946d847a15230e4b8cb13c, type: 3}
   fireRate: 0.1
   maxAmmo: 30
   recoilAmount: 1.5
   bulletSpread: 0.05
+  FootstepAudioVolume: 0.5

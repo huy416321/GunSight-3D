@@ -25,6 +25,8 @@ public class PlayerSkillController : NetworkBehaviour
     public float dashPushCooldown = 8f;
     public float pushRadius = 2f;
     public float pushUpward = 0.5f;
+    public ForceMode forceMode = ForceMode.Impulse;
+    public float pushForce = 10f;
     public LayerMask pushLayerMask;
     private bool canUseDashPushSkill = true;
     private Coroutine dashPushCooldownCoroutine;
@@ -215,20 +217,28 @@ public class PlayerSkillController : NetworkBehaviour
     {
         // Chờ 2 giây trước khi đẩy
         yield return new WaitForSeconds(0.5f);
-        // Chỉ đẩy các object phía trước (không dash), giảm một nửa khoảng cách đẩy
-        Vector3 dashDir = dashInputDirection.sqrMagnitude > 0.1f ? dashInputDirection.normalized : transform.forward;
-        float pushDistance = dashDistance * 0.5f;
-        Vector3 origin = transform.position + Vector3.up * 0.5f;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, pushRadius, dashDir, pushDistance, pushLayerMask);
-        foreach (var hit in hits)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, pushRadius, pushLayerMask);
+        bool foundDestroyWall = false;
+        int destroyWallLayer = LayerMask.NameToLayer("DestroyWall");
+        foreach (var col in colliders)
         {
-            var hitRb = hit.collider.attachedRigidbody;
-            if (hitRb != null)
+            Rigidbody rb = col.attachedRigidbody;
+            if (rb != null)
             {
-                Vector3 pushDir = (hitRb.position - origin).normalized + Vector3.up * pushUpward;
-                hitRb.AddForce(pushDir.normalized * dashForce, ForceMode.Impulse);
+                Vector3 dir = (col.transform.position - transform.position).normalized;
+                rb.AddForce(dir * pushForce, forceMode);
+            }
+            if (col.gameObject.layer == destroyWallLayer)
+            {
+                foundDestroyWall = true;
+                // Tắt collider sau khi đẩy
+                col.enabled = false;
             }
         }
+        // if (foundDestroyWall && pushSound != null)
+        // {
+        //     Invoke(nameof(PlayPushSound), 0f);
+        // }
         yield break;
     }
 
