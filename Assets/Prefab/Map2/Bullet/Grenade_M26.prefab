@@ -135,15 +135,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.565964
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.1504698
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -57.68738
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalRotation.w
@@ -155,11 +155,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 31f3d55055bba9443b8439d272a0da30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -226,8 +226,8 @@ MonoBehaviour:
   damageRadius: 8
   damage: 40
   explosionEffect: {fileID: 9111320563476075686, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
-  explosionSound: {fileID: 0}
-  explosionVolume: 0.8
+  explosionSound: {fileID: 8300000, guid: aa364c7f83f33694b9639e603f9c693d, type: 3}
+  explosionVolume: 1
 --- !u!114 &14123315143178839
 MonoBehaviour:
   m_ObjectHideFlags: 0
