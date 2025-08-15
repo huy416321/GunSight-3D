@@ -238,7 +238,11 @@ public class PlayerControllerRPC : NetworkBehaviour
     public void OnFire(InputAction.CallbackContext context)
     {
         if (context.performed)
+        {
             isFiring = true;
+            AudioSource.PlayClipAtPoint(weapons[currentWeaponIndex].fireSound, transform.position, 0.5f);
+        }
+        
         else if (context.canceled)
             isFiring = false;
     }
