@@ -7193,11 +7193,11 @@ MonoBehaviour:
   player1Prefab:
     RawGuidValue: 66c6af17fa69413439a5cd1a482e2572
   player2Prefab:
-    RawGuidValue: f90b7cc628be4294390f512adbe80323
-  player3Prefab:
-    RawGuidValue: 0ffe91c70cb376344895333707c395ae
-  player4Prefab:
     RawGuidValue: 9b2c1c83a10556b458912b4be815d197
+  player3Prefab:
+    RawGuidValue: 00000000000000000000000000000000
+  player4Prefab:
+    RawGuidValue: 00000000000000000000000000000000
   player1SpawnPos: {x: 17.456934, y: 2.1504693, z: -59.066128}
   player2SpawnPos: {x: 22.041786, y: 2.1504703, z: -58.791203}
   player3SpawnPos: {x: 34.46906, y: 2.1504698, z: -38.019592}

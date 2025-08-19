@@ -99,7 +99,7 @@ public class MatchmakingManager : MonoBehaviour
             matchmakingTimerText.text = $"Đang tìm trận: {matchmakingTime:F1}s";
 
             // Kiểm tra số lượng người chơi (trừ chính mình)
-            int playerCount = runner != null && runner.SessionInfo != null ? runner.SessionInfo.PlayerCount : 1;
+            int playerCount = runner != null && runner.SessionInfo != null ? runner.SessionInfo.PlayerCount : 0;
             int otherPlayers = Mathf.Max(0, playerCount - 1);
             if (activateOnPlayerJoin != null)
             {
@@ -130,7 +130,7 @@ public class MatchmakingManager : MonoBehaviour
         if (runner == null)
             runner = FindFirstObjectByType<NetworkRunner>();
         if (runner != null && runner.SessionInfo != null)
-            return runner.SessionInfo.PlayerCount >= 1;
+            return runner.SessionInfo.PlayerCount >= 4;
         return false;
     }
 
