@@ -20,6 +20,7 @@ namespace StarterAssets
 		public bool throwGrenade;
 		public bool kneel;
 		public bool light;
+		public bool nightVision;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -86,6 +87,11 @@ namespace StarterAssets
 		{
 			LightInput(value.isPressed);
 		}
+
+		public void OnNightVision(InputValue value) 
+		{
+			NightVisionInput(value.isPressed);
+		}
 #endif
 
 
@@ -141,6 +147,11 @@ namespace StarterAssets
 		public void LightInput(bool newLightState)
 		{
 			light = newLightState;
+		}
+
+		public void NightVisionInput(bool newNightVisionState)
+		{
+			nightVision = newNightVisionState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

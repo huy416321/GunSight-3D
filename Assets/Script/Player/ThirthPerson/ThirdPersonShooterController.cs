@@ -43,7 +43,6 @@ public class ThirdPersonShooterController : NetworkBehaviour
     private float shootCooldown = 0f;
     private int currentAmmo = 0;
 
-    public GameObject NightVisionEffect;
     public new Light light;
     [Networked] private bool IsLightOn { get; set; }
 
