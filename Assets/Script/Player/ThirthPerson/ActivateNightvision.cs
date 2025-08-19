@@ -12,9 +12,9 @@ public class ActivateNightvision : MonoBehaviour
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
     }
 
-    void Update()
+    public void Activate()
     {
-        if (starterAssetsInputs != null && starterAssetsInputs.nightVision)
+        if (starterAssetsInputs != null && starterAssetsInputs.skill)
         {
             isNightVisionOn = !isNightVisionOn;
             if (NightVisionEffect != null)
@@ -22,4 +22,6 @@ public class ActivateNightvision : MonoBehaviour
             starterAssetsInputs.nightVision = false;
         }
     }
+
+
 }
