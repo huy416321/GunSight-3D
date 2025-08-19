@@ -19,7 +19,6 @@ public class ActivateNightvision : MonoBehaviour
             isNightVisionOn = !isNightVisionOn;
             if (NightVisionEffect != null)
                 NightVisionEffect.SetActive(isNightVisionOn);
-            starterAssetsInputs.nightVision = false;
         }
     }
 
