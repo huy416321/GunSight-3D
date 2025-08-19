@@ -4,8 +4,13 @@ using StarterAssets;
 public class ActivateNightvision : MonoBehaviour
 {
     [SerializeField] private GameObject NightVisionEffect;
-    [SerializeField] private StarterAssetsInputs starterAssetsInputs;
+    private StarterAssetsInputs starterAssetsInputs;
     private bool isNightVisionOn = false;
+
+    void Awake()
+    {
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+    }
 
     void Update()
     {
