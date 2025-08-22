@@ -21,6 +21,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Networked] private bool IsReloading { get; set; }
     [Networked] private bool IsthrowGrenade { get; set; }
     [Networked] private float NetAimRigWeight { get; set; }
+    [Networked] private bool IsShooting { get; set; } // Thêm biến này để đồng bộ trạng thái bắn
 
     [SerializeField] private Classplayer classPlayer;
     [SerializeField] private Rig aimRig;
@@ -79,6 +80,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
             // Cập nhật trạng thái networked
             IsAiming = starterAssetsInputs.aim;
+            IsShooting = starterAssetsInputs.shoot;
             IsKneeling = starterAssetsInputs.kneel;
             IsUsingSkill = starterAssetsInputs.skill;
             IsReloading = starterAssetsInputs.reload;
@@ -111,7 +113,16 @@ public class ThirdPersonShooterController : NetworkBehaviour
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
 
-            if(starterAssetsInputs.skill && starterAssetsInputs.aim)
+            if (starterAssetsInputs.shoot && currentAmmo > 0)
+            {
+                animator.SetBool("Shoot", starterAssetsInputs.shoot);
+            }
+            else
+            {
+                animator.SetBool("Shoot", false);
+            }
+
+            if (starterAssetsInputs.skill && starterAssetsInputs.aim)
             {
                 starterAssetsInputs.aim = false;
                 animator.SetBool("Skill", starterAssetsInputs.skill);
