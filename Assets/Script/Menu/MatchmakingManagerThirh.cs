@@ -18,6 +18,7 @@ public class MatchmakingManagerThirh : MonoBehaviour
     public Button mainStartBtn; // Nút Start Game ở panel chính
 
     public NetworkRunner runner;
+    public GameObject cutsScene;
 
     private float matchmakingTime = 0f;
 
@@ -116,6 +117,9 @@ public class MatchmakingManagerThirh : MonoBehaviour
             if (CheckEnoughPlayers())
             {
                 // Đủ người thì chuyển scene, đếm ngược sẽ xử lý ở PlayerSpawner
+                matchmakingTimerText.text = "Đã đủ người! Đang chuyển trận sau vài giây...";
+                cutsScene.SetActive(true);
+                yield return new WaitForSeconds(12f);
                 if (runner != null)
                 {
                     runner.LoadScene("RankedScene");

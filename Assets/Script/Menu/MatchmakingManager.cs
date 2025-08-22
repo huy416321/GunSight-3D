@@ -18,6 +18,7 @@ public class MatchmakingManager : MonoBehaviour
     public Button mainStartBtn; // Nút Start Game ở panel chính
 
     public NetworkRunner runner;
+    public GameObject cutsScene; // Thêm biến này nếu cần sử dụng cắt cảnh
 
     private float matchmakingTime = 0f;
 
@@ -115,8 +116,9 @@ public class MatchmakingManager : MonoBehaviour
             if (CheckEnoughPlayers())
             {
                 // Đủ người thì delay 5 giây rồi mới chuyển scene
-                matchmakingTimerText.text = "Đã đủ người! Đang chuyển trận sau 5 giây...";
-                yield return new WaitForSeconds(5f);
+                matchmakingTimerText.text = "Đã đủ người! Đang chuyển trận sau vài giây...";
+                cutsScene.SetActive(true); // Hiện cắt cảnh nếu cần
+                yield return new WaitForSeconds(12f);
                 if (runner != null)
                 {
                     runner.LoadScene("GameScene");
