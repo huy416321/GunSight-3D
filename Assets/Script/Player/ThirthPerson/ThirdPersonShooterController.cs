@@ -116,10 +116,12 @@ public class ThirdPersonShooterController : NetworkBehaviour
             if (starterAssetsInputs.shoot && currentAmmo > 0)
             {
                 animator.SetBool("Shoot", starterAssetsInputs.shoot);
+                aimRigweight = 1f; // Giữ aimRig khi bắn
             }
             else
             {
                 animator.SetBool("Shoot", false);
+                aimRigweight = 0f;
             }
 
             if (starterAssetsInputs.skill && starterAssetsInputs.aim)

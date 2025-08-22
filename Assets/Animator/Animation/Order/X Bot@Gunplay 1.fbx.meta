@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 04c79912f0af3e44bb9ee3c13d61cf0d
+guid: ec4ef1cb31383b745a1d8a1c5ede5198
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Gunplay
+      name: Gunplay 1
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 52
-      lastFrame: 240
+      firstFrame: 0
+      lastFrame: 189
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
