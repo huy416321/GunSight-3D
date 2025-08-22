@@ -114,7 +114,9 @@ public class MatchmakingManager : MonoBehaviour
             // Kiểm tra nếu đã đủ 2 người
             if (CheckEnoughPlayers())
             {
-                // Đủ người thì chuyển scene, đếm ngược sẽ xử lý ở PlayerSpawner
+                // Đủ người thì delay 5 giây rồi mới chuyển scene
+                matchmakingTimerText.text = "Đã đủ người! Đang chuyển trận sau 5 giây...";
+                yield return new WaitForSeconds(5f);
                 if (runner != null)
                 {
                     runner.LoadScene("GameScene");
@@ -130,7 +132,7 @@ public class MatchmakingManager : MonoBehaviour
         if (runner == null)
             runner = FindFirstObjectByType<NetworkRunner>();
         if (runner != null && runner.SessionInfo != null)
-            return runner.SessionInfo.PlayerCount >= 4;
+            return runner.SessionInfo.PlayerCount >= 1;
         return false;
     }
 
