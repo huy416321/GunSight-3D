@@ -35,26 +35,10 @@ public class MatchManager : NetworkBehaviour
             isRoundActive = false;
             roundTimer = roundTimeLimit;
 
-            // Đếm số lượng player mỗi team
-            alivePolice = 0;
-            aliveRobber = 0;
-            var runner = playerSpawner != null ? playerSpawner.runner : null;
-            if (runner != null)
-            {
-                foreach (var p in runner.ActivePlayers)
-                {
-                    var obj = runner.GetPlayerObject(p);
-                    if (obj != null)
-                    {
-                        var ctrl = obj.GetComponent<PlayerControllerRPC>();
-                        if (ctrl != null)
-                        {
-                            if (ctrl.isPolice) alivePolice++;
-                            else aliveRobber++;
-                        }
-                    }
-                }
-            }
+            // Mặc định mỗi team có 2 người chơi
+            alivePolice = 2;
+            aliveRobber = 2;
+
             // Đếm ngược round 1
             StartCoroutine(RoundCountdownCoroutine());
         }
@@ -101,32 +85,47 @@ public class MatchManager : NetworkBehaviour
 
         // Giảm số lượng player còn sống của team
         var loserObj = runner.GetPlayerObject(loserRef);
-        if (loserObj != null)
+        if (loserObj == null)
+        {
+            Debug.LogWarning("loserObj is null trong OnPlayerDie!");
+        }
+        else
         {
             var ctrl = loserObj.GetComponent<PlayerControllerRPC>();
-            if (ctrl != null)
+            if (ctrl == null)
             {
-                if (ctrl.isPolice) alivePolice--;
-                else aliveRobber--;
+                Debug.LogWarning("ctrl is null trong OnPlayerDie!");
+            }
+            else
+            {
+                if (ctrl.isPolice) {
+                    alivePolice--;
+                    Debug.Log("alivePolice giảm còn: " + alivePolice);
+                } else {
+                    aliveRobber--;
+                    Debug.Log("aliveRobber giảm còn: " + aliveRobber);
+                }
             }
         }
 
         // Kiểm tra nếu một team bị loại hết
-        if (alivePolice <= 0 || aliveRobber <= 0)
+        if (alivePolice <= 0)
         {
             isRoundActive = false;
-            int winnerIndex = loserIndex == 0 ? 1 : 0;
-            if (winnerIndex == 0) player1Score++;
-            else player2Score++;
+            player2Score++;
             UpdateUI();
-            Debug.Log($"Score updated: P1={player1Score}, P2={player2Score}");
-            string winMsg = "";
-            if (player1Score >= maxRoundsToWin || winnerIndex == 0)
-                winMsg = "Cảnh WIN!";
-            else if (player2Score >= maxRoundsToWin || winnerIndex == 1)
-                winMsg = "Cướp WIN!";
-            Debug.Log(winMsg);
-            RpcShowWinName(winMsg, player1Score, player2Score);
+            RpcShowWinName("Cướp WIN!", player1Score, player2Score);
+            if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
+            {
+                StartCoroutine(NextRoundDelay());
+            }
+        }
+        else if (aliveRobber <= 0)
+        {
+            isRoundActive = false;
+            player1Score++;
+            UpdateUI();
+            RpcShowWinName("Cảnh WIN!", player1Score, player2Score);
             if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
             {
                 StartCoroutine(NextRoundDelay());

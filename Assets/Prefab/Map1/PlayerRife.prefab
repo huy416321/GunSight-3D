@@ -2258,7 +2258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
-  isPolice: 1
+  isPolice: 0
   moveSpeed: 5
   bloodAnimation: {fileID: 6206160245328773932}
   playerCamera: {fileID: 7663441165663397799}
