@@ -6239,7 +6239,7 @@ MonoBehaviour:
   player2ScoreText: {fileID: 962736177}
   winText: {fileID: 1506815696}
   timerText: {fileID: 764629118}
-  playerSpawner: {fileID: 1314869846}
+  playerSpawner: {fileID: 0}
   maxRoundsToWin: 3
   roundTimeLimit: 300
 --- !u!4 &292431761
