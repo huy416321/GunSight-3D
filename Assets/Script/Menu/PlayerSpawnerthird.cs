@@ -89,8 +89,10 @@ public class PlayerSpawnerthird : MonoBehaviour, INetworkRunnerCallbacks
             runner.Despawn(spawnedPlayerObj);
         }
         var obj = runner.Spawn(prefab, spawnPos, Quaternion.identity, player);
-        if (obj == null)
+        if (obj == null) 
             Debug.LogError("Spawn player FAILED! Prefab chưa add vào NetworkRunner hoặc prefab lỗi.");
+        else
+            runner.SetPlayerObject(player, obj);
         spawnedPlayerObj = obj;
         spawnedSelf = true;
     }
