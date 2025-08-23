@@ -143,6 +143,8 @@ public class MatchManager : NetworkBehaviour
     private void RpcNextRound()
     {
         Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}, StateAuthority: {Object.HasStateAuthority}");
+        alivePolice = 2;
+        aliveRobber = 2;
         StartCoroutine(RoundCountdownCoroutine());
     }
 
