@@ -7198,8 +7198,8 @@ MonoBehaviour:
     RawGuidValue: 00000000000000000000000000000000
   player4Prefab:
     RawGuidValue: 00000000000000000000000000000000
-  player1SpawnPos: {x: 17.456934, y: 2.1504693, z: -59.066128}
-  player2SpawnPos: {x: 22.041786, y: 2.1504703, z: -58.791203}
+  player1SpawnPos: {x: 21.571268, y: 2.389646, z: -58.647446}
+  player2SpawnPos: {x: 25.051975, y: 2.389646, z: -58.646397}
   player3SpawnPos: {x: 34.46906, y: 2.1504698, z: -38.019592}
   player4SpawnPos: {x: 40.92376, y: 2.1504698, z: -38.212257}
 --- !u!1 &647618022

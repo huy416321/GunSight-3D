@@ -3857,7 +3857,7 @@ Transform:
   m_GameObject: {fileID: 9174684199419614146}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.89735, y: 2.1504707, z: -59.631737}
+  m_LocalPosition: {x: 25.051975, y: 2.389646, z: -58.646397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4191,7 +4191,7 @@ MonoBehaviour:
   grenadeSpawnPoint: {fileID: 2656049597271426962}
   grenadeThrowForce: 0
   grenadeCooldown: 3
-  _NetworkedPosition: {x: 22.89735, y: 2.1504707, z: -59.631737}
+  _NetworkedPosition: {x: 25.051975, y: 2.389646, z: -58.646397}
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
