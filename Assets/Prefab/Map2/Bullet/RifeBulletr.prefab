@@ -53,6 +53,7 @@ MonoBehaviour:
   speed: 70
   lifetime: 3
   hitEffect: {fileID: 9064919875212695174, guid: a5e1e2c4d2cd81f4abed6272a2b8187a, type: 3}
+  hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
   damage: 20
   isPoliceShooter: 0
 --- !u!54 &-6712157663646941283

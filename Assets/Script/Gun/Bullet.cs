@@ -31,6 +31,13 @@ public class Bullet : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Nếu va chạm với layer Wall thì despawn ngay
+        if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            if (Object.HasStateAuthority)
+                Runner.Despawn(Object);
+            return;
+        }
         // Gây sát thương nếu trúng player
         if (Object.HasStateAuthority)
         {
