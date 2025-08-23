@@ -4,9 +4,8 @@ using TMPro;
 
 public class MatchManagerThirh : NetworkBehaviour
 {
-    private float checkTeamTimer = 0f;
-    private int deadPolice = 0;
-    private int deadRobber = 0;
+    private int alivePolice = 0;
+    private int aliveRobber = 0;
     [Networked] public int player1Score { get; set; }
     [Networked] public int player2Score { get; set; }
     [Networked] public int currentRound { get; set; }
@@ -21,7 +20,7 @@ public class MatchManagerThirh : NetworkBehaviour
     public TMP_Text timerText;
 
 
-    public PlayerSpawner playerSpawner;
+    public PlayerSpawnerthird playerSpawner;
     public int maxRoundsToWin = 3;
     public float roundTimeLimit = 300f; // 5 phút
 
@@ -35,8 +34,12 @@ public class MatchManagerThirh : NetworkBehaviour
             currentRound = 0;
             isRoundActive = false;
             roundTimer = roundTimeLimit;
-            deadPolice = 0;
-            deadRobber = 0;
+
+            // Mặc định mỗi team có 2 người chơi
+            alivePolice = 2;
+            aliveRobber = 2;
+
+            // Đếm ngược round 1
             StartCoroutine(RoundCountdownCoroutine());
         }
         UpdateUI();
@@ -80,33 +83,49 @@ public class MatchManagerThirh : NetworkBehaviour
         Debug.Log($"OnPlayerDie called, loserIndex: {loserIndex}, isRoundActive: {isRoundActive}");
         if (!Object.HasStateAuthority || !isRoundActive) return;
 
-        // Đếm số lượng người chết mỗi team
+        // Giảm số lượng player còn sống của team
         var loserObj = runner.GetPlayerObject(loserRef);
-        if (loserObj != null)
+        if (loserObj == null)
+        {
+            Debug.LogWarning("loserObj is null trong OnPlayerDie!");
+        }
+        else
         {
             var ctrl = loserObj.GetComponent<PlayerHealth>();
-            if (ctrl != null)
+            if (ctrl == null)
             {
-                if (ctrl.isPolice) deadPolice++;
-                else deadRobber++;
-            }
-        }
-
-        // Nếu có 2 người của một team chết thì team còn lại win
-        if (deadPolice >= 2 || deadRobber >= 2)
-        {
-            isRoundActive = false;
-            if (deadPolice >= 2)
-            {
-                player2Score++;
-                RpcShowWinName("Cướp WIN! (Cảnh sát chết đủ)", player1Score, player2Score);
+                Debug.LogWarning("ctrl is null trong OnPlayerDie!");
             }
             else
             {
-                player1Score++;
-                RpcShowWinName("Cảnh WIN! (Cướp chết đủ)", player1Score, player2Score);
+                if (ctrl.isPolice) {
+                    alivePolice--;
+                    Debug.Log("alivePolice giảm còn: " + alivePolice);
+                } else {
+                    aliveRobber--;
+                    Debug.Log("aliveRobber giảm còn: " + aliveRobber);
+                }
             }
+        }
+
+        // Kiểm tra nếu một team bị loại hết
+        if (alivePolice <= 0)
+        {
+            isRoundActive = false;
+            player2Score++;
             UpdateUI();
+            RpcShowWinName("Cướp WIN!", player1Score, player2Score);
+            if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
+            {
+                StartCoroutine(NextRoundDelay());
+            }
+        }
+        else if (aliveRobber <= 0)
+        {
+            isRoundActive = false;
+            player1Score++;
+            UpdateUI();
+            RpcShowWinName("Cảnh WIN!", player1Score, player2Score);
             if (player1Score < maxRoundsToWin && player2Score < maxRoundsToWin)
             {
                 StartCoroutine(NextRoundDelay());
@@ -124,6 +143,8 @@ public class MatchManagerThirh : NetworkBehaviour
     private void RpcNextRound()
     {
         Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}, StateAuthority: {Object.HasStateAuthority}");
+        alivePolice = 2;
+        aliveRobber = 2;
         StartCoroutine(RoundCountdownCoroutine());
     }
 
@@ -171,7 +192,7 @@ private void RpcShowWinName(string winMessage, int p1Score, int p2Score)
     // Nếu đã kết thúc trận thì gọi UI end game ngoài
     if (player1Score >= maxRoundsToWin || player2Score >= maxRoundsToWin)
     {
-    var ui = UnityEngine.Object.FindFirstObjectByType<EndGameUIManager>();
+        var ui = FindObjectOfType<EndGameUIManager>();
         if (ui != null) ui.ShowEndGame(winMessage);
     }
 }

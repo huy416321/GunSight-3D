@@ -68,7 +68,11 @@ public class PlayerHealth : NetworkBehaviour
 
     private void Die()
     {
-        // Xử lý chết ở đây (ẩn nhân vật, respawn, v.v.)
-        Debug.Log($"Player {Object.Id} died");
+        Debug.Log($"RPC_Die called on {gameObject.name}, IsStateAuthority: {Object.HasStateAuthority}, InputAuthority: {Object.InputAuthority}");
+        var matchManager = FindFirstObjectByType<MatchManagerThirh>();
+        if (matchManager != null && matchManager.Object.HasStateAuthority)
+        {
+            matchManager.OnPlayerDie(Object.InputAuthority);
+        }
     }
 }

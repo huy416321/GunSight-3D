@@ -6239,7 +6239,7 @@ MonoBehaviour:
   player2ScoreText: {fileID: 962736177}
   winText: {fileID: 1506815696}
   timerText: {fileID: 764629118}
-  playerSpawner: {fileID: 0}
+  playerSpawner: {fileID: 1314869846}
   maxRoundsToWin: 3
   roundTimeLimit: 300
 --- !u!4 &292431761
@@ -27062,7 +27062,7 @@ MonoBehaviour:
     RawGuidValue: 00000000000000000000000000000000
   player4Prefab:
     RawGuidValue: 00000000000000000000000000000000
-  player1SpawnPos: {x: 17.346104, y: 2.1504688, z: -59.63605}
+  player1SpawnPos: {x: 266.92175, y: 161.1548, z: 38.729927}
   player2SpawnPos: {x: 22.89735, y: 2.1504707, z: -59.631737}
   player3SpawnPos: {x: 0, y: 0, z: 0}
   player4SpawnPos: {x: 0, y: 0, z: 0}
