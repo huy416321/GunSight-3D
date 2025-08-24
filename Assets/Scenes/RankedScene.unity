@@ -27055,15 +27055,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runner: {fileID: 0}
   player1Prefab:
-    RawGuidValue: f890b553e37d00f4aaaa26669d5fb853
+    RawGuidValue: c1e5949c8e6ee4b4fbf7b9077e21f70d
   player2Prefab:
-    RawGuidValue: db2921d3798eecf4492c1913cf92a6ef
+    RawGuidValue: c1e5949c8e6ee4b4fbf7b9077e21f70d
   player3Prefab:
     RawGuidValue: 00000000000000000000000000000000
   player4Prefab:
     RawGuidValue: 00000000000000000000000000000000
   player1SpawnPos: {x: 266.92175, y: 161.1548, z: 38.729927}
-  player2SpawnPos: {x: 22.89735, y: 2.1504707, z: -59.631737}
+  player2SpawnPos: {x: 267.8607, y: 161.1548, z: 30.977114}
   player3SpawnPos: {x: 0, y: 0, z: 0}
   player4SpawnPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1314869847

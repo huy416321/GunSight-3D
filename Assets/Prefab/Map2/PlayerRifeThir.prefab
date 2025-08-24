@@ -2475,6 +2475,7 @@ GameObject:
   - component: {fileID: 4374297517465536937}
   - component: {fileID: 592308435710349465}
   - component: {fileID: 5356430858833539294}
+  - component: {fileID: 4087826904829424304}
   - component: {fileID: 5057453835583193203}
   - component: {fileID: 2690442362964122940}
   - component: {fileID: 3280056529911050023}
@@ -2483,7 +2484,6 @@ GameObject:
   - component: {fileID: 8147686725540042137}
   - component: {fileID: 1135944297850345963}
   - component: {fileID: 2080762547871095667}
-  - component: {fileID: 4087826904829424304}
   - component: {fileID: 3236103810066921890}
   - component: {fileID: 850887698305318359}
   m_Layer: 6
@@ -2569,6 +2569,23 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &4087826904829424304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452227306260628664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564da6940ee503f408f1b7aa518c4e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPolice: 0
+  maxHealth: 100
+  HitAnimator: {fileID: 3130981145240220991}
+  hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
+  _currentHealth: 0
 --- !u!114 &5057453835583193203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2910,30 +2927,13 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 4087826904829424304}
   - {fileID: 5057453835583193203}
   - {fileID: 2690442362964122940}
   - {fileID: 3280056529911050023}
   - {fileID: 3450653236590735169}
-  - {fileID: 4087826904829424304}
   - {fileID: 3236103810066921890}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &4087826904829424304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6452227306260628664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 564da6940ee503f408f1b7aa518c4e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPolice: 1
-  maxHealth: 100
-  HitAnimator: {fileID: 3130981145240220991}
-  hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
-  _currentHealth: 0
 --- !u!114 &3236103810066921890
 MonoBehaviour:
   m_ObjectHideFlags: 0

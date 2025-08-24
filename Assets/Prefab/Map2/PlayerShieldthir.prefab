@@ -959,7 +959,7 @@ Transform:
   m_GameObject: {fileID: 2162234028555552992}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.70000076, y: 1.625, z: -4}
+  m_LocalPosition: {x: 0.7000122, y: 1.625, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1379,13 +1379,12 @@ MonoBehaviour:
   aimSensitivity: 0.5
   aimColliderLayerMask:
     serializedVersion: 2
-    m_Bits: 513
+    m_Bits: 833
   debugTransform: {fileID: 109528079537416353}
   pfBulletProjectile: {fileID: 2787594106011184721, guid: 1471e98bb0946d847a15230e4b8cb13c, type: 3}
   spawnBulletPosition: {fileID: 8800568730079493199}
   vfxHitGreen: {fileID: 0}
   vfxHitRed: {fileID: 0}
-  NightVisionEffect: {fileID: 0}
   light: {fileID: 2684210268442952074}
 --- !u!114 &6917722155716206595
 MonoBehaviour:

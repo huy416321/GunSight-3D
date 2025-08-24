@@ -101,13 +101,13 @@ public class ThirdPersonShooterController : NetworkBehaviour
             {
                 if (aimVirtualCamera != null && !aimVirtualCamera.gameObject.activeSelf)
                     aimVirtualCamera.gameObject.SetActive(true);
-                aimRigweight = 1f;
+                aimRig.weight = 1f;
             }
             else
             {
                 if (aimVirtualCamera != null && aimVirtualCamera.gameObject.activeSelf)
                     aimVirtualCamera.gameObject.SetActive(false);
-                aimRigweight = 0f;
+                aimRig.weight = 0f;
             }
 
             // Set Animator cho local player
