@@ -1,6 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using Fusion;
+using TMPro;
+using System.Collections;
 
 public class PlayerHealth : NetworkBehaviour
 {
@@ -42,18 +44,23 @@ public class PlayerHealth : NetworkBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (!HasStateAuthority) return;
-        currentHealth = Mathf.Max(currentHealth - amount, 0f);
-        HitAnimator.SetTrigger("Hit"); // Trigger hit animation
-        AudioSource.PlayClipAtPoint(hitSound, transform.position, 0.2f); // Play hit sound
-        if (currentHealth <= 0f)
-        {
-            Die();
-        }
-        // Gọi update UI nếu là local
+        Debug.Log($"TakeDamage called on {gameObject.name}, amount: {amount}, currentHealth: {currentHealth}, IsStateAuthority: {Object.HasStateAuthority}, IsInputAuthority: {Object.HasInputAuthority}");
+        if (!Object.HasStateAuthority) return;
+        HitAnimator.SetTrigger("Hit"); // Gọi animation máu
+        currentHealth -= amount;
+        currentHealth = Mathf.Max(currentHealth, 0);
+        // Gọi RPC để tất cả client đều thấy VFX sát thương
         if (Object.HasInputAuthority)
         {
-            UpdateHealthUI();
+            var healthUI = LocalHealthUI.Instance;
+            if (healthUI != null)
+                healthUI.SetHealth(currentHealth, maxHealth);
+        }
+        if (currentHealth <= 0)
+        {
+            Debug.Log($"Player {gameObject.name} died. Calling RPC_Die. IsStateAuthority: {Object.HasStateAuthority}");
+            // chết
+            RPC_Die();
         }
     }
 
@@ -66,7 +73,8 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
 
-    private void Die()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    public void RPC_Die()
     {
         Debug.Log($"RPC_Die called on {gameObject.name}, IsStateAuthority: {Object.HasStateAuthority}, InputAuthority: {Object.InputAuthority}");
         var matchManager = FindFirstObjectByType<MatchManagerThirh>();

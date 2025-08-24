@@ -4,8 +4,8 @@ using TMPro;
 
 public class MatchManagerThirh : NetworkBehaviour
 {
-    private int alivePolice = 0;
-    private int aliveRobber = 0;
+    private int alivePolice;
+    private int aliveRobber;
     [Networked] public int player1Score { get; set; }
     [Networked] public int player2Score { get; set; }
     [Networked] public int currentRound { get; set; }
@@ -20,7 +20,7 @@ public class MatchManagerThirh : NetworkBehaviour
     public TMP_Text timerText;
 
 
-    public PlayerSpawnerthird playerSpawner;
+    public PlayerSpawnerThird playerSpawner;
     public int maxRoundsToWin = 3;
     public float roundTimeLimit = 300f; // 5 phút
 

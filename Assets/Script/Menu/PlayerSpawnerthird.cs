@@ -3,7 +3,7 @@ using UnityEngine;
 using Fusion.Sockets;
 using UnityEngine.SceneManagement;
 
-public class PlayerSpawnerthird : MonoBehaviour, INetworkRunnerCallbacks
+public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
 {
     public NetworkRunner runner;
     public NetworkPrefabRef player1Prefab;
@@ -89,10 +89,10 @@ public class PlayerSpawnerthird : MonoBehaviour, INetworkRunnerCallbacks
             runner.Despawn(spawnedPlayerObj);
         }
         var obj = runner.Spawn(prefab, spawnPos, Quaternion.identity, player);
-        if (obj == null) 
+        if (obj == null)
             Debug.LogError("Spawn player FAILED! Prefab chưa add vào NetworkRunner hoặc prefab lỗi.");
         else
-            runner.SetPlayerObject(player, obj);
+            runner.SetPlayerObject(player, obj); // Gán PlayerObject cho PlayerRef
         spawnedPlayerObj = obj;
         spawnedSelf = true;
     }
