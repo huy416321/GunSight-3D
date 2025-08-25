@@ -127,7 +127,6 @@ public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
                 else if (i == 2) spawnPos = player3SpawnPos;
                 else if (i == 3) spawnPos = player4SpawnPos;
                 // Nâng vị trí spawn lên cao để tránh kẹt collider
-                spawnPos.y += 2f;
                 var charCtrl = obj.GetComponent<CharacterController>();
                 if (charCtrl != null) charCtrl.enabled = false;
                 obj.transform.position = spawnPos;
