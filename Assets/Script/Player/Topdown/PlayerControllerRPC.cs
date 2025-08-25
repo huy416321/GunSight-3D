@@ -418,28 +418,21 @@ public class PlayerControllerRPC : NetworkBehaviour
         }
     }
 
-    public void OnThrowGrenade(InputAction.CallbackContext context)
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RpcThrowGrenade()
     {
-        if (!Object.HasInputAuthority) return;
-        if (context.performed && Time.time - lastGrenadeTime >= grenadeCooldown)
-        {
-            lastGrenadeTime = Time.time;
-            Vector3 throwDir = transform.forward + Vector3.up * 0.3f;
-            RPC_ThrowGrenade(grenadeSpawnPoint.position, throwDir * grenadeThrowForce);
-        }
+        animator.SetTrigger("Throw");
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    private void RPC_ThrowGrenade(Vector3 pos, Vector3 velocity)
+    public void OnThrowGrenade()
     {
-        if (grenadePrefab != null)
+        if (grenadePrefab == null || grenadeSpawnPoint == null) return;
+        // Spawn grenade qua Fusion
+        var grenadeObj = Runner.Spawn(grenadePrefab, grenadeSpawnPoint.position, grenadeSpawnPoint.rotation, Object.InputAuthority);
+        Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            var grenadeObj = Runner.Spawn(grenadePrefab, pos, Quaternion.identity, Object.InputAuthority);
-            Rigidbody rb = grenadeObj.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.linearVelocity = velocity;
-            }
+            rb.AddForce(grenadeSpawnPoint.forward * grenadeThrowForce, ForceMode.Impulse);
         }
     }
 
