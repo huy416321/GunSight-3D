@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6712157663646941283}
   - component: {fileID: 2470738353224945149}
   m_Layer: 0
-  m_Name: RifeBulletr
+  m_Name: PistolBulletr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortKey: 2066353823
+  SortKey: 2689638801
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []

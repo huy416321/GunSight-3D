@@ -5,8 +5,10 @@ public class Bullet : NetworkBehaviour
 {
     public float speed = 20f;
     public float lifetime = 3f;
+    public ParticleSystem hitEffect; // Hiệu ứng khi trúng đích
+    public AudioClip hitSound; // Âm thanh khi trúng đích
 
-    public float damage = 10f; 
+    public float damage; 
 
     // Lưu team của người bắn
     public bool isPoliceShooter;
@@ -15,7 +17,8 @@ public class Bullet : NetworkBehaviour
 
     public override void Spawned()
     {
-        aliveTime = 0f;
+    aliveTime = 0f;
+    Debug.Log($"[Bulletthird] Spawned on client {Runner.LocalPlayer.PlayerId}, ObjectId: {Object.Id}");
     }
 
     private void Update()
@@ -31,23 +34,26 @@ public class Bullet : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Nếu va chạm với layer Wall thì despawn ngay
-        if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-            if (Object.HasStateAuthority)
-                Runner.Despawn(Object);
-            return;
-        }
         // Gây sát thương nếu trúng player
         if (Object.HasStateAuthority)
         {
-            var player = other.GetComponent<PlayerControllerRPC>();
-            if (player != null)
+            Debug.Log($"[Bulletthird] OnTriggerEnter on client {Runner.LocalPlayer.PlayerId}, ObjectId: {Object.Id}, Hit: {other.name}");
+            var playerHealth = other.GetComponent<PlayerControllerRPC>();
+            if (playerHealth != null)
             {
-                float finalDamage = (player.isPolice == isPoliceShooter) ? damage * 0.25f : damage;
-                player.TakeDamage(finalDamage);
+                float finalDamage = (playerHealth.isPolice == isPoliceShooter) ? damage * 1f : damage * 2f;
+                playerHealth.TakeDamage(finalDamage);
+                Runner.Despawn(Object);
             }
-            Runner.Despawn(Object);
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                // Nếu trúng tường có thể phá hủy, thì tạo hiệu ứng và despawn bullet
+                if (hitEffect != null)
+                    Instantiate(hitEffect, transform.position, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(hitSound, transform.position, 0.5f);
+                Runner.Despawn(Object);
+            }
         }
     }
 }

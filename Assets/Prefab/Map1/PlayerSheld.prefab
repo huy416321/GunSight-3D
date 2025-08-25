@@ -1087,7 +1087,7 @@ MonoBehaviour:
   meshResolution: 1
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 769
+    m_Bits: 773
   fovMaterial: {fileID: 2100000, guid: 117718880a233b145b71aadd946d6caa, type: 2}
   targetMask:
     serializedVersion: 2
@@ -1433,12 +1433,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784800598fc2556449dbbde346e13cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 11
+  viewRadius: 5
   viewAngle: 360
   meshResolution: 1
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 769
+    m_Bits: 773
   fovMaterial: {fileID: 2100000, guid: 117718880a233b145b71aadd946d6caa, type: 2}
   targetMask:
     serializedVersion: 2
@@ -2686,7 +2686,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -4182,14 +4182,14 @@ MonoBehaviour:
   weaponObjects:
   - {fileID: 8349879891075666717}
   muzzleFlashPrefab: {fileID: 1998830269065593993, guid: b70fbea4bc8994749ba52e4f560f9f28, type: 3}
-  dashDistance: 5
+  dashDistance: 3
   dashCooldown: 2
   dashDuration: 0.2
   firePoint: {fileID: 2656049597271426962}
   nameText: {fileID: 4398166792619013961}
   grenadePrefab: {fileID: 100000, guid: 8f3bca1ae40d27e4a8a895f632c41e99, type: 3}
   grenadeSpawnPoint: {fileID: 2656049597271426962}
-  grenadeThrowForce: 0
+  grenadeThrowForce: 8
   grenadeCooldown: 3
   _NetworkedPosition: {x: 25.051975, y: 2.389646, z: -58.646397}
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}

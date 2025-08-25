@@ -240,7 +240,6 @@ public class PlayerControllerRPC : NetworkBehaviour
         if (context.performed)
         {
             isFiring = true;
-            AudioSource.PlayClipAtPoint(weapons[currentWeaponIndex].fireSound, transform.position, 0.5f);
         }
         
         else if (context.canceled)
@@ -273,10 +272,8 @@ public class PlayerControllerRPC : NetworkBehaviour
     {
         isReloading = true;
         RPC_PlayAnim("Reload");
-        moveSpeed = 0; // Dừng di chuyển trong khi nạp đạn
 
         yield return new WaitForSeconds(1.5f); // thời gian nạp
-        moveSpeed = 5f; // Khôi phục tốc độ di chuyển
         currentAmmo = weapon.maxAmmo;
         isReloading = false;
         if (localAmmoUI != null)
@@ -368,6 +365,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     {
         if (weapons.Length > weaponIndex && weapons[weaponIndex] != null && weapons[weaponIndex].bulletPrefab != null)
         {
+            AudioSource.PlayClipAtPoint(weapons[currentWeaponIndex].fireSound, transform.position, 0.5f);
             Quaternion rot = Quaternion.LookRotation(forward);
             Vector3 offset = forward * 0.5f;
             var bulletObj = Runner.Spawn(weapons[weaponIndex].bulletPrefab, spawnPos + offset, rot, Object.InputAuthority);
