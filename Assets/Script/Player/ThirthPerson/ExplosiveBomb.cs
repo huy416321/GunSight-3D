@@ -43,7 +43,7 @@ public class ExplosiveBomb : NetworkBehaviour
             if (rb != null && !rb.isKinematic)
             {
                 Vector3 dir = (hit.transform.position - transform.position).normalized;
-                float force = 10f; // Có thể chỉnh lực nổ
+                float force = 20f; // Có thể chỉnh lực nổ
                 rb.AddExplosionForce(force, transform.position, damageRadius, 1f, ForceMode.Impulse);
             }
             if (hit.gameObject.layer == destroyWallLayer)
