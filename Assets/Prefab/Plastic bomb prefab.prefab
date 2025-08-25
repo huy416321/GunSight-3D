@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2300000}
   - component: {fileID: 6764937872639119683}
   - component: {fileID: -2365338528472124886}
+  - component: {fileID: 8236357571932335877}
   - component: {fileID: 8137144690264364872}
   - component: {fileID: 6332048463357464439}
   m_Layer: 0
@@ -108,6 +109,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: -2365338528472124886}
+  - {fileID: 8236357571932335877}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &-2365338528472124886
 MonoBehaviour:
@@ -125,6 +127,18 @@ MonoBehaviour:
   explosionRadius: 4
   explosionForce: 1500
   explosionEffectPrefab: {fileID: 9111320563476075686, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
+--- !u!114 &8236357571932335877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263995fab706fd74ead322f4b683fb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &8137144690264364872
 Rigidbody:
   m_ObjectHideFlags: 0

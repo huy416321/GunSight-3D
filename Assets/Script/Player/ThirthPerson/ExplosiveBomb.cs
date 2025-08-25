@@ -27,14 +27,29 @@ public class ExplosiveBomb : NetworkBehaviour
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
         if (explosionSound != null)
             AudioSource.PlayClipAtPoint(explosionSound, transform.position, explosionVolume);
-        // Gây sát thương lên các player trong bán kính
+        // Gây sát thương và đẩy các vật trong bán kính
         Collider[] hits = Physics.OverlapSphere(transform.position, damageRadius);
+        int destroyWallLayer = LayerMask.NameToLayer("DestroyWall");
         foreach (var hit in hits)
         {
+            // Sát thương player
             var health = hit.GetComponent<PlayerHealth>();
             if (health != null)
             {
                 health.TakeDamage(damage);
+            }
+            // Đẩy các vật có Rigidbody
+            var rb = hit.attachedRigidbody;
+            if (rb != null && !rb.isKinematic)
+            {
+                Vector3 dir = (hit.transform.position - transform.position).normalized;
+                float force = 500f; // Có thể chỉnh lực nổ
+                rb.AddExplosionForce(force, transform.position, damageRadius, 1f, ForceMode.Impulse);
+            }
+            if (hit.gameObject.layer == destroyWallLayer)
+            {
+                // Tắt collider sau khi nổ
+                hit.enabled = false;
             }
         }
         // Hủy bom sau khi nổ
