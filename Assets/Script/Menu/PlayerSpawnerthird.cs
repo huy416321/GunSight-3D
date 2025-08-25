@@ -2,6 +2,7 @@ using Fusion;
 using UnityEngine;
 using Fusion.Sockets;
 using UnityEngine.SceneManagement;
+using StarterAssets;
 
 public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -90,9 +91,21 @@ public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
         }
         var obj = runner.Spawn(prefab, spawnPos, Quaternion.identity, player);
         if (obj == null)
+        {
             Debug.LogError("Spawn player FAILED! Prefab chưa add vào NetworkRunner hoặc prefab lỗi.");
+        }
         else
+        {
             runner.SetPlayerObject(player, obj); // Gán PlayerObject cho PlayerRef
+            // Đảm bảo các script điều khiển di chuyển được enable lại
+            var moveCtrl = obj.GetComponent<StarterAssets.ThirdPersonController>();
+            var inputCtrl = obj.GetComponent<StarterAssetsInputs>();
+            Debug.Log($"[SPAWN] PlayerObj: {obj.name}, HasInputAuthority: {obj.HasInputAuthority}, PlayerRef: {player}");
+            Debug.Log($"[SPAWN] ThirdPersonController enabled: {(moveCtrl != null ? moveCtrl.enabled.ToString() : "null")}");
+            Debug.Log($"[SPAWN] StarterAssetsInputs enabled: {(inputCtrl != null ? inputCtrl.enabled.ToString() : "null")}");
+            if (moveCtrl != null) moveCtrl.enabled = true;
+            if (inputCtrl != null) inputCtrl.enabled = true;
+        }
         spawnedPlayerObj = obj;
         spawnedSelf = true;
     }
@@ -100,14 +113,23 @@ public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
     // Thêm hàm này để MatchManager gọi khi reset round
     public void RespawnAllPlayers()
     {
-        spawnedSelf = false;
-        // Xoá player cũ nếu còn
-        if (spawnedPlayerObj != null && spawnedPlayerObj.IsValid)
+        // Teleport tất cả player về vị trí ban đầu
+        var sortedPlayers = new System.Collections.Generic.List<PlayerRef>(runner.ActivePlayers);
+        sortedPlayers.Sort((a, b) => a.RawEncoded.CompareTo(b.RawEncoded));
+        for (int i = 0; i < sortedPlayers.Count; i++)
         {
-            runner.Despawn(spawnedPlayerObj);
-            spawnedPlayerObj = null;
+            var playerRef = sortedPlayers[i];
+            var obj = runner.GetPlayerObject(playerRef) as NetworkObject;
+            if (obj != null && obj.HasStateAuthority)
+            {
+                Vector3 spawnPos = player1SpawnPos;
+                if (i == 1) spawnPos = player2SpawnPos;
+                else if (i == 2) spawnPos = player3SpawnPos;
+                else if (i == 3) spawnPos = player4SpawnPos;
+                obj.transform.position = spawnPos;
+                obj.transform.rotation = Quaternion.identity;
+            }
         }
-        SpawnLocalPlayer(runner, runner.LocalPlayer);
     }
 
     // Các hàm callback Fusion bắt buộc, để trống

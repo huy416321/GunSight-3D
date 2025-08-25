@@ -8,6 +8,7 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : NetworkBehaviour
 	{
+		internal string currentControlScheme;
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;

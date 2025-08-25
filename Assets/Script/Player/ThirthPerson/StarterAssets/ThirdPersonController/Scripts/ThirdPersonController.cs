@@ -11,7 +11,7 @@ namespace StarterAssets
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM 
-    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(StarterAssetsInputs))]
 #endif
     public class ThirdPersonController : NetworkBehaviour
     {
@@ -115,7 +115,7 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
 
 #if ENABLE_INPUT_SYSTEM 
-        private PlayerInput _playerInput;
+        private StarterAssetsInputs _playerInput;
 #endif
         private Animator _animator;
         private CharacterController _controller;
@@ -165,11 +165,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM 
-            _playerInput = GetComponent<PlayerInput>();
-#else
-            Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
+            // Đã loại bỏ hoàn toàn đoạn mã liên quan đến PlayerInput để tránh lỗi ArgumentException
 
             AssignAnimationIDs();
 
@@ -180,6 +176,8 @@ namespace StarterAssets
 
         private void Update()
         {
+            // Kiểm tra object đã bị destroy chưa
+            if (this == null || gameObject == null) return;
             _hasAnimator = TryGetComponent(out _animator);
             if (HasInputAuthority)
             {
@@ -187,12 +185,13 @@ namespace StarterAssets
                 GroundedCheckShared();
                 MoveShared();
                 // Đồng bộ vị trí, rotation, velocity lên mạng
+                if (this == null || gameObject == null) return;
                 NetworkPosition = transform.position;
                 NetworkRotation = transform.rotation;
                 NetworkVelocity = (transform.position - lastPosition) / Time.deltaTime;
                 lastPosition = transform.position;
                 // Local player: set animator bằng giá trị local
-                if (_hasAnimator)
+                if (_hasAnimator && _animator != null)
                 {
                     _animator.SetFloat("Speed", _animationBlend);
                     _animator.SetFloat("MotionSpeed", _input.analogMovement ? _input.move.magnitude : 1f);
@@ -204,6 +203,7 @@ namespace StarterAssets
             else
             {
                 // Dự đoán vị trí dựa trên velocity
+                if (this == null || gameObject == null) return;
                 Vector3 predictedPosition = NetworkPosition + NetworkVelocity * ExtrapolationTime;
                 // Nếu lệch xa thì snap luôn
                 if (Vector3.Distance(transform.position, predictedPosition) > SnapThreshold)
@@ -218,7 +218,7 @@ namespace StarterAssets
                     transform.rotation = Quaternion.Slerp(transform.rotation, NetworkRotation, Time.deltaTime * InterpSpeed);
                 }
                 // Remote player: set animator bằng giá trị networked
-                if (_hasAnimator)
+                if (_hasAnimator && _animator != null)
                 {
                     _animator.SetFloat("Speed", NetSpeed);
                     _animator.SetFloat("MotionSpeed", NetMotionSpeed);
@@ -382,6 +382,8 @@ namespace StarterAssets
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
             if (_input.move != Vector2.zero)
             {
+                // Kiểm tra camera null
+                if (_mainCamera == null || this == null || gameObject == null) return;
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
                 // Chỉ xoay theo hướng di chuyển nếu KHÔNG aim
@@ -391,7 +393,8 @@ namespace StarterAssets
                 }
             }
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            if (_controller != null && this != null && gameObject != null)
+                _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
             // update networked animation
             NetSpeed = _animationBlend;
             NetMotionSpeed = inputMagnitude;
