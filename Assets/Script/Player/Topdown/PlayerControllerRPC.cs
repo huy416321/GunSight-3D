@@ -449,7 +449,7 @@ public class PlayerControllerRPC : NetworkBehaviour
         bloodAnimation.SetTrigger("Hit"); // Gọi animation máu
         if (skillCtrl != null && skillCtrl.isInvincible)
         {
-            // Đang miễn nhiễm, không nhận sát thương
+            AudioSource.PlayClipAtPoint(weapons[currentWeaponIndex].skillSound, transform.position, 1f);
             return;
         }
         currentHealth -= amount;

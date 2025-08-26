@@ -369,24 +369,14 @@ public void ActivateRevealAllSkill()
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_TriggerInvincibleSkill()
     {
-        if (animator != null)
             animator.SetTrigger("Invincible");
     }
 
     private IEnumerator InvincibleCoroutine()
     {
+        AudioSource.PlayClipAtPoint(weaponData.skillSound, transform.position, 1f);
         isInvincible = true;
-        // Tạm thời tắt nhận sát thương
-        var health = GetComponent<PlayerControllerRPC>();
-        if (health != null)
-        {
-            health.enabled = false;
-        }
         yield return new WaitForSeconds(invincibleDuration);
-        if (health != null)
-        {
-            health.enabled = true;
-        }
         isInvincible = false;
     }
 
