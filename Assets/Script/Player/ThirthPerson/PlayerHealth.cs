@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Fusion;
 using TMPro;
 using System.Collections;
+using StarterAssets;
 
 public class PlayerHealth : NetworkBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerHealth : NetworkBehaviour
     public Animator HitAnimator; // Animator to play hit animation
     public AudioClip hitSound; // Âm thanh khi bị trúng đạn
     [Networked] public float currentHealth { get; set; }
+    [Networked] public bool isDead { get; set; }
 
     private void Start()
     {
@@ -46,6 +48,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         Debug.Log($"TakeDamage called on {gameObject.name}, amount: {amount}, currentHealth: {currentHealth}, IsStateAuthority: {Object.HasStateAuthority}, IsInputAuthority: {Object.HasInputAuthority}");
         if (!Object.HasStateAuthority) return;
+        if (isDead) return;
         HitAnimator.SetTrigger("Hit"); // Gọi animation máu
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
@@ -77,6 +80,8 @@ public class PlayerHealth : NetworkBehaviour
     public void RPC_Die()
     {
         Debug.Log($"RPC_Die called on {gameObject.name}, IsStateAuthority: {Object.HasStateAuthority}, InputAuthority: {Object.InputAuthority}");
+        isDead = true;
+        // vô hiệu các hành động của người chơi
         var matchManager = FindFirstObjectByType<MatchManagerThirh>();
         if (matchManager != null && matchManager.Object.HasStateAuthority)
         {

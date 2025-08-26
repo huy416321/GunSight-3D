@@ -23,6 +23,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Networked] private float NetAimRigWeight { get; set; }
     [Networked] private bool IsShooting { get; set; } // Thêm biến này để đồng bộ trạng thái bắn
 
+
     [SerializeField] private Classplayer classPlayer;
     [SerializeField] private Rig aimRig;
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
