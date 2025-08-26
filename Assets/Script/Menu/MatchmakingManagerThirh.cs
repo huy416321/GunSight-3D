@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using Fusion;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MatchmakingManagerThirh : MonoBehaviour
 {
@@ -146,6 +147,6 @@ public class MatchmakingManagerThirh : MonoBehaviour
         {
             runner.Shutdown();
         }
-        ShowPanel(panelPrepare);
+        SceneManager.LoadScene("LobbyScene");
     }
 }
