@@ -132,6 +132,13 @@ public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
                 obj.transform.position = spawnPos;
                 obj.transform.rotation = Quaternion.identity;
                 if (charCtrl != null) charCtrl.enabled = true;
+
+                var health = obj.GetComponent<PlayerHealth>();
+                if (health != null)
+                {
+                    health.isDead = false;
+                    health.ResetFullHealth();
+                }
             }
         }
     }

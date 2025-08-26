@@ -76,6 +76,15 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
 
+    public void ResetFullHealth()
+    {
+        currentHealth = maxHealth;
+        // Nếu có UI máu thì cập nhật lại
+        if (LocalHealthUI.Instance != null && Object.HasInputAuthority)
+            LocalHealthUI.Instance.healthSlider.value = currentHealth;
+        // Nếu có hiệu ứng hồi máu thì gọi ở đây
+    }
+
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RPC_Die()
     {
