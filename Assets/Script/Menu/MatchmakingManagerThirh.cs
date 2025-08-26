@@ -119,7 +119,7 @@ public class MatchmakingManagerThirh : MonoBehaviour
                 // Đủ người thì chuyển scene, đếm ngược sẽ xử lý ở PlayerSpawner
                 matchmakingTimerText.text = "Đã đủ người! Đang chuyển trận sau vài giây...";
                 cutsScene.SetActive(true);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(12f);
                 if (runner != null)
                 {
                     runner.LoadScene("RankedScene");
@@ -135,7 +135,7 @@ public class MatchmakingManagerThirh : MonoBehaviour
         if (runner == null)
             runner = FindFirstObjectByType<NetworkRunner>();
         if (runner != null && runner.SessionInfo != null)
-            return runner.SessionInfo.PlayerCount >= 1;
+            return runner.SessionInfo.PlayerCount >= 2;
         return false;
     }
 
