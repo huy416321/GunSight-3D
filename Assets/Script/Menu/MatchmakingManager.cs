@@ -134,7 +134,7 @@ public class MatchmakingManager : MonoBehaviour
         if (runner == null)
             runner = FindFirstObjectByType<NetworkRunner>();
         if (runner != null && runner.SessionInfo != null)
-            return runner.SessionInfo.PlayerCount >= 2;
+            return runner.SessionInfo.PlayerCount >= 4;
         return false;
     }
 
