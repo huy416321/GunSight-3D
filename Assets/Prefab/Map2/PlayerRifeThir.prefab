@@ -2584,8 +2584,10 @@ MonoBehaviour:
   isPolice: 0
   maxHealth: 100
   HitAnimator: {fileID: 3130981145240220991}
+  animator: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
   _currentHealth: 0
+  _isDead: 0
 --- !u!114 &5057453835583193203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,6 +2642,7 @@ MonoBehaviour:
   _NetGrounded: 0
   _NetJump: 0
   _NetFreeFall: 0
+  isdead: {fileID: 4087826904829424304}
 --- !u!114 &2690442362964122940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2653,6 +2656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 89d84fa20da5e8244bd0228b2f5c208d, type: 2}
+  isdead: {fileID: 4087826904829424304}
   aimTarget: {fileID: 6294694727729056908}
   classPlayer: 0
   aimRig: {fileID: 1552581661725165203}
@@ -2709,6 +2713,7 @@ MonoBehaviour:
   throwGrenade: 0
   kneel: 0
   light: 0
+  mouse: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1

@@ -12,6 +12,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
 {
     [SerializeField] private WeaponData weaponData;
+    [SerializeField] private PlayerHealth isdead;
     [Networked] private Vector3 NetAimTarget { get; set; }
     [SerializeField] private Transform aimTarget; // Kéo Sphere (target của constraint) vào đây
     // Networked animation states
@@ -60,6 +61,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Update()
     {
+        if (isdead.isDead) return;
          // Đếm thời gian cooldown bắn
         if (shootCooldown > 0f)
             shootCooldown -= Time.deltaTime;   

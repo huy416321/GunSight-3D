@@ -134,6 +134,8 @@ namespace StarterAssets
         [Networked] public bool NetJump { get; set; }
         [Networked] public bool NetFreeFall { get; set; }
 
+        [SerializeField] private PlayerHealth isdead;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -181,6 +183,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
             if (HasInputAuthority)
             {
+                if (isdead.isDead) return;
                 JumpAndGravityShared();
                 GroundedCheckShared();
                 MoveShared();
