@@ -42,19 +42,26 @@ public class PlayerSkillController : NetworkBehaviour
     // Dash theo hướng input
     private Vector3 dashInputDirection = Vector3.zero;
     private Vector2 moveInput = Vector2.zero; // Lưu input từ New Input System
+    
+
+    [Header("DestroyWall Dash Skill")]
+    public float dashDuration = 0.2f;
+    public float dashSpeed = 20f;
+    public LayerMask destroyWallLayer;
+    private bool isDashing = false;
 
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
-    public void ActivateRevealAllSkill()
-    {
-        Debug.Log("Kích hoạt kỹ năng Revealing All Players");
-        if (!canUseRevealSkill) return;
-        if (!Object.HasInputAuthority) return; // Chỉ local player mới được phép kích hoạt
-        if (revealCoroutine != null)
-            StopCoroutine(revealCoroutine);
-        if (animator != null)
-            animator.SetTrigger("RevealSkill"); // Gọi animation reveal
-        StartCoroutine(RevealAllSkillWithStun());
-    }
+public void ActivateRevealAllSkill()
+{
+    Debug.Log("Kích hoạt kỹ năng Revealing All Players");
+    if (!canUseRevealSkill) return;
+    if (!Object.HasInputAuthority) return; // Chỉ local player mới được phép kích hoạt
+    if (revealCoroutine != null)
+        StopCoroutine(revealCoroutine);
+    if (animator != null)
+        animator.SetTrigger("RevealSkill"); // Gọi animation reveal
+    StartCoroutine(RevealAllSkillWithStun());
+}
 
     private IEnumerator RevealAllSkillWithStun()
     {
@@ -242,6 +249,49 @@ public class PlayerSkillController : NetworkBehaviour
             Invoke(nameof(PlayPushSound), 0f);
         }
         yield break;
+    }
+    
+    // Kích hoạt skill dash đẩy destroywall
+    public void ActivateDashDestroyWallSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (!Object.HasInputAuthority || isDashing) return;
+        StartCoroutine(DashDestroyWallCoroutine());
+    }
+
+    private IEnumerator DashDestroyWallCoroutine()
+    {
+        isDashing = true;
+        if (animator != null) animator.SetTrigger("DashPush");
+        float timer = 0f;
+        var rb = GetComponent<Rigidbody>();
+        Vector3 dashDir = transform.forward;
+        // Nếu có Rigidbody thì dùng velocity, nếu không thì dịch chuyển transform
+        while (timer < dashDuration)
+        {
+            if (rb != null)
+                rb.linearVelocity = dashDir * dashSpeed;
+            else
+                transform.position += dashDir * dashSpeed * Time.deltaTime;
+            // Đẩy các object destroywall phía trước
+            Collider[] hits = Physics.OverlapSphere(transform.position + dashDir * 1f, pushRadius, destroyWallLayer);
+            foreach (var hit in hits)
+            {
+                var wallRb = hit.attachedRigidbody;
+                if (wallRb != null && !wallRb.isKinematic)
+                {
+                    wallRb.AddForce(dashDir * pushForce, forceMode);
+                }
+                // Chỉ tắt collider nếu collider thuộc layer destroywall
+                var col = hit.GetComponent<Collider>();
+                if (col != null && col.gameObject.layer == LayerMask.NameToLayer("destroywall"))
+                    col.enabled = false;
+            }
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        // Reset velocity nếu có Rigidbody
+        if (rb != null) rb.linearVelocity = Vector3.zero;
+        isDashing = false;
     }
 
     private void PlayPushSound()
