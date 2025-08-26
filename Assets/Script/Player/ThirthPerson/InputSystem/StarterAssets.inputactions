@@ -114,9 +114,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lockmouse",
-                    "type": "PassThrough",
-                    "id": "176a0697-8bd5-43e1-b0f6-34ea633ea925",
+                    "name": "Mouse",
+                    "type": "Button",
+                    "id": "e82c2ed6-2e26-4ecb-bfc1-59b931f0264a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -390,12 +390,12 @@
                 },
                 {
                     "name": "",
-                    "id": "318597b4-bcaf-4df2-a3c3-9bdacf65b335",
-                    "path": "<Keyboard>/alt",
+                    "id": "05988a72-9214-4ed1-a51e-bd5d0b74aa74",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Lockmouse",
+                    "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

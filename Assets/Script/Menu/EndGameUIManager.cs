@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -13,8 +12,10 @@ public class EndGameUIManager : MonoBehaviour
     public void ShowEndGame(string message)
     {
         if (endGamePanel != null)
-        {
+        { 
             endGamePanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             if (endGameMessageText != null)
                 endGameMessageText.text = message + "\nBạn muốn làm gì tiếp?";
         }

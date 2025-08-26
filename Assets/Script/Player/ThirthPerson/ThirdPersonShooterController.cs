@@ -59,7 +59,6 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Update()
     {
-        Lockmouse();
          // Đếm thời gian cooldown bắn
         if (shootCooldown > 0f)
             shootCooldown -= Time.deltaTime;   
@@ -86,6 +85,14 @@ public class ThirdPersonShooterController : NetworkBehaviour
             IsUsingSkill = starterAssetsInputs.skill;
             IsReloading = starterAssetsInputs.reload;
             IsthrowGrenade = starterAssetsInputs.throwGrenade;
+
+            if (Input.GetKeyDown(KeyCode.C)) // "LockMouse" là tên input bạn tự đặt trong InputManager hoặc InputSystem
+            {
+                bool isLocked = Cursor.lockState != CursorLockMode.Locked;
+                Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
+                Cursor.visible = !isLocked;
+                Debug.Log(isLocked ? "Lock mouse" : "Unlock mouse");
+            }
 
             // Cập nhật NetAimRigWeight cho mọi client
             NetAimRigWeight = aimRigweight;
@@ -280,20 +287,6 @@ public class ThirdPersonShooterController : NetworkBehaviour
             if (light != null)
                 light.enabled = IsLightOn;
         }
-    }
-
-    private void Lockmouse()
-    {
-            if (starterAssetsInputs.lockMouse)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
     }
 
 
