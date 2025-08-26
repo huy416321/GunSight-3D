@@ -174,9 +174,12 @@ public void ActivateRevealAllSkill()
                 Vector3 dir = (col.transform.position - origin).normalized;
                 rb.AddForce(dir * pushForce, forceMode);
             }
+            // Tắt collider cho mọi object có layer DestroyWall
             if (col.gameObject.layer == destroyWallLayer)
             {
-                col.enabled = false;
+                var colliderComponent = col.GetComponent<Collider>();
+                if (colliderComponent != null)
+                    colliderComponent.enabled = false;
             }
         }
         if (pushSound != null)

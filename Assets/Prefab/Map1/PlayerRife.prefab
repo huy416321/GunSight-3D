@@ -2761,13 +2761,13 @@ MonoBehaviour:
   revealDuration: 5
   revealCooldown: 10
   fieldOfViewMesh: {fileID: 58976032580996222}
-  dashForce: 20
+  dashForce: 10
   dashDistance: 3
   dashPushCooldown: 8
   pushRadius: 2
   pushUpward: 0.5
   forceMode: 1
-  pushForce: 20
+  pushForce: 5
   pushLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -2777,7 +2777,7 @@ MonoBehaviour:
   animator: {fileID: 1004806214633085456}
   weaponData: {fileID: 11400000, guid: 19557ff8f4bbe884f850b6ce0e5f3c17, type: 2}
   dashDuration: 0.2
-  dashSpeed: 20
+  dashSpeed: 10
   destroyWallLayer:
     serializedVersion: 2
     m_Bits: 256
