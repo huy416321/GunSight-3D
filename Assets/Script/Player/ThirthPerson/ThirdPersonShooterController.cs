@@ -59,9 +59,10 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
     private void Update()
     {
+        Lockmouse();
          // Đếm thời gian cooldown bắn
-            if (shootCooldown > 0f)
-                shootCooldown -= Time.deltaTime;   
+        if (shootCooldown > 0f)
+            shootCooldown -= Time.deltaTime;   
         if (HasInputAuthority)
         {
             mouseWorldPosition = Vector3.zero;
@@ -279,6 +280,20 @@ public class ThirdPersonShooterController : NetworkBehaviour
             if (light != null)
                 light.enabled = IsLightOn;
         }
+    }
+
+    private void Lockmouse()
+    {
+            if (starterAssetsInputs.lockMouse)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
     }
 
 

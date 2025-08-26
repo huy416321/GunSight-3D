@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Lockmouse",
+                    "type": "PassThrough",
+                    "id": "176a0697-8bd5-43e1-b0f6-34ea633ea925",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -376,6 +385,17 @@
                     "processors": "",
                     "groups": ";KeyboardMouse",
                     "action": "NightVision",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "318597b4-bcaf-4df2-a3c3-9bdacf65b335",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Lockmouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

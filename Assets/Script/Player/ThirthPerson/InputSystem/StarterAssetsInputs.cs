@@ -21,6 +21,7 @@ namespace StarterAssets
 		public bool throwGrenade;
 		public bool kneel;
 		public bool light;
+		public bool lockMouse;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -87,6 +88,11 @@ namespace StarterAssets
 		{
 			LightInput(value.isPressed);
 		}
+
+		public void OnLockMouse(InputValue value)
+		{
+			LockMouseInput(value.isPressed);
+		}
 #endif
 
 
@@ -142,6 +148,11 @@ namespace StarterAssets
 		public void LightInput(bool newLightState)
 		{
 			light = newLightState;
+		}
+
+		public void LockMouseInput(bool newLockMouseState)
+		{
+			lockMouse = newLockMouseState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
