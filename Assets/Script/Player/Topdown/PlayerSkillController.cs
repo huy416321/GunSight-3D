@@ -53,20 +53,24 @@ public class PlayerSkillController : NetworkBehaviour
 
     [Header("Invincible Skill")]
     public float invincibleDuration = 5f;
-    private bool isInvincible = false;
+    public bool isInvincible = false;
 
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
 public void ActivateRevealAllSkill()
 {
     Debug.Log("Kích hoạt kỹ năng Revealing All Players");
     if (!canUseRevealSkill) return;
-    if (!Object.HasInputAuthority) return; // Chỉ local player mới được phép kích hoạt
-    if (revealCoroutine != null)
-        StopCoroutine(revealCoroutine);
-    if (animator != null)
-        animator.SetTrigger("RevealSkill"); // Gọi animation reveal
+    if (!Object.HasInputAuthority) return;
+    RPC_TriggerRevealSkill();
     StartCoroutine(RevealAllSkillWithStun());
 }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_TriggerRevealSkill()
+    {
+        if (animator != null)
+            animator.SetTrigger("RevealSkill");
+    }
 
     private IEnumerator RevealAllSkillWithStun()
     {
@@ -150,19 +154,42 @@ public void ActivateRevealAllSkill()
     {
         if (!canUseDashPushSkill) return;
         if (!Object.HasInputAuthority) return;
+        RPC_TriggerDashPushSkill();
         if (dashPushCooldownCoroutine != null)
             StopCoroutine(dashPushCooldownCoroutine);
         dashPushCooldownCoroutine = StartCoroutine(DashPushSkillCooldownCoroutine());
-        if (animator != null)
-            animator.SetTrigger("DashPush"); // Gọi animation dash
-        StartCoroutine(DashPushCoroutine());
+        RPC_DashPushEffect(transform.position);
     }
 
-    private IEnumerator DashPushSkillCooldownCoroutine()
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_DashPushEffect(Vector3 origin)
     {
-        canUseDashPushSkill = false;
-        yield return new WaitForSeconds(dashPushCooldown);
-        canUseDashPushSkill = true;
+        Collider[] colliders = Physics.OverlapSphere(origin, pushRadius, pushLayerMask);
+        int destroyWallLayer = LayerMask.NameToLayer("DestroyWall");
+        foreach (var col in colliders)
+        {
+            Rigidbody rb = col.attachedRigidbody;
+            if (rb != null)
+            {
+                Vector3 dir = (col.transform.position - origin).normalized;
+                rb.AddForce(dir * pushForce, forceMode);
+            }
+            if (col.gameObject.layer == destroyWallLayer)
+            {
+                col.enabled = false;
+            }
+        }
+        if (pushSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pushSound, origin, FootstepAudioVolume);
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_TriggerDashPushSkill()
+    {
+        if (animator != null)
+            animator.SetTrigger("DashPush");
     }
 
     // Sự kiện cho Input System để kích hoạt kỹ năng
@@ -260,7 +287,40 @@ public void ActivateRevealAllSkill()
     public void ActivateDashDestroyWallSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         if (!Object.HasInputAuthority || isDashing) return;
+        RPC_TriggerDashDestroyWallSkill();
+        RPC_DashDestroyWallEffect(transform.position, transform.forward);
         StartCoroutine(DashDestroyWallCoroutine());
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_TriggerDashDestroyWallSkill()
+    {
+        if (animator != null)
+            animator.SetTrigger("DashPush");
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_DashDestroyWallEffect(Vector3 origin, Vector3 dashDir)
+    {
+        Collider[] hits = Physics.OverlapSphere(origin + dashDir * 1f, pushRadius, destroyWallLayer);
+        foreach (var hit in hits)
+        {
+            var wallRb = hit.attachedRigidbody;
+            if (wallRb != null && !wallRb.isKinematic)
+            {
+                wallRb.AddForce(dashDir * pushForce, forceMode);
+            }
+            var col = hit.GetComponent<Collider>();
+            if (col != null && col.gameObject.layer == LayerMask.NameToLayer("destroywall"))
+                col.enabled = false;
+        }
+    }
+
+    private IEnumerator DashPushSkillCooldownCoroutine()
+    {
+        canUseDashPushSkill = false;
+        yield return new WaitForSeconds(dashPushCooldown);
+        canUseDashPushSkill = true;
     }
 
     private IEnumerator DashDestroyWallCoroutine()
@@ -270,14 +330,12 @@ public void ActivateRevealAllSkill()
         float timer = 0f;
         var rb = GetComponent<Rigidbody>();
         Vector3 dashDir = transform.forward;
-        // Nếu có Rigidbody thì dùng velocity, nếu không thì dịch chuyển transform
         while (timer < dashDuration)
         {
             if (rb != null)
                 rb.linearVelocity = dashDir * dashSpeed;
             else
                 transform.position += dashDir * dashSpeed * Time.deltaTime;
-            // Đẩy các object destroywall phía trước
             Collider[] hits = Physics.OverlapSphere(transform.position + dashDir * 1f, pushRadius, destroyWallLayer);
             foreach (var hit in hits)
             {
@@ -286,7 +344,6 @@ public void ActivateRevealAllSkill()
                 {
                     wallRb.AddForce(dashDir * pushForce, forceMode);
                 }
-                // Chỉ tắt collider nếu collider thuộc layer destroywall
                 var col = hit.GetComponent<Collider>();
                 if (col != null && col.gameObject.layer == LayerMask.NameToLayer("destroywall"))
                     col.enabled = false;
@@ -294,7 +351,6 @@ public void ActivateRevealAllSkill()
             timer += Time.deltaTime;
             yield return null;
         }
-        // Reset velocity nếu có Rigidbody
         if (rb != null) rb.linearVelocity = Vector3.zero;
         isDashing = false;
     }
@@ -303,28 +359,36 @@ public void ActivateRevealAllSkill()
     public void ActivateInvincibleSkill()
     {
         if (!Object.HasInputAuthority || isInvincible) return;
+        RPC_TriggerInvincibleSkill();
         StartCoroutine(InvincibleCoroutine());
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_TriggerInvincibleSkill()
+    {
+        if (animator != null)
+            animator.SetTrigger("Invincible");
     }
 
     private IEnumerator InvincibleCoroutine()
     {
         isInvincible = true;
-        if (animator != null) animator.SetTrigger("Invincible");
-        AudioSource.PlayClipAtPoint(weaponData.skillSound, transform.position, weaponData.FootstepAudioVolume);
-        // Có thể thêm hiệu ứng VFX tại đây
+        // Tạm thời tắt nhận sát thương
+        var health = GetComponent<PlayerControllerRPC>();
+        if (health != null)
+        {
+            health.enabled = false;
+        }
         yield return new WaitForSeconds(invincibleDuration);
+        if (health != null)
+        {
+            health.enabled = true;
+        }
         isInvincible = false;
     }
-    // Hook vào hàm nhận sát thương của player
-    public bool IsInvincible() => isInvincible;
 
     private void PlayPushSound()
     {
         AudioSource.PlayClipAtPoint(pushSound, transform.position, FootstepAudioVolume);
-    }
-
-    void Update()
-    {
-        // Không set trực tiếp chỉ số flashlight ở đây nữa
     }
 }

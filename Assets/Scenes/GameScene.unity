@@ -7590,7 +7590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runner: {fileID: 0}
   player1Prefab:
-    RawGuidValue: f90b7cc628be4294390f512adbe80323
+    RawGuidValue: 66c6af17fa69413439a5cd1a482e2572
   player2Prefab:
     RawGuidValue: f90b7cc628be4294390f512adbe80323
   player3Prefab:
@@ -26909,8 +26909,8 @@ Transform:
   m_GameObject: {fileID: 2030280206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 16.099, y: 0.3806899, z: -13.823}
-  m_LocalScale: {x: 1.2357994, y: 1.1095241, z: 1.3951205}
+  m_LocalPosition: {x: 16.099, y: 0.42, z: -13.823}
+  m_LocalScale: {x: 1.2357994, y: 1.6921352, z: 1.3951205}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1051116345}

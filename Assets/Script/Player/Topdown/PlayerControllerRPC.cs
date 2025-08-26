@@ -447,7 +447,7 @@ public class PlayerControllerRPC : NetworkBehaviour
         var skillCtrl = GetComponent<PlayerSkillController>();
         if (!Object.HasStateAuthority) return;
         bloodAnimation.SetTrigger("Hit"); // Gọi animation máu
-        if (skillCtrl != null && skillCtrl.IsInvincible())
+        if (skillCtrl != null && skillCtrl.isInvincible)
         {
             // Đang miễn nhiễm, không nhận sát thương
             return;

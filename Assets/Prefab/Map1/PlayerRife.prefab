@@ -2767,7 +2767,7 @@ MonoBehaviour:
   pushRadius: 2
   pushUpward: 0.5
   forceMode: 1
-  pushForce: 10
+  pushForce: 20
   pushLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -2775,11 +2775,14 @@ MonoBehaviour:
   FootstepAudioVolume: 0.5
   isAiming: 0
   animator: {fileID: 1004806214633085456}
+  weaponData: {fileID: 11400000, guid: 19557ff8f4bbe884f850b6ce0e5f3c17, type: 2}
   dashDuration: 0.2
   dashSpeed: 20
   destroyWallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
+  invincibleDuration: 5
+  isInvincible: 0
 --- !u!114 &3975243804763504314
 MonoBehaviour:
   m_ObjectHideFlags: 0
