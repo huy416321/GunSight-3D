@@ -12,6 +12,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     private GameObject damageVFXInstance;
     // true = cảnh, false = cướp
     public bool isPolice;
+    public bool isDead = false;
     [Header("Movement")]
     public float moveSpeed = 5f;
     private Vector2 moveInput;
@@ -110,6 +111,7 @@ public class PlayerControllerRPC : NetworkBehaviour
 
     private void Update()
     {
+        if (isDead) return;
         if (!Object.HasInputAuthority)
         {
             // Nếu không có quyền điều khiển, cập nhật vị trí và animation từ network
@@ -167,6 +169,7 @@ public class PlayerControllerRPC : NetworkBehaviour
         {
             localAmmoUI.SetAmmo(currentAmmo, weapons[currentWeaponIndex].maxAmmo);
         }
+        
     }
 
     void LateUpdate()
@@ -215,7 +218,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         if (!Object.HasInputAuthority) return;
-
+        if (isDead) return;
         Vector2 mouseScreenPosition = context.ReadValue<Vector2>();
         Ray ray = playerCamera.ScreenPointToRay(mouseScreenPosition);
 
@@ -237,11 +240,12 @@ public class PlayerControllerRPC : NetworkBehaviour
     // Bắn
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (isDead) return;
         if (context.performed)
         {
             isFiring = true;
         }
-        
+
         else if (context.canceled)
             isFiring = false;
     }
@@ -255,6 +259,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     // Nạp đạn
     public void OnReload(InputAction.CallbackContext context)
     {
+        if (isDead) return;
         if (!Object.HasInputAuthority) return;
         if (context.performed && !isReloading)
         {
@@ -318,6 +323,7 @@ public class PlayerControllerRPC : NetworkBehaviour
     // Dash
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (isDead) return;
         if (!Object.HasInputAuthority) return;
         if (context.performed && !isDashing && Time.time - lastDashTime >= dashCooldown)
         {
@@ -409,6 +415,8 @@ public class PlayerControllerRPC : NetworkBehaviour
     public void RPC_Die()
     {
         Debug.Log($"RPC_Die called on {gameObject.name}, IsStateAuthority: {Object.HasStateAuthority}, InputAuthority: {Object.InputAuthority}");
+        isDead = true;
+        animator.SetBool("Dead", isDead);
         var matchManager = FindFirstObjectByType<MatchManager>();
         if (matchManager != null && matchManager.Object.HasStateAuthority)
         {
@@ -424,6 +432,7 @@ public class PlayerControllerRPC : NetworkBehaviour
 
     public void OnThrowGrenade()
     {
+        if (isDead) return;
         if (grenadePrefab == null || grenadeSpawnPoint == null) return;
         // Spawn grenade qua Fusion
         var grenadeObj = Runner.Spawn(grenadePrefab, grenadeSpawnPoint.position, grenadeSpawnPoint.rotation, Object.InputAuthority);
@@ -443,6 +452,7 @@ public class PlayerControllerRPC : NetworkBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (isDead) return;
         Debug.Log($"TakeDamage called on {gameObject.name}, amount: {amount}, currentHealth: {currentHealth}, IsStateAuthority: {Object.HasStateAuthority}, IsInputAuthority: {Object.HasInputAuthority}");
         var skillCtrl = GetComponent<PlayerSkillController>();
         if (!Object.HasStateAuthority) return;

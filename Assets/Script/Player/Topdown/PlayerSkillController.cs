@@ -54,16 +54,18 @@ public class PlayerSkillController : NetworkBehaviour
     [Header("Invincible Skill")]
     public float invincibleDuration = 5f;
     public bool isInvincible = false;
+    public PlayerControllerRPC isdead;
 
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
-public void ActivateRevealAllSkill()
-{
-    Debug.Log("Kích hoạt kỹ năng Revealing All Players");
-    if (!canUseRevealSkill) return;
-    if (!Object.HasInputAuthority) return;
-    RPC_TriggerRevealSkill();
-    StartCoroutine(RevealAllSkillWithStun());
-}
+    public void ActivateRevealAllSkill()
+    {
+        if(isdead.isDead) return;
+        Debug.Log("Kích hoạt kỹ năng Revealing All Players");
+        if (!canUseRevealSkill) return;
+        if (!Object.HasInputAuthority) return;
+        RPC_TriggerRevealSkill();
+        StartCoroutine(RevealAllSkillWithStun());
+    }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_TriggerRevealSkill()
@@ -152,6 +154,7 @@ public void ActivateRevealAllSkill()
     // Kích hoạt kỹ năng húc đẩy đối tượng phía trước
     public void ActivateDashPushSkill()
     {
+        if(isdead.isDead) return;
         if (!canUseDashPushSkill) return;
         if (!Object.HasInputAuthority) return;
         RPC_TriggerDashPushSkill();
@@ -198,6 +201,7 @@ public void ActivateRevealAllSkill()
     // Sự kiện cho Input System để kích hoạt kỹ năng
     public void OnActivateRevealSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        if(isdead.isDead) return;
         if (!Object.HasInputAuthority) return;
         if (context.performed)
         {
@@ -208,6 +212,7 @@ public void ActivateRevealAllSkill()
     // Sự kiện cho Input System để kích hoạt skill húc đẩy
     public void OnActivateDashPushSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        if(isdead.isDead) return;
         if (!Object.HasInputAuthority) return;
         if (context.performed)
         {
@@ -221,6 +226,7 @@ public void ActivateRevealAllSkill()
     // Sự kiện cho Input System để bật/tắt ngắm bắn (chuột phải)
     public void OnAim(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        if(isdead.isDead) return;
         if (!Object.HasInputAuthority) return;
         if (context.performed)
         {
@@ -289,6 +295,7 @@ public void ActivateRevealAllSkill()
     // Kích hoạt skill dash đẩy destroywall
     public void ActivateDashDestroyWallSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
+        if(isdead.isDead) return;
         if (!Object.HasInputAuthority || isDashing) return;
         RPC_TriggerDashDestroyWallSkill();
         RPC_DashDestroyWallEffect(transform.position, transform.forward);
@@ -361,6 +368,7 @@ public void ActivateRevealAllSkill()
     // Kích hoạt skill miễn nhiễm sát thương
     public void ActivateInvincibleSkill()
     {
+        if(isdead.isDead) return;
         if (!Object.HasInputAuthority || isInvincible) return;
         RPC_TriggerInvincibleSkill();
         StartCoroutine(InvincibleCoroutine());
