@@ -15,6 +15,7 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: a1bcb09f8f74d94438f2560aa3619f37, type: 3}
   reloadSound: {fileID: 8300000, guid: eb5685b26a6494994af389a3293064e8, type: 3}
   emptyAmmoSound: {fileID: 8300000, guid: 3485998c8cefb914d9868b40cdc04d56, type: 3}
+  skillSound: {fileID: 8300000, guid: 289b68f7ab3180b45a793815314c0000, type: 3}
   weaponName: 
   bulletPrefab: {fileID: 2086261179823682334, guid: d41e8ec2cd47e7644a0d121391e50ada, type: 3}
   fireRate: 0.2

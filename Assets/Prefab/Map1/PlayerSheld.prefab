@@ -4531,8 +4531,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8892340315838222869}
         m_TargetAssemblyTypeName: PlayerSkillController, Assembly-CSharp
-        m_MethodName: OnActivateDashPushSkill
-        m_Mode: 0
+        m_MethodName: ActivateDashPushSkill
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4624,7 +4624,7 @@ MonoBehaviour:
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
-  maxHealth: 300
+  maxHealth: 500
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -4651,7 +4651,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5926721670727838354}
   revealDuration: 5
+  _canUseRevealSkill: 0
   revealCooldown: 10
+  _isRevealing: 0
+  _canUseDashPushSkill: 0
+  _isDashing: 0
+  _isInvincible: 0
   fieldOfViewMesh: {fileID: 4789918507664327550}
   dashForce: 20
   dashDistance: 3
