@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6790979960138491858
 Transform:
   m_ObjectHideFlags: 0
@@ -4603,6 +4603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVFXPrefab: {fileID: 3548588485384254792, guid: 2f9e7dc163581394da1e00b561eed65d, type: 3}
   isPolice: 1
+  isDead: 0
   moveSpeed: 5
   bloodAnimation: {fileID: 6274332526747862304}
   playerCamera: {fileID: 5926721670727838354}
@@ -4651,12 +4652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5926721670727838354}
   revealDuration: 5
-  _canUseRevealSkill: 0
   revealCooldown: 10
-  _isRevealing: 0
-  _canUseDashPushSkill: 0
-  _isDashing: 0
-  _isInvincible: 0
   fieldOfViewMesh: {fileID: 4789918507664327550}
   dashForce: 20
   dashDistance: 3
@@ -4679,6 +4675,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   invincibleDuration: 5
+  isInvincible: 0
 --- !u!114 &44437777279118792
 MonoBehaviour:
   m_ObjectHideFlags: 0

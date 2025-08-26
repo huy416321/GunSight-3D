@@ -10,11 +10,15 @@ public class FllowPlayer : NetworkBehaviour
 
     private void LateUpdate()
     {
-            if (playerCamera != null && Object.HasInputAuthority)
+        // Chỉ camera local mới follow player
+        if (playerCamera != null && Object.HasInputAuthority && playerCamera.gameObject.activeInHierarchy)
         {
+            // Đặt góc nhìn camera minimap
             playerCamera.transform.rotation = Quaternion.Euler(90, 0, 0);
-            // Lấy trạng thái ngắm từ PlayerSkillController
-            Vector3 cameraOffset = new Vector3(0, 15f, 0); // Độ cao camera
+
+            // Camera minimap chỉ follow player local
+            Vector3 targetPos = transform.position + new Vector3(offsetX, 15f, offsetZ);
+            playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, targetPos, LerpSpeed * Time.deltaTime);
         }
     }
 }
