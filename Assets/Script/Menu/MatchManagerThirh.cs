@@ -22,7 +22,7 @@ public class MatchManagerThirh : NetworkBehaviour
 
     public PlayerSpawnerThird playerSpawner;
     public int maxRoundsToWin = 3;
-    public float roundTimeLimit = 300f; // 5 phút
+    public float roundTimeLimit = 150f; // 5 phút
 
 
     public override void Spawned()

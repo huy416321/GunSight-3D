@@ -13,12 +13,14 @@ public class PlayerHealth : NetworkBehaviour
     [Header("Health Settings")]
     public float maxHealth = 100f;
     public Animator HitAnimator; // Animator to play hit animation
+    public Animator animator; // Animator to play death animation
     public AudioClip hitSound; // Âm thanh khi bị trúng đạn
     [Networked] public float currentHealth { get; set; }
     [Networked] public bool isDead { get; set; }
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         if (HasStateAuthority)
         {
             currentHealth = maxHealth;
@@ -33,6 +35,11 @@ public class PlayerHealth : NetworkBehaviour
             }
         }
         UpdateHealthUI();
+    }
+
+    void Update()
+    {
+        animator.SetBool("Dead", isDead);
     }
 
     public override void FixedUpdateNetwork()
@@ -79,6 +86,7 @@ public class PlayerHealth : NetworkBehaviour
     public void ResetFullHealth()
     {
         currentHealth = maxHealth;
+        isDead = false;
         // Nếu có UI máu thì cập nhật lại
         if (LocalHealthUI.Instance != null && Object.HasInputAuthority)
             LocalHealthUI.Instance.healthSlider.value = currentHealth;

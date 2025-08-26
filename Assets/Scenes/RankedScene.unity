@@ -6316,7 +6316,7 @@ MonoBehaviour:
   timerText: {fileID: 764629118}
   playerSpawner: {fileID: 1314869846}
   maxRoundsToWin: 3
-  roundTimeLimit: 300
+  roundTimeLimit: 150
 --- !u!4 &292431761
 Transform:
   m_ObjectHideFlags: 0

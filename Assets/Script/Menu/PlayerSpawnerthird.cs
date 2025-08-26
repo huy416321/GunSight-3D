@@ -136,7 +136,6 @@ public class PlayerSpawnerThird : MonoBehaviour, INetworkRunnerCallbacks
                 var health = obj.GetComponent<PlayerHealth>();
                 if (health != null)
                 {
-                    health.isDead = false;
                     health.ResetFullHealth();
                 }
             }
