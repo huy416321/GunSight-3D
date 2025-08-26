@@ -348,7 +348,7 @@ public class PlayerSkillController : NetworkBehaviour
                     wallRb.AddForce(dashDir * pushForce, forceMode);
                 }
                 var col = hit.GetComponent<Collider>();
-                if (col != null && col.gameObject.layer == LayerMask.NameToLayer("destroywall"))
+                if (col != null && col.gameObject.layer == LayerMask.NameToLayer("DestroyWall"))
                     col.enabled = false;
             }
             timer += Time.deltaTime;

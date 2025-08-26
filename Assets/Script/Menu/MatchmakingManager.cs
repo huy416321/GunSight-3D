@@ -108,7 +108,7 @@ public class MatchmakingManager : MonoBehaviour
                 {
                     if (activateOnPlayerJoin[i] != null)
                         activateOnPlayerJoin[i].SetActive(i < otherPlayers);
-                }
+                } 
             }
             lastPlayerCount = playerCount;
 
