@@ -250,7 +250,7 @@ public void ActivateRevealAllSkill()
         }
         yield break;
     }
-    
+
     // Kích hoạt skill dash đẩy destroywall
     public void ActivateDashDestroyWallSkill(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {

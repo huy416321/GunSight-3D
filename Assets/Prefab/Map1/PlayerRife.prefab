@@ -2771,7 +2771,7 @@ MonoBehaviour:
   pushLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  pushSound: {fileID: 0}
+  pushSound: {fileID: 8300000, guid: 0d529889b8d3c2248b3632f62e6ed11f, type: 3}
   FootstepAudioVolume: 0.5
   isAiming: 0
   animator: {fileID: 1004806214633085456}
