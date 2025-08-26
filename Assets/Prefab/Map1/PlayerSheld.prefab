@@ -4515,8 +4515,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8892340315838222869}
         m_TargetAssemblyTypeName: PlayerSkillController, Assembly-CSharp
-        m_MethodName: OnActivateRevealSkill
-        m_Mode: 0
+        m_MethodName: ActivateInvincibleSkill
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4667,11 +4667,13 @@ MonoBehaviour:
   FootstepAudioVolume: 1
   isAiming: 0
   animator: {fileID: 6286056102761943582}
+  weaponData: {fileID: 11400000, guid: a78b60ebf75dc5b4fb16238a772bd627, type: 2}
   dashDuration: 0.2
   dashSpeed: 20
   destroyWallLayer:
     serializedVersion: 2
     m_Bits: 0
+  invincibleDuration: 5
 --- !u!114 &44437777279118792
 MonoBehaviour:
   m_ObjectHideFlags: 0

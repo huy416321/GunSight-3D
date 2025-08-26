@@ -6,6 +6,7 @@ public class WeaponData : ScriptableObject
     public AudioClip fireSound;
     public AudioClip reloadSound;
     public AudioClip emptyAmmoSound;
+    public AudioClip skillSound;
     public string weaponName;
     public GameObject bulletPrefab;
     public float fireRate = 0.2f;

@@ -40,6 +40,7 @@ public class PlayerSkillController : NetworkBehaviour
     public Animator animator; // Thêm biến Animator cho animation dash
 
     // Dash theo hướng input
+    public WeaponData weaponData;
     private Vector3 dashInputDirection = Vector3.zero;
     private Vector2 moveInput = Vector2.zero; // Lưu input từ New Input System
     
@@ -49,6 +50,10 @@ public class PlayerSkillController : NetworkBehaviour
     public float dashSpeed = 20f;
     public LayerMask destroyWallLayer;
     private bool isDashing = false;
+
+    [Header("Invincible Skill")]
+    public float invincibleDuration = 5f;
+    private bool isInvincible = false;
 
     // Kích hoạt kỹ năng: nhìn thấy tất cả player trong 5 giây
 public void ActivateRevealAllSkill()
@@ -293,6 +298,25 @@ public void ActivateRevealAllSkill()
         if (rb != null) rb.linearVelocity = Vector3.zero;
         isDashing = false;
     }
+
+    // Kích hoạt skill miễn nhiễm sát thương
+    public void ActivateInvincibleSkill()
+    {
+        if (!Object.HasInputAuthority || isInvincible) return;
+        StartCoroutine(InvincibleCoroutine());
+    }
+
+    private IEnumerator InvincibleCoroutine()
+    {
+        isInvincible = true;
+        if (animator != null) animator.SetTrigger("Invincible");
+        AudioSource.PlayClipAtPoint(weaponData.skillSound, transform.position, weaponData.FootstepAudioVolume);
+        // Có thể thêm hiệu ứng VFX tại đây
+        yield return new WaitForSeconds(invincibleDuration);
+        isInvincible = false;
+    }
+    // Hook vào hàm nhận sát thương của player
+    public bool IsInvincible() => isInvincible;
 
     private void PlayPushSound()
     {

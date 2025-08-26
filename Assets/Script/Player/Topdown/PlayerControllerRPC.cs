@@ -444,8 +444,14 @@ public class PlayerControllerRPC : NetworkBehaviour
     public void TakeDamage(float amount)
     {
         Debug.Log($"TakeDamage called on {gameObject.name}, amount: {amount}, currentHealth: {currentHealth}, IsStateAuthority: {Object.HasStateAuthority}, IsInputAuthority: {Object.HasInputAuthority}");
+        var skillCtrl = GetComponent<PlayerSkillController>();
         if (!Object.HasStateAuthority) return;
         bloodAnimation.SetTrigger("Hit"); // Gọi animation máu
+        if (skillCtrl != null && skillCtrl.IsInvincible())
+        {
+            // Đang miễn nhiễm, không nhận sát thương
+            return;
+        }
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
         // Gọi RPC để tất cả client đều thấy VFX sát thương
