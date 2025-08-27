@@ -1353,7 +1353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564da6940ee503f408f1b7aa518c4e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPolice: 1
+  isPolice: 0
   maxHealth: 100
   HitAnimator: {fileID: 8132171609065638637}
   animator: {fileID: 0}

@@ -8,6 +8,7 @@ public class ChatManager : NetworkBehaviour
     [SerializeField] private TMP_InputField chatInputField;
     [SerializeField] private TextMeshProUGUI chatContentText;
     [SerializeField] private ScrollRect chatScrollRect;
+    private MenuManager menuManager;
     [Networked] private NetworkString<_256> lastMessage { get; set; }
 
     private void Awake()
@@ -29,14 +30,15 @@ public class ChatManager : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_SendMessage(PlayerRef sender, string message)
     {
-        string senderName = $"Player {sender.RawEncoded}";
+        string senderName = $"{sender.RawEncoded}";
         string formatted = $"<color=#00FF00>{senderName}:</color> {message}\n";
         if (chatContentText != null)
         {
             chatContentText.text += formatted;
             Canvas.ForceUpdateCanvases();
-            if (chatScrollRect != null)
-                chatScrollRect.verticalNormalizedPosition = 0f;
+            // Không tự động cuộn xuống nữa
+            // if (chatScrollRect != null)
+            //     chatScrollRect.verticalNormalizedPosition = 0f;
         }
     }
 }
