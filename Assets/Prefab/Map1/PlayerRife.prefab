@@ -1829,15 +1829,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.384083
+      value: 19.413643
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3860168
+      value: 2.3896456
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50.28025
+      value: -59.995644
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e61198483c43e3b4590d26cf5e19855a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2729,7 +2729,7 @@ MonoBehaviour:
   grenadeSpawnPoint: {fileID: 4605547157231617520}
   grenadeThrowForce: 8
   grenadeCooldown: 3
-  _NetworkedPosition: {x: 21.571268, y: 2.389646, z: -58.647446}
+  _NetworkedPosition: {x: 19.413643, y: 2.3896456, z: -59.995644}
   _NetworkedRotation: {x: 0, y: 0, z: 0, w: 0}
   _NetworkedSpeed: 0
   _NetworkedIsDashing: 0
