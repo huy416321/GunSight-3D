@@ -37,8 +37,8 @@ public class MatchManagerThirh : NetworkBehaviour
             roundTimer = roundTimeLimit;
 
             // Mặc định mỗi team có 2 người chơi
-            alivePolice = 1;
-            aliveRobber = 1;
+            alivePolice = 2;
+            aliveRobber = 2;
 
             // Đếm ngược round 1
             StartCoroutine(RoundCountdownCoroutine());
@@ -144,8 +144,8 @@ public class MatchManagerThirh : NetworkBehaviour
     private void RpcNextRound()
     {
         Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}, StateAuthority: {Object.HasStateAuthority}");
-        alivePolice = 1;
-        aliveRobber = 1;
+        alivePolice = 2;
+        aliveRobber = 2;
         StartCoroutine(RoundCountdownCoroutine());
     }
 
