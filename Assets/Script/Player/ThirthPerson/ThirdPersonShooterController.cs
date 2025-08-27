@@ -13,6 +13,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 {
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private PlayerHealth isdead;
+    [SerializeField] private Dashthir dashthir;
     [Networked] private Vector3 NetAimTarget { get; set; }
     [SerializeField] private Transform aimTarget; // Kéo Sphere (target của constraint) vào đây
     // Networked animation states
@@ -23,7 +24,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     [Networked] private bool IsthrowGrenade { get; set; }
     [Networked] private float NetAimRigWeight { get; set; }
     [Networked] private bool IsShooting { get; set; } // Thêm biến này để đồng bộ trạng thái bắn
-
+    [Networked] private bool IsDashing { get; set; } // Thêm biến này để đồng bộ trạng thái dash
 
     [SerializeField] private Classplayer classPlayer;
     [SerializeField] private Rig aimRig;
@@ -62,6 +63,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
     private void Update()
     {
         if (isdead.isDead) return;
+        if (dashthir.canDash == false) return;
          // Đếm thời gian cooldown bắn
         if (shootCooldown > 0f)
             shootCooldown -= Time.deltaTime;   
@@ -88,8 +90,9 @@ public class ThirdPersonShooterController : NetworkBehaviour
             IsUsingSkill = starterAssetsInputs.skill;
             IsReloading = starterAssetsInputs.reload;
             IsthrowGrenade = starterAssetsInputs.throwGrenade;
+            IsDashing = starterAssetsInputs.dash;
 
-            if (Input.GetKeyDown(KeyCode.C)) // "LockMouse" là tên input bạn tự đặt trong InputManager hoặc InputSystem
+            if (Input.GetKeyDown(KeyCode.V)) // "LockMouse" là tên input bạn tự đặt trong InputManager hoặc InputSystem
             {
                 bool isLocked = Cursor.lockState != CursorLockMode.Locked;
                 Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
@@ -123,6 +126,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 
             // Set Animator cho local player
             animator.SetBool("Kneel", starterAssetsInputs.kneel);
+            animator.SetBool("Dash", starterAssetsInputs.dash);
 
             if (starterAssetsInputs.shoot && currentAmmo > 0)
             {
@@ -180,6 +184,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
             animator.SetBool("Skill", IsUsingSkill);
             animator.SetBool("Reload", IsReloading);
             animator.SetBool("ThorwGrenade", IsthrowGrenade);
+            animator.SetBool("Dash", IsDashing);
             animator.SetLayerWeight(1, IsAiming ? 1f : 0f);
             // Nếu muốn remote client cũng quay hướng aim, có thể thêm code nội suy transform.forward ở đây
         }

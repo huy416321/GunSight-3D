@@ -2486,6 +2486,7 @@ GameObject:
   - component: {fileID: 2080762547871095667}
   - component: {fileID: 3236103810066921890}
   - component: {fileID: 850887698305318359}
+  - component: {fileID: -2688492673667311411}
   m_Layer: 6
   m_Name: PlayerRifeThir
   m_TagString: Player
@@ -2657,6 +2658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 89d84fa20da5e8244bd0228b2f5c208d, type: 2}
   isdead: {fileID: 4087826904829424304}
+  dashthir: {fileID: -2688492673667311411}
   aimTarget: {fileID: 6294694727729056908}
   classPlayer: 0
   aimRig: {fileID: 1552581661725165203}
@@ -2713,7 +2715,7 @@ MonoBehaviour:
   throwGrenade: 0
   kneel: 0
   light: 0
-  mouse: 0
+  dash: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -2969,6 +2971,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NightVisionEffect: {fileID: 717134371267509276}
+--- !u!114 &-2688492673667311411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452227306260628664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6470f88c18093d498eefacb654b4235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDistance: 5
+  dashCooldown: 2
+  dashSpeed: 20
+  dashSound: {fileID: 8300000, guid: 28e02fe4db8c49d468d03815ba8a2d9d, type: 3}
+  canDash: 1
+  FootstepAudioVolume: 0.5
 --- !u!1 &6533248599760822287
 GameObject:
   m_ObjectHideFlags: 0

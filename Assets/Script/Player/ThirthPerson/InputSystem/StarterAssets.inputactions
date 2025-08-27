@@ -114,8 +114,8 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Mouse",
-                    "type": "Button",
+                    "name": "Dash",
+                    "type": "PassThrough",
                     "id": "e82c2ed6-2e26-4ecb-bfc1-59b931f0264a",
                     "expectedControlType": "",
                     "processors": "",
@@ -395,7 +395,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Mouse",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
