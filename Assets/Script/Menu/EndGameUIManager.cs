@@ -37,7 +37,7 @@ public class EndGameUIManager : MonoBehaviour
         }
     }
 
-     private System.Collections.IEnumerator LoadLobbyAfterDelay()
+    private System.Collections.IEnumerator LoadLobbyAfterDelay()
     {
         var runner = FindObjectOfType<NetworkRunner>();
         yield return new WaitForSeconds(5f);
