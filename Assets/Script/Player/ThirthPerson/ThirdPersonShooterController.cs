@@ -13,6 +13,7 @@ public class ThirdPersonShooterController : NetworkBehaviour
 {
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private PlayerHealth isdead;
+    [SerializeField] private ChatManager ischat;
     [Networked] private Vector3 NetAimTarget { get; set; }
     [SerializeField] private Transform aimTarget; // Kéo Sphere (target của constraint) vào đây
     // Networked animation states
