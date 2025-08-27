@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
 
     async void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         // Khởi tạo Firebase
         var depStatus = await FirebaseApp.CheckAndFixDependenciesAsync();
         if (depStatus == DependencyStatus.Available)
