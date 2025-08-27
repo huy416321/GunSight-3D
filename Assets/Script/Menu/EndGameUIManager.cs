@@ -5,17 +5,25 @@ using Fusion;
 
 public class EndGameUIManager : MonoBehaviour
 {
-    public GameObject endGamePanel;
+    public GameObject endGame2;
+    public GameObject endGame1;
     public TMP_Text endGameMessageText;
 
     // Gọi hàm này để hiện panel end game với message
-    public void ShowEndGame(string message)
+    public void ShowEndGame1(string message)
     {
-        if (endGamePanel != null)
+        if (endGame1 != null)
         { 
-            endGamePanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            endGame1.SetActive(true);
+            if (endGameMessageText != null)
+                endGameMessageText.text = message + "\nBạn muốn làm gì tiếp?";
+        }
+    }
+    public void ShowEndGame2(string message)
+    {
+        if (endGame2 != null)
+        { 
+            endGame2.SetActive(true);
             if (endGameMessageText != null)
                 endGameMessageText.text = message + "\nBạn muốn làm gì tiếp?";
         }

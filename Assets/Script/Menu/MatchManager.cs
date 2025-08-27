@@ -36,8 +36,8 @@ public class MatchManager : NetworkBehaviour
             roundTimer = roundTimeLimit;
 
             // Mặc định mỗi team có 2 người chơi
-            alivePolice = 2;
-            aliveRobber = 2;
+            alivePolice = 1;
+            aliveRobber = 1;
 
             // Đếm ngược round 1
             StartCoroutine(RoundCountdownCoroutine());
@@ -143,8 +143,8 @@ public class MatchManager : NetworkBehaviour
     private void RpcNextRound()
     {
         Debug.Log($"RpcNextRound called, round: {currentRound} -> {currentRound + 1}, StateAuthority: {Object.HasStateAuthority}");
-        alivePolice = 2;
-        aliveRobber = 2;
+        alivePolice = 1;
+        aliveRobber = 1;
         StartCoroutine(RoundCountdownCoroutine());
     }
 
@@ -180,22 +180,28 @@ public class MatchManager : NetworkBehaviour
     }
 
 
-// Truyền cả điểm số để mọi client đều cập nhật đúng
-[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-private void RpcShowWinName(string winMessage, int p1Score, int p2Score)
-{
-    winText.text = winMessage;
-    isRoundActive = false;
-    player1Score = p1Score;
-    player2Score = p2Score;
-    UpdateUI();
-    // Nếu đã kết thúc trận thì gọi UI end game ngoài
-    if (player1Score >= maxRoundsToWin || player2Score >= maxRoundsToWin)
+    // Truyền cả điểm số để mọi client đều cập nhật đúng
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RpcShowWinName(string winMessage, int p1Score, int p2Score)
     {
-        var ui = FindObjectOfType<EndGameUIManager>();
-        if (ui != null) ui.ShowEndGame(winMessage);
+        winText.text = winMessage;
+        isRoundActive = false;
+        player1Score = p1Score;
+        player2Score = p2Score;
+        UpdateUI();
+        // Nếu đã kết thúc trận thì gọi UI end game ngoài
+        if (player1Score >= maxRoundsToWin)
+        {
+            var ui = FindObjectOfType<EndGameUIManager>();
+            if (ui != null) ui.ShowEndGame1(winMessage);
+        }
+        if (player2Score >= maxRoundsToWin)
+        {
+            var ui = FindObjectOfType<EndGameUIManager>();
+            if (ui != null) ui.ShowEndGame2(winMessage);
+        }
+    
     }
-}
 
 
     private void UpdateUI()

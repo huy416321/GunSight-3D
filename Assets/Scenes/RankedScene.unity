@@ -40967,7 +40967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858b2a81e2d565e4596e70736ed8ae3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endGamePanel: {fileID: 1831527314}
+  endGame2: {fileID: 1897413648}
+  endGame1: {fileID: 227513007}
   endGameMessageText: {fileID: 1564049813}
 --- !u!4 &870861350
 Transform:
@@ -97386,7 +97387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2126192005
 Transform:
   m_ObjectHideFlags: 0
