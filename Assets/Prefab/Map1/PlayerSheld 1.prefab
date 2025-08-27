@@ -4278,7 +4278,6 @@ GameObject:
   - component: {fileID: 4293380211670605376}
   - component: {fileID: 1750050264075995797}
   - component: {fileID: 8892340315838222869}
-  - component: {fileID: 44437777279118792}
   - component: {fileID: 969479318541115212}
   - component: {fileID: 5816352499722344507}
   m_Layer: 6
@@ -4497,7 +4496,7 @@ MonoBehaviour:
     m_ActionName: 'Player/ThrowGrenade[/Keyboard/g]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 44437777279118792}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FlashlightController, Assembly-CSharp
         m_MethodName: OnToggleFlashlight
         m_Mode: 0
@@ -4676,27 +4675,6 @@ MonoBehaviour:
     m_Bits: 0
   invincibleDuration: 5
   isInvincible: 0
---- !u!114 &44437777279118792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9174684199419614146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f50bf7a383354844b8d66bcc03d5757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashlight: {fileID: 4171380660961728355}
-  maxDistance: 10
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  sphereRadius: 1.5
 --- !u!114 &969479318541115212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4716,7 +4694,6 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1750050264075995797}
   - {fileID: 8892340315838222869}
-  - {fileID: 44437777279118792}
   - {fileID: 5816352499722344507}
   - {fileID: 4789918507664327550}
   - {fileID: 8882172954300213725}

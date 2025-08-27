@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPolice: 1
-  maxHealth: 100
+  maxHealth: 300
   HitAnimator: {fileID: 8132171609065638637}
   animator: {fileID: 0}
   hitSound: {fileID: 8300000, guid: 5fed3fc6d2f480f47bf7222c65cb2e66, type: 3}
@@ -2857,7 +2857,8 @@ GameObject:
   - component: {fileID: 7701548470004614307}
   - component: {fileID: 2437648946212865621}
   - component: {fileID: 5130464518144861973}
-  m_Layer: 6
+  - component: {fileID: 7358261854702659300}
+  m_Layer: 9
   m_Name: shield_riot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2932,6 +2933,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7358261854702659300
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5030655776433986104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.59929615, y: 0.1142578, z: 1.19889}
+  m_Center: {x: 0.0012641571, y: 0.029241925, z: -0.018874098}
 --- !u!1 &5229986435540648879
 GameObject:
   m_ObjectHideFlags: 0
