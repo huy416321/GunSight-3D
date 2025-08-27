@@ -39,8 +39,11 @@ public class EndGameUIManager : MonoBehaviour
 
      private System.Collections.IEnumerator LoadLobbyAfterDelay()
     {
+        var runner = FindObjectOfType<NetworkRunner>();
         yield return new WaitForSeconds(5f);
+        runner.Shutdown();
         SceneManager.LoadScene("LobbyScene");
+        
     }
 
     // Nút về lobby
