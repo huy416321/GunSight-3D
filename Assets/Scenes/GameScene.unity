@@ -22767,10 +22767,10 @@ MonoBehaviour:
     RawGuidValue: 30fefe58e2fa3fa43848c40fcfae7da3
   player4Prefab:
     RawGuidValue: 1143060d199de6f4da7e542feba92fdc
-  player1SpawnPos: {x: 38.384083, y: 2.3860168, z: -50.28025}
-  player2SpawnPos: {x: 25.051975, y: 2.389646, z: -58.646397}
-  player3SpawnPos: {x: 33.591858, y: 2.3896475, z: -38.93275}
-  player4SpawnPos: {x: 40.92376, y: 2.1504698, z: -38.212257}
+  player1SpawnPos: {x: 19.413643, y: 2.3896456, z: -59.995644}
+  player2SpawnPos: {x: 23.612146, y: 2.3896446, z: -59.571026}
+  player3SpawnPos: {x: 39.791706, y: 2.389646, z: -39.302425}
+  player4SpawnPos: {x: 33.175915, y: 2.3896465, z: -39.258274}
 --- !u!1 &639245067
 GameObject:
   m_ObjectHideFlags: 0
@@ -28241,7 +28241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242959541117993310, guid: 1cc7753ad8e096d4c8b059687625cdfa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.1087887
+      value: 1.7505056
       objectReference: {fileID: 0}
     - target: {fileID: 2242959541117993310, guid: 1cc7753ad8e096d4c8b059687625cdfa, type: 3}
       propertyPath: m_LocalScale.y
@@ -28253,7 +28253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242959541117993310, guid: 1cc7753ad8e096d4c8b059687625cdfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.807109
+      value: 14.33
       objectReference: {fileID: 0}
     - target: {fileID: 2242959541117993310, guid: 1cc7753ad8e096d4c8b059687625cdfa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -33469,8 +33469,8 @@ Transform:
   m_GameObject: {fileID: 919177190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.939, y: 2.1993, z: -48.345}
-  m_LocalScale: {x: 0.69625604, y: 0.5, z: 0.88764}
+  m_LocalPosition: {x: 18.721, y: 2.1993, z: -48.457}
+  m_LocalScale: {x: 0.80751777, y: 0.5, z: 0.98315006}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1051116345}
